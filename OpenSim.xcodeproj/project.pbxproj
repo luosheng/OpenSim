@@ -73,7 +73,6 @@
 				B3A1E3261BF049690090EC58 /* MainMenu.xib */,
 				B3A1E3291BF049690090EC58 /* Info.plist */,
 			);
-			name = OpenSim;
 			path = OpenSim;
 			sourceTree = "<group>";
 		};
