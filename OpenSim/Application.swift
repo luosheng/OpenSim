@@ -25,10 +25,6 @@ struct Application {
             aBundleDisplayName = (appInfoDict["CFBundleDisplayName"] as? String) ?? (appInfoDict["CFBundleName"] as? String),
             aBundleShortVersion = appInfoDict["CFBundleShortVersionString"] as? String,
             aBundleVersion = appInfoDict["CFBundleInfoDictionaryVersion"] as? String else {
-                bundleDisplayName = ""
-                bundleID = ""
-                bundleShortVersion = ""
-                bundleVersion = ""
                 return nil
         }
         
