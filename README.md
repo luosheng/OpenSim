@@ -6,6 +6,7 @@ You can visit the latest [release](https://github.com/luosheng/OpenSim/releases)
 
 ## TODO
 
+* [ ] Parsing results from `xcrun` command rather than `device_set.plist` file
 * [ ] Better UI
 * [ ] Watch for changes from simulators directory and reload dynamically
 * [ ] Other functionalities like uninstalling apps or resetting data
