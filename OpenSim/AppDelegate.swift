@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func buildMenu() {
         statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
-        statusItem.image = NSImage(named: "device")
+        statusItem.image = NSImage(named: "menubar")
         statusItem.image!.template = true
         
         statusItem.menu = NSMenu()
