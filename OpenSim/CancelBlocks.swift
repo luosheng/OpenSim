@@ -8,32 +8,27 @@
 
 import Foundation
 
-typealias dispatch_cancelable_block_t = (cancel:Bool) -> (Void)
+typealias dispatch_cancelable_block_t = (cancelled: Bool) -> ()
 
-func dispatch_block_t(delay:Double, block:dispatch_block_t?) -> dispatch_cancelable_block_t? {
-    if (block == nil) {
-        return nil
-    }
-    var originalBlock:dispatch_block_t? = block!
-    var cancelableBlock:dispatch_cancelable_block_t? = nil
-    let delayBlock:dispatch_cancelable_block_t = {(cancel:Bool) -> Void in
-        if (!cancel) && (originalBlock != nil) {
-            dispatch_async(dispatch_get_main_queue(), originalBlock!)
+func dispatch_block_t(delay: NSTimeInterval, block: dispatch_block_t) -> dispatch_cancelable_block_t {
+    var cancelableBlock: dispatch_cancelable_block_t? = nil
+    let delayBlock: dispatch_cancelable_block_t = { (cancelled: Bool) in
+        if (!cancelled) {
+            dispatch_async(dispatch_get_main_queue(), block)
         }
         cancelableBlock = nil
-        originalBlock = nil
     }
     cancelableBlock = delayBlock
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
         if let cancelableBlock = cancelableBlock {
-            cancelableBlock(cancel: false)
+            cancelableBlock(cancelled: false)
         }
     }
-    return cancelableBlock
+    return delayBlock
 }
 
-func dispatch_cancel_block_t(block:dispatch_cancelable_block_t?) {
+func dispatch_cancel_block_t(block: dispatch_cancelable_block_t?) {
     if let block = block {
-        block(cancel: true)
+        block(cancelled: true)
     }
 }
