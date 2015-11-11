@@ -14,7 +14,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var window: NSWindow!
     
     var statusItem: NSStatusItem!
-    var fileInfoList: [FileInfo?]!
+    var watcher: DirectoryWatcher!
+    var subWatchers: [DirectoryWatcher?]?
+    var block: dispatch_cancelable_block_t?
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
@@ -24,21 +26,41 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         buildMenu()
         
-        fileInfoList = buildFileInfoList()
-        let timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "checkFileInfoList:", userInfo: nil, repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
+        watcher = DirectoryWatcher(URL: URLHelper.deviceURL)
+        watcher.completionCallback = {
+            self.reloadWhenReady()
+            self.buildSubWatchers()
+        }
+        try! watcher.start()
+        self.buildSubWatchers()
+    }
+    
+    private func reloadWhenReady() {
+        dispatch_cancel_block_t(self.block)
+        self.block = dispatch_block_t(1) {
+            self.buildMenu()
+        }
+    }
+    
+    private func buildSubWatchers() {
+        subWatchers?.forEach({ (watcher) -> () in
+            watcher?.stop()
+        })
+        subWatchers = try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(URLHelper.deviceURL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .SkipsSubdirectoryDescendants).map { URL in
+            guard let info = FileInfo(URL: URL) where info.isDirectory else {
+                return nil
+            }
+            let watcher = DirectoryWatcher(URL: URL)
+            watcher.completionCallback = {
+                self.reloadWhenReady()
+            }
+            try watcher.start()
+            return watcher
+        }
     }
     
     private func buildFileInfoList() -> [FileInfo?] {
         return try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(URLHelper.deviceURL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .SkipsSubdirectoryDescendants).map { FileInfo(URL: $0) }
-    }
-    
-    func checkFileInfoList(timer: NSTimer) {
-        let newFileInfoList = buildFileInfoList()
-        if fileInfoList != newFileInfoList {
-            buildMenu()
-        }
-        fileInfoList = newFileInfoList
     }
     
     func buildMenu() {
