@@ -16,10 +16,6 @@ final class DeviceManager {
     static let defaultManager = DeviceManager()
     var deviceMapping = [String: [Device]]()
     
-    init() {
-        reload()
-    }
-    
     func reload() {
         guard let devicesPlist = NSDictionary(contentsOfURL: URLHelper.deviceSetURL)?[DeviceManager.devicesKey] as? [String: AnyObject] else {
             return

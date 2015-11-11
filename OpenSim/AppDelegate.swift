@@ -17,10 +17,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var fileInfoList: [FileInfo?]!
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
+        statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
+        statusItem.image = NSImage(named: "menubar")
+        statusItem.image!.template = true
+        statusItem.menu = NSMenu()
+        
+        buildMenu()
+        
         fileInfoList = buildFileInfoList()
         let timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "checkFileInfoList:", userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
-        buildMenu()
     }
     
     private func buildFileInfoList() -> [FileInfo?] {
@@ -30,18 +36,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func checkFileInfoList(timer: NSTimer) {
         let newFileInfoList = buildFileInfoList()
         if fileInfoList != newFileInfoList {
-            print("yes")
+            buildMenu()
         }
         fileInfoList = newFileInfoList
     }
     
     func buildMenu() {
-        statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
-        statusItem.image = NSImage(named: "menubar")
-        statusItem.image!.template = true
+        statusItem.menu!.removeAllItems()
         
-        statusItem.menu = NSMenu()
-        
+        DeviceManager.defaultManager.reload()
         let iOSDevices = DeviceManager.defaultManager.deviceMapping.filter { $0.0.containsString("iOS") }.flatMap { $0.1 }
         iOSDevices.forEach { device in
             let deviceMenuItem = statusItem.menu?.addItemWithTitle("\(device.name) (\(device.state))", action: nil, keyEquivalent: "")
