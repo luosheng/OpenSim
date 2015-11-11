@@ -14,9 +14,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var window: NSWindow!
     
     var statusItem: NSStatusItem!
+    var fileInfoList: [FileInfo?]!
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
+        fileInfoList = buildFileInfoList()
+        let timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "checkFileInfoList:", userInfo: nil, repeats: true)
+        NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
         buildMenu()
+    }
+    
+    private func buildFileInfoList() -> [FileInfo?] {
+        return try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(URLHelper.deviceURL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .SkipsSubdirectoryDescendants).map { FileInfo(URL: $0) }
+    }
+    
+    func checkFileInfoList(timer: NSTimer) {
+        let newFileInfoList = buildFileInfoList()
+        if fileInfoList != newFileInfoList {
+            print("yes")
+        }
+        fileInfoList = newFileInfoList
     }
     
     func buildMenu() {
