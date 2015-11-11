@@ -15,17 +15,50 @@ public class DirectoryWatcher {
         case CannotCreateSource
     }
     
+    enum Mask {
+        case Attribute
+        case Delete
+        case Extend
+        case Link
+        case Rename
+        case Revoke
+        case Write
+        
+        var flag: dispatch_source_vnode_flags_t {
+            get {
+                switch self {
+                case .Attribute:
+                    return DISPATCH_VNODE_ATTRIB
+                case .Delete:
+                    return DISPATCH_VNODE_DELETE
+                case .Extend:
+                    return DISPATCH_VNODE_EXTEND
+                case .Link:
+                    return DISPATCH_VNODE_LINK
+                case .Rename:
+                    return DISPATCH_VNODE_RENAME
+                case .Revoke:
+                    return DISPATCH_VNODE_REVOKE
+                case .Write:
+                    return DISPATCH_VNODE_WRITE
+                }
+            }
+        }
+    }
+    
     public typealias CompletionCallback = () -> ()
     
     var watchedURL: NSURL
+    let mask: Mask
     public var completionCallback: CompletionCallback?
     private let queue = dispatch_queue_create("com.pop-tap.directory-watcher", DISPATCH_QUEUE_SERIAL)
     private var source: dispatch_source_t?
     private var directoryChanging = false
     private var oldDirectoryInfo = [FileInfo?]()
     
-    init(URL: NSURL) {
+    init(URL: NSURL, mask: Mask = .Write) {
         watchedURL = URL
+        self.mask = mask
     }
     
     deinit {
@@ -50,7 +83,7 @@ public class DirectoryWatcher {
             close(fd)
         }
         
-        guard let src = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, UInt(fd), DISPATCH_VNODE_WRITE, queue) else {
+        guard let src = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, UInt(fd), mask.flag, queue) else {
             cleanUp()
             throw Error.CannotCreateSource
         }
@@ -78,7 +111,7 @@ public class DirectoryWatcher {
             directoryChanging = true
             
             oldDirectoryInfo = self.directoryInfo()
-            print(oldDirectoryInfo)
+//            print(oldDirectoryInfo)
             
             let timer = NSTimer(timeInterval: 0.5, target: self, selector: "checkDirectoryInfo:", userInfo: nil, repeats: true)
             NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
