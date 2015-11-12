@@ -89,10 +89,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func appMenuItemClicked(sender: NSMenuItem) {
-        if let pair = sender.representedObject as? DeviceApplicationPair {
-            if let appState = pair.device.applicationStates[pair.application.bundleID] {
+        if let pair = sender.representedObject as? DeviceApplicationPair,
+            appState = pair.device.fetchApplicationState(pair.application) {
                 NSWorkspace.sharedWorkspace().openURL(NSURL(fileURLWithPath: appState.sandboxPath))
-            }
         }
     }
 

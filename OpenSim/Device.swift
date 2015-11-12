@@ -22,7 +22,6 @@ struct Device {
     let runtime: String
     let state: State
     let applications: [Application]
-    var applicationStates: [String: ApplicationState]
     
     init(UDID: String, type: String, name: String, runtime: String, state: State) {
         self.UDID = UDID
@@ -38,22 +37,23 @@ struct Device {
         } catch {
             self.applications = []
         }
-        
-        applicationStates = [String: ApplicationState]()
+    }
+    
+    func fetchApplicationState(application: Application) -> ApplicationState? {
         if let applicationStateDict = NSDictionary(contentsOfURL: URLHelper.applicationStateURLForUDID(self.UDID)) as? [String: [String: AnyObject]] {
-            applicationStateDict.forEach { (key, dict) in
-                if let compatibilityInfoDict = dict["compatibilityInfo"] as? [String: AnyObject],
-                    bundlePath = compatibilityInfoDict["bundlePath"] as? String,
-                    sandboxPath = compatibilityInfoDict["sandboxPath"] as? String,
-                    bundleContainerPath = compatibilityInfoDict["bundleContainerPath"] as? String {
-                        applicationStates[key] = ApplicationState(
-                            bundlePath: bundlePath,
-                            sandboxPath: sandboxPath,
-                            bundleContainerPath: bundleContainerPath
-                        )
-                }
+            if let (_, dict) = applicationStateDict.filter({ $0.0 == application.bundleID }).first,
+                compatibilityInfoDict = dict["compatibilityInfo"] as? [String: AnyObject],
+                bundlePath = compatibilityInfoDict["bundlePath"] as? String,
+                sandboxPath = compatibilityInfoDict["sandboxPath"] as? String,
+                bundleContainerPath = compatibilityInfoDict["bundleContainerPath"] as? String {
+                    return ApplicationState(
+                        bundlePath: bundlePath,
+                        sandboxPath: sandboxPath,
+                        bundleContainerPath: bundleContainerPath
+                    )
             }
         }
+        return nil
     }
     
 }
