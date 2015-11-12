@@ -69,7 +69,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         DeviceManager.defaultManager.reload()
         let iOSDevices = DeviceManager.defaultManager.deviceMapping.filter { $0.0.containsString("iOS") }.flatMap { $0.1 }
         iOSDevices.forEach { device in
-            let deviceMenuItem = statusItem.menu?.addItemWithTitle("\(device.name)", action: nil, keyEquivalent: "")
+            let deviceMenuItem = statusItem.menu?.addItemWithTitle("\(device.name) (\(device.runtime))", action: nil, keyEquivalent: "")
             deviceMenuItem?.onStateImage = NSImage(named: "active")
             deviceMenuItem?.offStateImage = NSImage(named: "inactive")
             deviceMenuItem?.state = device.state == .Booted ? NSOnState : NSOffState
