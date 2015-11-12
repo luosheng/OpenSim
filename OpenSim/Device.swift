@@ -19,7 +19,7 @@ struct Device {
     let UDID: String
     let type: String
     let name: String
-    let runtime: String
+    let runtime: Runtime
     let state: State
     let applications: [Application]
     
@@ -27,7 +27,7 @@ struct Device {
         self.UDID = UDID
         self.type = type
         self.name = name
-        self.runtime = runtime
+        self.runtime = Runtime(name: runtime)
         self.state = state
         
         let applicationPath = URLHelper.deviceURLForUDID(self.UDID).URLByAppendingPathComponent("data/Containers/Bundle/Application")
