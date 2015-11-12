@@ -91,7 +91,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func appMenuItemClicked(sender: NSMenuItem) {
         if let pair = sender.representedObject as? DeviceApplicationPair,
             appState = pair.device.fetchApplicationState(pair.application) {
-                NSWorkspace.sharedWorkspace().openURL(NSURL(fileURLWithPath: appState.sandboxPath))
+                if NSFileManager.defaultManager().fileExistsAtPath(appState.sandboxPath) {
+                    NSWorkspace.sharedWorkspace().openURL(NSURL(fileURLWithPath: appState.sandboxPath))
+                }
         }
     }
 
