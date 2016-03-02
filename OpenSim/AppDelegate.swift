@@ -85,13 +85,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             deviceMenuItem?.state = device.state == .Booted ? NSOnState : NSOffState
             deviceMenuItem?.submenu = NSMenu()
             device.applications.forEach { app in
-                let appMenuItem = deviceMenuItem?.submenu?.addItemWithTitle(app.bundleDisplayName, action: "appMenuItemClicked:", keyEquivalent: "")
+                let appMenuItem = deviceMenuItem?.submenu?.addItemWithTitle(app.bundleDisplayName, action: #selector(appMenuItemClicked(_:)), keyEquivalent: "")
                 appMenuItem?.representedObject = DeviceApplicationPair(device: device, application: app)
             }
         }
         
         statusItem.menu!.addItem(NSMenuItem.separatorItem())
-        statusItem.menu!.addItemWithTitle("Quit", action: "quit", keyEquivalent: "")
+        statusItem.menu!.addItemWithTitle("Quit", action: #selector(quit), keyEquivalent: "")
     }
     
     func quit() {
