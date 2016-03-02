@@ -63,25 +63,14 @@ final class DeviceManager {
                         var otherDevices = [Device]()
                         
                         for device in os.1 as! [[String:String]] {
-                            var parsedState = Device.State.Unknown
-                            
-                            switch (device["state"]!) {
-                            case "Shutdown":
-                                parsedState = Device.State.Shutdown
-                                break;
-                            case "Booted":
-                                parsedState = Device.State.Booted
-                            default:
-                                parsedState = Device.State.Unknown
-                                break;
-                            }
+                            let state = Device.State(rawValue: device["state"]!) ?? .Unknown
                             
                             let newDevice = Device(
                                 UDID: device["udid"]!,
                                 type: device["name"]!,
                                 name: device["name"]!,
                                 runtime: os.0,
-                                state: parsedState
+                                state: state
                             )
                             
                             if (newDevice.name.hasPrefix("iPhone")) {

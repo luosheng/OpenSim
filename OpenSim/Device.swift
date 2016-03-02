@@ -10,10 +10,10 @@ import Foundation
 
 struct Device {
     
-    enum State: Int {
-        case Shutdown = 1
-        case Unknown = 2
-        case Booted = 3
+    enum State: String {
+        case Shutdown = "Shutdown"
+        case Unknown = "Unknown"
+        case Booted = "Booted"
     }
     
     let UDID: String
