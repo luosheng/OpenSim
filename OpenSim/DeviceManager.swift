@@ -32,7 +32,7 @@ final class DeviceManager {
         return output
     }
     
-    func reload2() {
+    func reload() {
         // extract json from xcrun simctl list -j devices
         // to get a list of devices
         
@@ -104,6 +104,8 @@ final class DeviceManager {
         catch let parseError {
             print(parseError)
         }
+        
+        deviceMapping.removeAll()
         
         // sort so it appears
         // in similar order that Xcode dispalys simulators

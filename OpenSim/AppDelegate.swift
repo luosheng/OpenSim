@@ -67,7 +67,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.menu!.removeAllItems()
         
         // extract devices and sort based on runtime version so latest is on the bottom
-        DeviceManager.defaultManager.reload2()
+        DeviceManager.defaultManager.reload()
         let iOSDevices = DeviceManager.defaultManager.deviceMapping
 
         var currentRuntime = ""
