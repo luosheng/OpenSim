@@ -66,9 +66,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func buildMenu() {
         statusItem.menu!.removeAllItems()
         
-        DeviceManager.defaultManager.reload()
-        let iOSDevices = DeviceManager.defaultManager.deviceMapping.filter { $0.0.containsString("iOS") }.flatMap { $0.1 }
+        // extract devices and sort based on runtime version so latest is on the bottom
+        DeviceManager.defaultManager.reload2()
+        let iOSDevices = DeviceManager.defaultManager.deviceMapping
+
+        var currentRuntime = ""
         iOSDevices.forEach { device in
+            if (currentRuntime != "" && device.runtime.name != currentRuntime) {
+                // add filler
+                statusItem.menu?.addItemWithTitle("", action: nil, keyEquivalent: "")
+            }
+            
+            currentRuntime = device.runtime.name
+            
             let deviceMenuItem = statusItem.menu?.addItemWithTitle("\(device.name) (\(device.runtime))", action: nil, keyEquivalent: "")
             deviceMenuItem?.onStateImage = NSImage(named: "active")
             deviceMenuItem?.offStateImage = NSImage(named: "inactive")
