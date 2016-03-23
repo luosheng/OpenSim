@@ -113,7 +113,7 @@ public class DirectoryWatcher {
             oldDirectoryInfo = self.directoryInfo()
 //            print(oldDirectoryInfo)
             
-            let timer = NSTimer(timeInterval: 0.5, target: self, selector: "checkDirectoryInfo:", userInfo: nil, repeats: true)
+            let timer = NSTimer(timeInterval: 0.5, target: self, selector: #selector(checkDirectoryInfo(_:)), userInfo: nil, repeats: true)
             NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
         }
     }
