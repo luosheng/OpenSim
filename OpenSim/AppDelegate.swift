@@ -99,12 +99,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func appMenuItemClicked(sender: NSMenuItem) {
-        if let pair = sender.representedObject as? DeviceApplicationPair,
-            appState = pair.device.fetchApplicationState(pair.application) {
-                if NSFileManager.defaultManager().fileExistsAtPath(appState.sandboxPath) {
-                    NSWorkspace.sharedWorkspace().openURL(NSURL(fileURLWithPath: appState.sandboxPath))
-                }
+        guard let pair = sender.representedObject as? DeviceApplicationPair,
+            URL = pair.device.containerURLForApplication(pair.application),
+            path = URL.path where NSFileManager.defaultManager().fileExistsAtPath(path) else {
+            return
         }
+        
+        NSWorkspace.sharedWorkspace().openURL(URL)
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {

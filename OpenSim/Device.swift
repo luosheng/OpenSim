@@ -39,7 +39,7 @@ struct Device {
         }
     }
     
-    func fetchApplicationState(application: Application) -> ApplicationState? {
+    func containerURLForApplication(application: Application) -> NSURL? {
         let URL = URLHelper.containersURLForUDID(UDID)
         do {
             let directories = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(URL, includingPropertiesForKeys: nil, options: .SkipsSubdirectoryDescendants)
@@ -51,7 +51,7 @@ struct Device {
                 }
                 return false
             }).first {
-                return ApplicationState(bundlePath: "", sandboxPath: matchingURL.path!, bundleContainerPath: "")
+                return matchingURL
             } else {
                 return nil
             }
