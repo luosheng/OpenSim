@@ -40,20 +40,24 @@ struct Device {
     }
     
     func fetchApplicationState(application: Application) -> ApplicationState? {
-        if let applicationStateDict = NSDictionary(contentsOfURL: URLHelper.applicationStateURLForUDID(self.UDID)) as? [String: [String: AnyObject]] {
-            if let (_, dict) = applicationStateDict.filter({ $0.0 == application.bundleID }).first,
-                compatibilityInfoDict = dict["compatibilityInfo"] as? [String: AnyObject],
-                bundlePath = compatibilityInfoDict["bundlePath"] as? String,
-                sandboxPath = compatibilityInfoDict["sandboxPath"] as? String,
-                bundleContainerPath = compatibilityInfoDict["bundleContainerPath"] as? String {
-                    return ApplicationState(
-                        bundlePath: bundlePath,
-                        sandboxPath: sandboxPath,
-                        bundleContainerPath: bundleContainerPath
-                    )
+        let URL = URLHelper.containersURLForUDID(UDID)
+        do {
+            let directories = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(URL, includingPropertiesForKeys: nil, options: .SkipsSubdirectoryDescendants)
+            if let matchingURL = directories.filter({ dir -> Bool in
+                if let contents = NSDictionary(contentsOfURL: dir.URLByAppendingPathComponent(".com.apple.mobile_container_manager.metadata.plist")),
+                   identifier = contents["MCMMetadataIdentifier"] as? String
+                where identifier == application.bundleID {
+                    return true
+                }
+                return false
+            }).first {
+                return ApplicationState(bundlePath: "", sandboxPath: matchingURL.path!, bundleContainerPath: "")
+            } else {
+                return nil
             }
+        } catch {
+            return nil
         }
-        return nil
     }
     
 }
