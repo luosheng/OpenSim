@@ -37,8 +37,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private func reloadWhenReady() {
         dispatch_cancel_block_t(self.block)
-        self.block = dispatch_block_t(1) {
-            self.buildMenu()
+        self.block = dispatch_block_t(1) { [weak self] in
+            self?.buildMenu()
         }
     }
     
@@ -57,8 +57,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return nil
         }
         let watcher = DirectoryWatcher(URL: URL)
-        watcher.completionCallback = {
-            self.reloadWhenReady()
+        watcher.completionCallback = { [weak self] in
+            self?.reloadWhenReady()
         }
         do {
             try watcher.start()
