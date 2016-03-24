@@ -51,6 +51,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B36856AC1CA41BA8009BE4CC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B3F493A51BF0822800C64FF0 /* Application.swift */,
+				B3A1E3311BF062C40090EC58 /* Device.swift */,
+				B3CB09591BF0D9890023C3E0 /* DeviceApplicationPair.swift */,
+				B3A1E32F1BF05F980090EC58 /* DeviceManager.swift */,
+				B3D188E81BF436480064E851 /* Runtime.swift */,
+				B3054E161BF381CE00F433C2 /* FileInfo.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		B36856AD1CA41BCB009BE4CC /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B3A1E3331BF0709A0090EC58 /* URLHelper.swift */,
+				B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */,
+				B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		B36856AE1CA41BD4009BE4CC /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B3E67B5D1CA412BD00744B38 /* MenuManager.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		B3A1E3161BF049690090EC58 = {
 			isa = PBXGroup;
 			children = (
@@ -71,16 +102,9 @@
 			isa = PBXGroup;
 			children = (
 				B3A1E3221BF049690090EC58 /* AppDelegate.swift */,
-				B3F493A51BF0822800C64FF0 /* Application.swift */,
-				B3A1E3311BF062C40090EC58 /* Device.swift */,
-				B3CB09591BF0D9890023C3E0 /* DeviceApplicationPair.swift */,
-				B3A1E32F1BF05F980090EC58 /* DeviceManager.swift */,
-				B3D188E81BF436480064E851 /* Runtime.swift */,
-				B3A1E3331BF0709A0090EC58 /* URLHelper.swift */,
-				B3054E161BF381CE00F433C2 /* FileInfo.swift */,
-				B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */,
-				B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */,
-				B3E67B5D1CA412BD00744B38 /* MenuManager.swift */,
+				B36856AC1CA41BA8009BE4CC /* Models */,
+				B36856AD1CA41BCB009BE4CC /* Utilities */,
+				B36856AE1CA41BD4009BE4CC /* UI */,
 				B3A1E3241BF049690090EC58 /* Assets.xcassets */,
 				B3A1E3261BF049690090EC58 /* MainMenu.xib */,
 				B3A1E3291BF049690090EC58 /* Info.plist */,
