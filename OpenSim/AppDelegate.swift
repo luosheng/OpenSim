@@ -43,20 +43,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     private func buildSubWatchers() {
-        subWatchers?.forEach({ (watcher) -> () in
-            watcher?.stop()
-        })
-        subWatchers = try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(URLHelper.deviceURL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .SkipsSubdirectoryDescendants).map { URL in
-            guard let info = FileInfo(URL: URL) where info.isDirectory else {
-                return nil
-            }
-            let watcher = DirectoryWatcher(URL: URL)
-            watcher.completionCallback = {
-                self.reloadWhenReady()
-            }
-            try watcher.start()
-            return watcher
+        subWatchers?.forEach { $0?.stop() }
+        do {
+            let deviceDirectories = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(URLHelper.deviceURL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .SkipsSubdirectoryDescendants)
+            subWatchers = deviceDirectories.map(createSubWatcherForURL)
+        } catch {
+            
         }
+    }
+    
+    private func createSubWatcherForURL(URL: NSURL) -> DirectoryWatcher? {
+        guard let info = FileInfo(URL: URL) where info.isDirectory else {
+            return nil
+        }
+        let watcher = DirectoryWatcher(URL: URL)
+        watcher.completionCallback = {
+            self.reloadWhenReady()
+        }
+        do {
+            try watcher.start()
+        } catch {
+            
+        }
+        return watcher
     }
     
     private func buildFileInfoList() -> [FileInfo?] {
