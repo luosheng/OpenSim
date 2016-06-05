@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A253ED41D0400D9003CC7F5 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A253ED31D0400D9003CC7F5 /* Shell.swift */; };
 		B3054E181BF381CE00F433C2 /* FileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E161BF381CE00F433C2 /* FileInfo.swift */; };
 		B3054E1A1BF3958500F433C2 /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */; };
 		B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A253ED31D0400D9003CC7F5 /* Shell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 		B3054E161BF381CE00F433C2 /* FileInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileInfo.swift; sourceTree = "<group>"; };
 		B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryWatcher.swift; sourceTree = "<group>"; };
 		B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelBlocks.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				B3A1E32F1BF05F980090EC58 /* DeviceManager.swift */,
 				B3D188E81BF436480064E851 /* Runtime.swift */,
 				B3054E161BF381CE00F433C2 /* FileInfo.swift */,
+				0A253ED31D0400D9003CC7F5 /* Shell.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				B3CB095A1BF0D9890023C3E0 /* DeviceApplicationPair.swift in Sources */,
 				B3A1E3341BF0709A0090EC58 /* URLHelper.swift in Sources */,
 				B3D188E91BF436480064E851 /* Runtime.swift in Sources */,
+				0A253ED41D0400D9003CC7F5 /* Shell.swift in Sources */,
 				B3054E181BF381CE00F433C2 /* FileInfo.swift in Sources */,
 				B3E67B5E1CA412BD00744B38 /* MenuManager.swift in Sources */,
 				B3A1E3301BF05F980090EC58 /* DeviceManager.swift in Sources */,

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AppKit
 
 struct Application {
     
@@ -15,8 +16,11 @@ struct Application {
     let bundleShortVersion: String
     let bundleVersion: String
     let URL: NSURL
-    
-    init?(URL: NSURL) {
+    let deviceUDID: String
+    var iconImage: NSImage? = nil
+
+  
+    init?(URL: NSURL, deviceID: String) {
         self.URL = URL
         let contents = try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(URL, includingPropertiesForKeys: nil, options: [.SkipsSubdirectoryDescendants, .SkipsHiddenFiles])
         guard let appInfoPath = contents.last?.URLByAppendingPathComponent("Info.plist"),
@@ -32,6 +36,24 @@ struct Application {
         bundleID = aBundleID
         bundleShortVersion = aBundleShortVersion
         bundleVersion = aBundleVersion
+        deviceUDID = deviceID
+        iconImage = appIcon()
     }
-    
+  
+  
+    private func appIcon() -> NSImage? {
+        var bundlePath = shell("/usr/bin/xcrun", arguments: ["simctl", "get_app_container", "\(deviceUDID)", "\(bundleID)"]);
+        bundlePath = bundlePath.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        if bundlePath.characters.count > 0 {
+          //Get all files
+          let listofFiles = try! NSFileManager.defaultManager().contentsOfDirectoryAtPath(bundlePath).filter{$0.containsString("AppIcon")}
+          if listofFiles.count > 0 {
+            let imagePath = "\(bundlePath)/\(listofFiles[0])"
+            return NSImage(contentsOfFile: imagePath) ?? NSBundle.mainBundle().imageForResource("DefaultAppIcon")
+          }
+        }
+        return NSBundle.mainBundle().imageForResource("DefaultAppIcon")
+    }
+  
+  
 }
