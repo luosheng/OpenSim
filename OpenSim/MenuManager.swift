@@ -63,12 +63,13 @@ protocol MenuManagerDelegate {
                 deviceMenuItem.onStateImage = NSImage(named: "active")
                 deviceMenuItem.offStateImage = NSImage(named: "inactive")
                 deviceMenuItem.state = device.state == .Booted ? NSOnState : NSOffState
-                
+              
                 let submenu = NSMenu()
                 device.applications.forEach { app in
                     if let appMenuItem = submenu.addItemWithTitle(app.bundleDisplayName, action: #selector(appMenuItemClicked(_:)), keyEquivalent: "") {
                         appMenuItem.representedObject = DeviceApplicationPair(device: device, application: app)
                         appMenuItem.target = self
+                        appMenuItem.image = app.iconImage
                     }
                     deviceMenuItem.submenu = submenu
                 }
