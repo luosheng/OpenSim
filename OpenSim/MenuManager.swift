@@ -84,7 +84,7 @@ protocol MenuManagerDelegate {
         }
         
         menu.addItem(NSMenuItem.separatorItem())
-        if let quitMenu = menu.addItemWithTitle("Quit", action: #selector(quitItemClicked(_:)), keyEquivalent: "") {
+        if let quitMenu = menu.addItemWithTitle("Quit", action: #selector(quitItemClicked(_:)), keyEquivalent: "q") {
             quitMenu.target = self
         }
         
