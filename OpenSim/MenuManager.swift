@@ -59,7 +59,7 @@ protocol MenuManagerDelegate {
         DeviceManager.defaultManager.reload()
         
         DeviceManager.defaultManager.deviceMapping.forEach { device in
-            if let deviceMenuItem = menu.addItemWithTitle("\(device.name) (\(device.runtime))", action: nil, keyEquivalent: "") {
+            if let deviceMenuItem = menu.addItemWithTitle(device.fullName, action: nil, keyEquivalent: "") {
                 deviceMenuItem.onStateImage = NSImage(named: "active")
                 deviceMenuItem.offStateImage = NSImage(named: "inactive")
                 deviceMenuItem.state = device.state == .Booted ? NSOnState : NSOffState
@@ -69,6 +69,14 @@ protocol MenuManagerDelegate {
                     if let appMenuItem = submenu.addItemWithTitle(app.bundleDisplayName, action: #selector(appMenuItemClicked(_:)), keyEquivalent: "") {
                         appMenuItem.representedObject = DeviceApplicationPair(device: device, application: app)
                         appMenuItem.target = self
+                        
+                        if let controlItem = submenu.addItemWithTitle("Uninstall \(app.bundleDisplayName)", action: #selector(appMenuItemClicked(_:)), keyEquivalent: "") {
+                            controlItem.representedObject = DeviceApplicationPair(device: device, application: app)
+                            controlItem.target = self
+                            
+                            controlItem.alternate = true
+                            controlItem.keyEquivalentModifierMask = Int(NSEventModifierFlags.ControlKeyMask.rawValue)
+                        }
                     }
                     deviceMenuItem.submenu = submenu
                 }
@@ -134,9 +142,37 @@ protocol MenuManagerDelegate {
         delegate?.shouldQuitApp()
     }
     
+    func dialogOKCancel(question: String, text: String) -> Bool {
+        let myPopup: NSAlert = NSAlert()
+        myPopup.messageText = question
+        myPopup.informativeText = text
+        myPopup.alertStyle = NSAlertStyle.CriticalAlertStyle
+        myPopup.addButtonWithTitle("OK")
+        myPopup.addButtonWithTitle("Cancel")
+        let res = myPopup.runModal()
+        if res == NSAlertFirstButtonReturn {
+            return true
+        }
+        return false
+    }
+    
     func appMenuItemClicked(sender: AnyObject) {
         if let pair = sender.representedObject as? DeviceApplicationPair {
-            delegate?.shouldOpenContainer(pair)
+            // if control click
+            if let event = NSApp.currentEvent where event.modifierFlags.contains(.ControlKeyMask) {
+                let answer = dialogOKCancel("Confirm Delete?", text: "Are you sure you want to delete \(pair.application.bundleDisplayName) for \(pair.device.fullName)")
+                if answer {
+                    // delete the app
+                    shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", pair.device.UDID, pair.application.bundleID])
+                    
+                    // rebuild menu
+                    self.buildMenu()
+                }
+            }
+            else {
+                // open the app directory
+                delegate?.shouldOpenContainer(pair)
+            }
         }
     }
     

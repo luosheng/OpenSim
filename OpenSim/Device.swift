@@ -39,6 +39,12 @@ struct Device {
         }
     }
     
+    var fullName:String {
+        get {
+            return "\(self.name) (\(self.runtime))"
+        }
+    }
+    
     func containerURLForApplication(application: Application) -> NSURL? {
         let URL = URLHelper.containersURLForUDID(UDID)
         do {
