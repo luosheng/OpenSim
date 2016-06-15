@@ -58,7 +58,13 @@ protocol MenuManagerDelegate {
         
         DeviceManager.defaultManager.reload()
         
+        var currentRuntime = ""
         DeviceManager.defaultManager.deviceMapping.forEach { device in
+            if (currentRuntime != "" && device.runtime.name != currentRuntime) {
+                menu.addItem(NSMenuItem.separatorItem())
+            }
+            currentRuntime = device.runtime.name
+            
             if let deviceMenuItem = menu.addItemWithTitle("\(device.name) (\(device.runtime))", action: nil, keyEquivalent: "") {
                 deviceMenuItem.onStateImage = NSImage(named: "active")
                 deviceMenuItem.offStateImage = NSImage(named: "inactive")
