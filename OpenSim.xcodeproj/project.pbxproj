@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF9D003A1D110E750065AFD0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9D00391D110E750065AFD0 /* Helper.swift */; };
 		B3054E181BF381CE00F433C2 /* FileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E161BF381CE00F433C2 /* FileInfo.swift */; };
 		B3054E1A1BF3958500F433C2 /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */; };
 		B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF9D00391D110E750065AFD0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		B3054E161BF381CE00F433C2 /* FileInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileInfo.swift; sourceTree = "<group>"; };
 		B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryWatcher.swift; sourceTree = "<group>"; };
 		B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelBlocks.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				B3A1E3331BF0709A0090EC58 /* URLHelper.swift */,
 				B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */,
 				B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */,
+				AF9D00391D110E750065AFD0 /* Helper.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				B3A1E3301BF05F980090EC58 /* DeviceManager.swift in Sources */,
 				B3A1E3231BF049690090EC58 /* AppDelegate.swift in Sources */,
 				B3054E1A1BF3958500F433C2 /* DirectoryWatcher.swift in Sources */,
+				AF9D003A1D110E750065AFD0 /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

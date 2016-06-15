@@ -16,22 +16,6 @@ final class DeviceManager {
     static let defaultManager = DeviceManager()
     var deviceMapping = [Device]()
     
-    func shell(launchPath: String, arguments: [String]) -> String
-    {
-        let task = NSTask()
-        task.launchPath = launchPath
-        task.arguments = arguments
-        
-        let pipe = NSPipe()
-        task.standardOutput = pipe
-        task.launch()
-        
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: NSUTF8StringEncoding)!
-        
-        return output
-    }
-    
     func reload() {
         // extract json from xcrun simctl list -j devices
         // to get a list of devices
