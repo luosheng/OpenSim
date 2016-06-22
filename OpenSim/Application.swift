@@ -15,7 +15,8 @@ struct Application {
     let bundleShortVersion: String
     let bundleVersion: String
     let URL: Foundation.URL
-    
+    let iconFiles: [String]?
+
     init?(URL: Foundation.URL) {
         self.URL = URL
         let contents = try! FileManager.default().contentsOfDirectory(at: URL, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
@@ -32,6 +33,8 @@ struct Application {
         bundleID = aBundleID
         bundleShortVersion = aBundleShortVersion
         bundleVersion = aBundleVersion
+
+        iconFiles = ((appInfoDict["CFBundleIcons"] as? NSDictionary)?["CFBundlePrimaryIcon"] as? NSDictionary)?["CFBundleIconFiles"] as? [String]
     }
     
 }
