@@ -63,41 +63,37 @@ protocol MenuManagerDelegate {
                 menu.addItem(NSMenuItem.separator())
             }
             currentRuntime = device.runtime.name
-            
-            if let deviceMenuItem = menu.addItem(withTitle: device.fullName, action: nil, keyEquivalent: "") {
-                deviceMenuItem.onStateImage = NSImage(named: "active")
-                deviceMenuItem.offStateImage = NSImage(named: "inactive")
-                deviceMenuItem.state = device.state == .Booted ? NSOnState : NSOffState
-                
-                let submenu = NSMenu()
-                device.applications.forEach { app in
-                    if let appMenuItem = submenu.addItem(withTitle: app.bundleDisplayName, action: #selector(appMenuItemClicked(_:)), keyEquivalent: "") {
-                        appMenuItem.representedObject = DeviceApplicationPair(device: device, application: app)
-                        appMenuItem.target = self
-                        
-                        if (device.state == .Booted) {
-                            if let controlItem = submenu.addItem(withTitle: "Uninstall \(app.bundleDisplayName)", action: #selector(appMenuItemClicked(_:)), keyEquivalent: "") {
-                                controlItem.representedObject = DeviceApplicationPair(device: device, application: app)
-                                controlItem.target = self
-                                
-                                controlItem.isAlternate = true
-                                controlItem.keyEquivalentModifierMask = Int(NSEventModifierFlags.control.rawValue)
-                            }
-                        }
-                    }
-                    deviceMenuItem.submenu = submenu
+
+            let deviceMenuItem = menu.addItem(withTitle: device.fullName, action: nil, keyEquivalent: "")
+            deviceMenuItem.onStateImage = NSImage(named: "active")
+            deviceMenuItem.offStateImage = NSImage(named: "inactive")
+            deviceMenuItem.state = device.state == .Booted ? NSOnState : NSOffState
+
+            let submenu = NSMenu()
+            device.applications.forEach { app in
+                let appMenuItem = submenu.addItem(withTitle: app.bundleDisplayName, action: #selector(appMenuItemClicked(_:)), keyEquivalent: "")
+                appMenuItem.representedObject = DeviceApplicationPair(device: device, application: app)
+                appMenuItem.target = self
+
+                if (device.state == .Booted) {
+                    let controlItem = submenu.addItem(withTitle: "Uninstall \(app.bundleDisplayName)", action: #selector(appMenuItemClicked(_:)), keyEquivalent: "")
+                    controlItem.representedObject = DeviceApplicationPair(device: device, application: app)
+                    controlItem.target = self
+
+                    controlItem.isAlternate = true
+                    controlItem.keyEquivalentModifierMask = Int(NSEventModifierFlags.control.rawValue)
                 }
+                deviceMenuItem.submenu = submenu
             }
         }
-        
+
         menu.addItem(NSMenuItem.separator())
-        if let quitMenu = menu.addItem(withTitle: "Quit", action: #selector(quitItemClicked(_:)), keyEquivalent: "q") {
-            quitMenu.target = self
-        }
-        
+        let quitMenu = menu.addItem(withTitle: "Quit", action: #selector(quitItemClicked(_:)), keyEquivalent: "q")
+        quitMenu.target = self
+
         statusItem.menu = menu
     }
-    
+
     private func buildWatcher() {
         watcher = DirectoryWatcher(URL: URLHelper.deviceURL)
         watcher.completionCallback = {
