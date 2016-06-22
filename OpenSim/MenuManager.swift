@@ -95,7 +95,7 @@ protocol MenuManagerDelegate {
     }
 
     private func buildWatcher() {
-        watcher = DirectoryWatcher(URL: URLHelper.deviceURL)
+        watcher = DirectoryWatcher(in: URLHelper.deviceURL)
         watcher.completionCallback = {
             self.reloadWhenReady()
             self.buildSubWatchers()
@@ -121,7 +121,7 @@ protocol MenuManagerDelegate {
         guard let info = FileInfo(URL: URL) where info.isDirectory else {
             return nil
         }
-        let watcher = DirectoryWatcher(URL: URL)
+        let watcher = DirectoryWatcher(in: URL)
         watcher.completionCallback = { [weak self] in
             self?.reloadWhenReady()
         }

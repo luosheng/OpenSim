@@ -12,7 +12,6 @@ public class DirectoryWatcher {
     
     enum Error: ErrorProtocol {
         case cannotOpenPath
-        case cannotCreateSource
     }
     
     public typealias CompletionCallback = () -> ()
@@ -25,8 +24,8 @@ public class DirectoryWatcher {
     private var directoryChanging = false
     private var oldDirectoryInfo = [FileInfo?]()
     
-    init(URL: Foundation.URL, eventMask: DispatchSource.FileSystemEvent = .write) {
-        watchedURL = URL
+    init(in watchedURL: URL, eventMask: DispatchSource.FileSystemEvent = .write) {
+        self.watchedURL = watchedURL
         self.eventMask = eventMask
     }
     
@@ -48,27 +47,21 @@ public class DirectoryWatcher {
             throw Error.cannotOpenPath
         }
         
-        let cleanUp: () -> () = {
-            close(fd)
-        }
-        
         source = DispatchSource.fileSystemObject(fileDescriptor: fd, eventMask: eventMask, queue: queue)
         
         source?.setEventHandler { [weak self] in
             self?.waitForDirectoryToFinishChanging()
         }
         
-        source?.setCancelHandler(handler: cleanUp)
+        source?.setCancelHandler {
+            close(fd)
+        }
         
         source?.resume()
     }
     
     public func stop() {
-        guard let src = source else {
-            return
-        }
-        
-        src.cancel()
+        source?.cancel()
     }
     
     private func waitForDirectoryToFinishChanging() {
@@ -76,7 +69,6 @@ public class DirectoryWatcher {
             directoryChanging = true
             
             oldDirectoryInfo = self.directoryInfo()
-//            print(oldDirectoryInfo)
             
             let timer = Timer(timeInterval: 0.5, target: self, selector: #selector(checkDirectoryInfo(_:)), userInfo: nil, repeats: true)
             RunLoop.main().add(timer, forMode: RunLoopMode.commonModes)
