@@ -10,7 +10,7 @@ import Foundation
 
 typealias dispatch_cancelable_block_t = (cancelled: Bool) -> ()
 
-func dispatch_block_t(_ delay: TimeInterval, block: dispatch_block_t) -> dispatch_cancelable_block_t {
+func dispatch_block_t(_ delay: TimeInterval, block: () -> Void) -> dispatch_cancelable_block_t {
     var cancelableBlock: dispatch_cancelable_block_t? = nil
     let delayBlock: dispatch_cancelable_block_t = { (cancelled: Bool) in
         if (!cancelled) {
