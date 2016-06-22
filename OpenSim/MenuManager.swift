@@ -152,6 +152,9 @@ protocol MenuManagerDelegate {
             // if control click
             if let event = NSApp.currentEvent where event.modifierFlags.contains(.ControlKeyMask) {
                 delegate?.shouldUninstallContianer(pair)
+                
+                // rebuild menu
+                self.buildMenu()
             }
             else {
                 // open the app directory

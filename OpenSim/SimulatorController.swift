@@ -30,9 +30,6 @@ class SimulatorController: NSObject {
         if answer {
             // delete the app
             shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", pair.device.UDID, pair.application.bundleID])
-            
-            // rebuild menu
-//            self.buildMenu()
         }
     }
     
