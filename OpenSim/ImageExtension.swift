@@ -9,16 +9,28 @@
 import Foundation
 import Cocoa
 
+struct IconImageConstants {
+    static let size = NSSize(width: 32, height: 32)
+    static let cornerRadius: CGFloat = 5
+}
+
 extension NSImage {
-    func resize(size: NSSize) -> NSImage? {
+    
+    func appIcon() -> NSImage? {
         guard self.isValid else {
             return nil
         }
-        let newImage = NSImage(size: size)
+        let newImage = NSImage(size: IconImageConstants.size)
         newImage.lockFocus()
-        self.size = size
+        self.size = IconImageConstants.size
         NSGraphicsContext.current()?.imageInterpolation = .high
+        
+        NSGraphicsContext.saveGraphicsState()
+        let path = NSBezierPath(roundedRect: NSRect(origin: NSPoint.zero, size: size), xRadius: IconImageConstants.cornerRadius, yRadius: IconImageConstants.cornerRadius)
+        path.addClip()
         self.draw(at: NSPoint.zero, from: NSRect(origin: NSPoint.zero, size: size), operation: .copy, fraction: 1.0)
+        NSGraphicsContext.restoreGraphicsState()
+        
         newImage.unlockFocus()
         return newImage
     }

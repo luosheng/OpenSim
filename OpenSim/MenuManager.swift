@@ -77,9 +77,9 @@ protocol MenuManagerDelegate {
 
                 if let iconFile = app.iconFiles?.last,
                     bundle = Bundle(url: app.url) {
-                    appMenuItem.image = bundle.image(forResource: iconFile)?.resize(size: NSSize(width: 32, height: 32))
+                    appMenuItem.image = bundle.image(forResource: iconFile)?.appIcon()
                 } else {
-                    appMenuItem.image = NSImage(named: "DefaultAppIcon")?.resize(size: NSSize(width: 32, height: 32))
+                    appMenuItem.image = NSImage(named: "DefaultAppIcon")?.appIcon()
                 }
 
                 if (device.state == .Booted) {
