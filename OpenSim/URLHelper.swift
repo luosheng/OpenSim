@@ -17,29 +17,29 @@ struct URLHelper {
     static let deviceSetFileName = "device_set.plist"
     static let deviceFileName = "device.plist"
     
-    static var deviceURL: NSURL {
+    static var deviceURL: URL {
         get {
-            guard let libraryPath = NSSearchPathForDirectoriesInDomains(.LibraryDirectory, .UserDomainMask, true).first else {
-                return NSURL()
+            guard let libraryPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first else {
+                return URL()
             }
-            return NSURL(fileURLWithPath: libraryPath).URLByAppendingPathComponent(devicesPathComponent)
+            return try! URL(fileURLWithPath: libraryPath).appendingPathComponent(devicesPathComponent)
         }
     }
     
-    static var deviceSetURL: NSURL {
-        return self.deviceURL.URLByAppendingPathComponent(deviceSetFileName)
+    static var deviceSetURL: URL {
+        return try! self.deviceURL.appendingPathComponent(deviceSetFileName)
     }
     
-    static func deviceURLForUDID(UDID: String) -> NSURL {
-        return deviceURL.URLByAppendingPathComponent(UDID)
+    static func deviceURLForUDID(_ UDID: String) -> URL {
+        return try! deviceURL.appendingPathComponent(UDID)
     }
     
-    static func applicationStateURLForUDID(UDID: String) -> NSURL {
-        return deviceURLForUDID(UDID).URLByAppendingPathComponent(applicationStatesComponent)
+    static func applicationStateURLForUDID(_ UDID: String) -> URL {
+        return try! deviceURLForUDID(UDID).appendingPathComponent(applicationStatesComponent)
     }
     
-    static func containersURLForUDID(UDID: String) -> NSURL {
-        return deviceURLForUDID(UDID).URLByAppendingPathComponent(containersComponent, isDirectory: true)
+    static func containersURLForUDID(_ UDID: String) -> URL {
+        return try! deviceURLForUDID(UDID).appendingPathComponent(containersComponent, isDirectory: true)
     }
     
 }

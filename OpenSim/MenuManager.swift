@@ -12,8 +12,8 @@ import Cocoa
 protocol MenuManagerDelegate {
     
     func shouldQuitApp()
-    func shouldOpenContainer(pair: DeviceApplicationPair)
-    func shouldUninstallContianer(pair: DeviceApplicationPair)
+    func shouldOpenContainer(_ pair: DeviceApplicationPair)
+    func shouldUninstallContianer(_ pair: DeviceApplicationPair)
 }
 
 @objc final class MenuManager: NSObject {
@@ -29,9 +29,9 @@ protocol MenuManagerDelegate {
     var delegate: MenuManagerDelegate?
     
     override init() {
-        statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSVariableStatusItemLength)
+        statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
         statusItem.image = NSImage(named: "menubar")
-        statusItem.image!.template = true
+        statusItem.image!.isTemplate = true
         
         super.init()
         
@@ -60,28 +60,28 @@ protocol MenuManagerDelegate {
         var currentRuntime = ""
         DeviceManager.defaultManager.deviceMapping.forEach { device in
             if (currentRuntime != "" && device.runtime.name != currentRuntime) {
-                menu.addItem(NSMenuItem.separatorItem())
+                menu.addItem(NSMenuItem.separator())
             }
             currentRuntime = device.runtime.name
             
-            if let deviceMenuItem = menu.addItemWithTitle(device.fullName, action: nil, keyEquivalent: "") {
+            if let deviceMenuItem = menu.addItem(withTitle: device.fullName, action: nil, keyEquivalent: "") {
                 deviceMenuItem.onStateImage = NSImage(named: "active")
                 deviceMenuItem.offStateImage = NSImage(named: "inactive")
                 deviceMenuItem.state = device.state == .Booted ? NSOnState : NSOffState
                 
                 let submenu = NSMenu()
                 device.applications.forEach { app in
-                    if let appMenuItem = submenu.addItemWithTitle(app.bundleDisplayName, action: #selector(appMenuItemClicked(_:)), keyEquivalent: "") {
+                    if let appMenuItem = submenu.addItem(withTitle: app.bundleDisplayName, action: #selector(appMenuItemClicked(_:)), keyEquivalent: "") {
                         appMenuItem.representedObject = DeviceApplicationPair(device: device, application: app)
                         appMenuItem.target = self
                         
                         if (device.state == .Booted) {
-                            if let controlItem = submenu.addItemWithTitle("Uninstall \(app.bundleDisplayName)", action: #selector(appMenuItemClicked(_:)), keyEquivalent: "") {
+                            if let controlItem = submenu.addItem(withTitle: "Uninstall \(app.bundleDisplayName)", action: #selector(appMenuItemClicked(_:)), keyEquivalent: "") {
                                 controlItem.representedObject = DeviceApplicationPair(device: device, application: app)
                                 controlItem.target = self
                                 
-                                controlItem.alternate = true
-                                controlItem.keyEquivalentModifierMask = Int(NSEventModifierFlags.ControlKeyMask.rawValue)
+                                controlItem.isAlternate = true
+                                controlItem.keyEquivalentModifierMask = Int(NSEventModifierFlags.control.rawValue)
                             }
                         }
                     }
@@ -90,8 +90,8 @@ protocol MenuManagerDelegate {
             }
         }
         
-        menu.addItem(NSMenuItem.separatorItem())
-        if let quitMenu = menu.addItemWithTitle("Quit", action: #selector(quitItemClicked(_:)), keyEquivalent: "q") {
+        menu.addItem(NSMenuItem.separator())
+        if let quitMenu = menu.addItem(withTitle: "Quit", action: #selector(quitItemClicked(_:)), keyEquivalent: "q") {
             quitMenu.target = self
         }
         
@@ -114,14 +114,14 @@ protocol MenuManagerDelegate {
     private func buildSubWatchers() {
         subWatchers?.forEach { $0?.stop() }
         do {
-            let deviceDirectories = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(URLHelper.deviceURL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .SkipsSubdirectoryDescendants)
+            let deviceDirectories = try FileManager.default().contentsOfDirectory(at: URL Helper.deviceURL as URL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .skipsSubdirectoryDescendants)
             subWatchers = deviceDirectories.map(createSubWatcherForURL)
         } catch {
             
         }
     }
     
-    private func createSubWatcherForURL(URL: NSURL) -> DirectoryWatcher? {
+    private func createSubWatcherForURL(_ URL: Foundation.URL) -> DirectoryWatcher? {
         guard let info = FileInfo(URL: URL) where info.isDirectory else {
             return nil
         }
@@ -145,14 +145,14 @@ protocol MenuManagerDelegate {
         }
     }
     
-    func quitItemClicked(sender: AnyObject) {
+    func quitItemClicked(_ sender: AnyObject) {
         delegate?.shouldQuitApp()
     }
     
-    func appMenuItemClicked(sender: AnyObject) {
+    func appMenuItemClicked(_ sender: AnyObject) {
         if let pair = sender.representedObject as? DeviceApplicationPair {
             // if control click
-            if let event = NSApp.currentEvent where event.modifierFlags.contains(.ControlKeyMask) {
+            if let event = NSApp.currentEvent where event.modifierFlags.contains(.control) {
                 delegate?.shouldUninstallContianer(pair)
                 
                 // rebuild menu

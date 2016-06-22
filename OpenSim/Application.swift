@@ -14,13 +14,13 @@ struct Application {
     let bundleID: String
     let bundleShortVersion: String
     let bundleVersion: String
-    let URL: NSURL
+    let URL: Foundation.URL
     
-    init?(URL: NSURL) {
+    init?(URL: Foundation.URL) {
         self.URL = URL
-        let contents = try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(URL, includingPropertiesForKeys: nil, options: [.SkipsSubdirectoryDescendants, .SkipsHiddenFiles])
-        guard let appInfoPath = contents.last?.URLByAppendingPathComponent("Info.plist"),
-            appInfoDict = NSDictionary(contentsOfURL: appInfoPath),
+        let contents = try! FileManager.default().contentsOfDirectory(at: URL, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
+        guard let appInfoPath = try! contents.last?.appendingPathComponent("Info.plist"),
+            appInfoDict = NSDictionary(contentsOf: appInfoPath),
             aBundleID = appInfoDict["CFBundleIdentifier"] as? String,
             aBundleDisplayName = (appInfoDict["CFBundleDisplayName"] as? String) ?? (appInfoDict["CFBundleName"] as? String),
             aBundleShortVersion = appInfoDict["CFBundleShortVersionString"] as? String,

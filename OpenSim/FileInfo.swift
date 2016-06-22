@@ -11,46 +11,46 @@ import Foundation
 struct FileInfo {
     
     static let prefetchedProperties = [
-        NSURLNameKey,
-        NSURLIsDirectoryKey,
-        NSURLCreationDateKey,
-        NSURLContentModificationDateKey,
-        NSURLFileSizeKey,
+        URLResourceKey.nameKey,
+        URLResourceKey.isDirectoryKey,
+        URLResourceKey.creationDateKey,
+        URLResourceKey.contentModificationDateKey,
+        URLResourceKey.fileSizeKey,
     ]
     
-    private enum Error: ErrorType {
-        case InvalidProperty
+    private enum Error: ErrorProtocol {
+        case invalidProperty
     }
     
     let name: String
     let isDirectory: Bool
-    let creationDate: NSDate
-    let modificationDate: NSDate
+    let creationDate: Date
+    let modificationDate: Date
     let fileSize: Int
     
-    init?(URL: NSURL) {
+    init?(URL: Foundation.URL) {
         do {
             var nameObj: AnyObject?
-            try URL.getResourceValue(&nameObj, forKey: NSURLNameKey)
+            try (URL as NSURL).getResourceValue(&nameObj, forKey: URLResourceKey.nameKey)
             
             var isDirectoryObj: AnyObject?
-            try URL.getResourceValue(&isDirectoryObj, forKey: NSURLIsDirectoryKey)
+            try (URL as NSURL).getResourceValue(&isDirectoryObj, forKey: URLResourceKey.isDirectoryKey)
             
             var creationDateObj: AnyObject?
-            try URL.getResourceValue(&creationDateObj, forKey: NSURLCreationDateKey)
+            try (URL as NSURL).getResourceValue(&creationDateObj, forKey: URLResourceKey.creationDateKey)
             
             var modificationDateObj: AnyObject?
-            try URL.getResourceValue(&modificationDateObj, forKey: NSURLContentModificationDateKey)
+            try (URL as NSURL).getResourceValue(&modificationDateObj, forKey: URLResourceKey.contentModificationDateKey)
             
             var fileSizeObj: AnyObject?
-            try URL.getResourceValue(&fileSizeObj, forKey: NSURLFileSizeKey)
+            try (URL as NSURL).getResourceValue(&fileSizeObj, forKey: URLResourceKey.fileSizeKey)
             
             guard let name = nameObj as? String,
                 isDirectory = isDirectoryObj as? Bool,
-                creationDate = creationDateObj as? NSDate,
-                modificationDate = modificationDateObj as? NSDate,
+                creationDate = creationDateObj as? Date,
+                modificationDate = modificationDateObj as? Date,
                 fileSize = isDirectory ? 0 : fileSizeObj as? Int else {
-                    throw Error.InvalidProperty
+                    throw Error.invalidProperty
             }
             self.name = name
             self.isDirectory = isDirectory
@@ -76,7 +76,7 @@ func ==(lhs: FileInfo, rhs: FileInfo) -> Bool {
 
 func ==(lhs: FileInfo?, rhs: FileInfo?) -> Bool {
     switch (lhs, rhs) {
-    case (.Some(let lhs), .Some(let rhs)):
+    case (.some(let lhs), .some(let rhs)):
         return lhs == rhs
     case (nil, nil):
         // When two optionals are both nil, we consider them not equal

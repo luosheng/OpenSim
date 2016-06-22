@@ -30,9 +30,9 @@ struct Device {
         self.runtime = Runtime(name: runtime)
         self.state = state
         
-        let applicationPath = URLHelper.deviceURLForUDID(self.UDID).URLByAppendingPathComponent("data/Containers/Bundle/Application")
+        let applicationPath = try! URLHelper.deviceURLForUDID(self.UDID).appendingPathComponent("data/Containers/Bundle/Application")
         do {
-            let contents = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(applicationPath, includingPropertiesForKeys: nil, options: [.SkipsSubdirectoryDescendants, .SkipsHiddenFiles])
+            let contents = try FileManager.default().contentsOfDirectory(at: applicationPath, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
             self.applications = contents.map { Application(URL: $0) }.filter { $0 != nil }.map { $0! }
         } catch {
             self.applications = []
@@ -45,12 +45,12 @@ struct Device {
         }
     }
     
-    func containerURLForApplication(application: Application) -> NSURL? {
+    func containerURLForApplication(_ application: Application) -> URL? {
         let URL = URLHelper.containersURLForUDID(UDID)
         do {
-            let directories = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(URL, includingPropertiesForKeys: nil, options: .SkipsSubdirectoryDescendants)
+            let directories = try FileManager.default().contentsOfDirectory(at: URL, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants)
             if let matchingURL = directories.filter({ dir -> Bool in
-                if let contents = NSDictionary(contentsOfURL: dir.URLByAppendingPathComponent(".com.apple.mobile_container_manager.metadata.plist")),
+                if let contents = NSDictionary(contentsOf: try! dir.appendingPathComponent(".com.apple.mobile_container_manager.metadata.plist")),
                    identifier = contents["MCMMetadataIdentifier"] as? String
                 where identifier == application.bundleID {
                     return true

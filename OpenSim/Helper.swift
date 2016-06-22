@@ -8,18 +8,18 @@
 
 import Foundation
 
-func shell(launchPath: String, arguments: [String]) -> String
+func shell(_ launchPath: String, arguments: [String]) -> String
 {
-    let task = NSTask()
+    let task = Task()
     task.launchPath = launchPath
     task.arguments = arguments
     
-    let pipe = NSPipe()
+    let pipe = Pipe()
     task.standardOutput = pipe
     task.launch()
     
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    let output = String(data: data, encoding: NSUTF8StringEncoding)!
+    let output = String(data: data, encoding: String.Encoding.utf8)!
     
     return output
 }

@@ -11,13 +11,13 @@ import Cocoa
 
 class SimulatorController: NSObject {
     
-    static func dialogOKCancel(question: String, text: String) -> Bool {
+    static func dialogOKCancel(_ question: String, text: String) -> Bool {
         let myPopup: NSAlert = NSAlert()
         myPopup.messageText = question
         myPopup.informativeText = text
-        myPopup.alertStyle = NSAlertStyle.CriticalAlertStyle
-        myPopup.addButtonWithTitle("OK")
-        myPopup.addButtonWithTitle("Cancel")
+        myPopup.alertStyle = NSAlertStyle.critical
+        myPopup.addButton(withTitle: "OK")
+        myPopup.addButton(withTitle: "Cancel")
         let res = myPopup.runModal()
         if res == NSAlertFirstButtonReturn {
             return true
@@ -25,7 +25,7 @@ class SimulatorController: NSObject {
         return false
     }
     
-    static func uninstall(pair:DeviceApplicationPair) {
+    static func uninstall(_ pair:DeviceApplicationPair) {
         let answer = dialogOKCancel("Confirm Delete?", text: "Are you sure you want to delete \(pair.application.bundleDisplayName) for \(pair.device.fullName)")
         if answer {
             // delete the app
@@ -38,20 +38,20 @@ class SimulatorController: NSObject {
         // to get a list of devices
         
         var jsonString = shell("/usr/bin/xcrun", arguments: ["simctl", "list", "-j", "devices"]);
-        jsonString = jsonString.stringByReplacingOccurrencesOfString("\n", withString: "")
-        jsonString = jsonString.stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet())
-        let data: NSData = jsonString.dataUsingEncoding(NSUTF8StringEncoding)!
+        jsonString = jsonString.replacingOccurrences(of: "\n", with: "")
+        jsonString = jsonString.trimmingCharacters(in: CharacterSet.newlines)
+        let data: Data = jsonString.data(using: String.Encoding.utf8)!
         
         // array of devices to return
         var mapping = [String: [Device]]()
         
         do {
-            if let json = try NSJSONSerialization.JSONObjectWithData(data, options:[]) as? [String: AnyObject] {
+            if let json = try JSONSerialization.jsonObject(with: data, options:[]) as? [String: AnyObject] {
                 if let osVersions = json["devices"] as? [String:AnyObject] {
                     
                     // parse out only the iOS os
                     // then parse through the devices for that OS
-                    let filtered = osVersions.filter { $0.0.containsString("iOS") }
+                    let filtered = osVersions.filter { $0.0.contains("iOS") }
                     
                     for os in filtered {
                         // os.0 is iOS version ex "iOS 9.2"
@@ -85,7 +85,7 @@ class SimulatorController: NSObject {
                             }
                         }
                         
-                        let sortedDevices = iPhones.reverse() + iPads.reverse() + otherDevices
+                        let sortedDevices = iPhones.reversed() + iPads.reversed() + otherDevices
                         mapping[os.0] = sortedDevices.filter { $0.applications.count > 0 }.map { $0 }
                     }
                 }
@@ -105,9 +105,9 @@ class SimulatorController: NSObject {
         // newest iPads
         // oldest iPhones
         // newer iPhones
-        for str in mapping.keys.sort() {
+        for str in mapping.keys.sorted() {
             if let map = mapping[str] {
-                for dev:Device in map.reverse() {
+                for dev:Device in map.reversed() {
                     deviceMapping.append(dev)
                 }
             }

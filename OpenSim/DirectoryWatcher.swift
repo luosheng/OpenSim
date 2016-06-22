@@ -10,37 +10,37 @@ import Foundation
 
 public class DirectoryWatcher {
     
-    enum Error: ErrorType {
-        case CannotOpenPath
-        case CannotCreateSource
+    enum Error: ErrorProtocol {
+        case cannotOpenPath
+        case cannotCreateSource
     }
     
     enum Mask {
-        case Attribute
-        case Delete
-        case Extend
-        case Link
-        case Rename
-        case Revoke
-        case Write
+        case attribute
+        case delete
+        case extend
+        case link
+        case rename
+        case revoke
+        case write
         
         var flag: dispatch_source_vnode_flags_t {
             get {
                 switch self {
-                case .Attribute:
-                    return DISPATCH_VNODE_ATTRIB
-                case .Delete:
-                    return DISPATCH_VNODE_DELETE
-                case .Extend:
-                    return DISPATCH_VNODE_EXTEND
-                case .Link:
-                    return DISPATCH_VNODE_LINK
-                case .Rename:
-                    return DISPATCH_VNODE_RENAME
-                case .Revoke:
-                    return DISPATCH_VNODE_REVOKE
-                case .Write:
-                    return DISPATCH_VNODE_WRITE
+                case .attribute:
+                    return DispatchSource.FileSystemEvent.attrib
+                case .delete:
+                    return DispatchSource.FileSystemEvent.delete
+                case .extend:
+                    return DispatchSource.FileSystemEvent.extend
+                case .link:
+                    return DispatchSource.FileSystemEvent.link
+                case .rename:
+                    return DispatchSource.FileSystemEvent.rename
+                case .revoke:
+                    return DispatchSource.FileSystemEvent.revoke
+                case .write:
+                    return DispatchSource.FileSystemEvent.write
                 }
             }
         }
@@ -48,15 +48,15 @@ public class DirectoryWatcher {
     
     public typealias CompletionCallback = () -> ()
     
-    var watchedURL: NSURL
+    var watchedURL: URL
     let mask: Mask
     public var completionCallback: CompletionCallback?
-    private let queue = dispatch_queue_create("com.pop-tap.directory-watcher", DISPATCH_QUEUE_SERIAL)
-    private var source: dispatch_source_t?
+    private let queue = DispatchQueue(label: "com.pop-tap.directory-watcher", attributes: DispatchQueueAttributes.serial)
+    private var source: DispatchSource?
     private var directoryChanging = false
     private var oldDirectoryInfo = [FileInfo?]()
     
-    init(URL: NSURL, mask: Mask = .Write) {
+    init(URL: Foundation.URL, mask: Mask = .write) {
         watchedURL = URL
         self.mask = mask
     }
@@ -76,26 +76,26 @@ public class DirectoryWatcher {
         
         let fd = open((path as NSString).fileSystemRepresentation, O_EVTONLY)
         guard fd >= 0 else {
-            throw Error.CannotOpenPath
+            throw Error.cannotOpenPath
         }
         
         let cleanUp: () -> () = {
             close(fd)
         }
         
-        guard let src = dispatch_source_create(DISPATCH_SOURCE_TYPE_VNODE, UInt(fd), mask.flag, queue) else {
+        guard let src = DispatchSource.fileSystemObject(fileDescriptor: fd, eventMask: mask.flag, queue: queue) /*Migrator FIXME: Use DispatchSourceFileSystemObject to avoid the cast*/ as! DispatchSource else {
             cleanUp()
-            throw Error.CannotCreateSource
+            throw Error.cannotCreateSource
         }
         source = src
         
-        dispatch_source_set_event_handler(src) {
+        src.setEventHandler {
             self.waitForDirectoryToFinishChanging()
         }
         
-        dispatch_source_set_cancel_handler(src, cleanUp)
+        src.setCancelHandler(handler: cleanUp)
         
-        dispatch_resume(src)
+        src.resume()
     }
     
     public func stop() {
@@ -103,7 +103,7 @@ public class DirectoryWatcher {
             return
         }
         
-        dispatch_source_cancel(src)
+        src.cancel()
     }
     
     private func waitForDirectoryToFinishChanging() {
@@ -113,21 +113,21 @@ public class DirectoryWatcher {
             oldDirectoryInfo = self.directoryInfo()
 //            print(oldDirectoryInfo)
             
-            let timer = NSTimer(timeInterval: 0.5, target: self, selector: #selector(checkDirectoryInfo(_:)), userInfo: nil, repeats: true)
-            NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
+            let timer = Timer(timeInterval: 0.5, target: self, selector: #selector(checkDirectoryInfo(_:)), userInfo: nil, repeats: true)
+            RunLoop.main().add(timer, forMode: RunLoopMode.commonModes)
         }
     }
     
     private func directoryInfo() -> [FileInfo?] {
         do {
-            let contents = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(watchedURL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .SkipsSubdirectoryDescendants)
+            let contents = try FileManager.default().contentsOfDirectory(at: watchedURL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .skipsSubdirectoryDescendants)
             return contents.map { FileInfo(URL: $0) }
         } catch {
             return []
         }
     }
     
-    @objc private func checkDirectoryInfo(timer: NSTimer) {
+    @objc private func checkDirectoryInfo(_ timer: Timer) {
         let directoryInfo = self.directoryInfo()
         directoryChanging = directoryInfo != oldDirectoryInfo
         if directoryChanging {

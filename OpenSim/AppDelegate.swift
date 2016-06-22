@@ -15,30 +15,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuManagerDelegate {
     
     var menuManager: MenuManager!
 
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         menuManager = MenuManager()
         menuManager.delegate = self
         menuManager.start()
     }
     
     func shouldQuitApp() {
-        NSApplication.sharedApplication().terminate(self)
+        NSApplication.shared().terminate(self)
     }
     
-    func shouldOpenContainer(pair: DeviceApplicationPair) {
+    func shouldOpenContainer(_ pair: DeviceApplicationPair) {
         guard let URL = pair.device.containerURLForApplication(pair.application),
-            path = URL.path where NSFileManager.defaultManager().fileExistsAtPath(path) else {
+            path = URL.path where FileManager.default().fileExists(atPath: path) else {
                 return
         }
         
-        NSWorkspace.sharedWorkspace().openURL(URL)
+        NSWorkspace.shared().open(URL)
     }
     
-    func shouldUninstallContianer(pair: DeviceApplicationPair) {
+    func shouldUninstallContianer(_ pair: DeviceApplicationPair) {
         SimulatorController.uninstall(pair)
     }
     
-    func applicationWillTerminate(aNotification: NSNotification) {
+    func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
 
