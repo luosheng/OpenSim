@@ -21,7 +21,7 @@ public class DirectoryWatcher {
     let eventMask: DispatchSource.FileSystemEvent
     public var completionCallback: CompletionCallback?
     private let queue = DispatchQueue(label: "com.pop-tap.directory-watcher", attributes: DispatchQueueAttributes.serial)
-    private var source: DispatchSource?
+    private var source: DispatchSourceFileSystemObject?
     private var directoryChanging = false
     private var oldDirectoryInfo = [FileInfo?]()
     
@@ -52,19 +52,15 @@ public class DirectoryWatcher {
             close(fd)
         }
         
-        guard let src = DispatchSource.fileSystemObject(fileDescriptor: fd, eventMask: eventMask, queue: queue) /*Migrator FIXME: Use DispatchSourceFileSystemObject to avoid the cast*/ as? DispatchSource else {
-            cleanUp()
-            throw Error.cannotCreateSource
-        }
-        source = src
+        source = DispatchSource.fileSystemObject(fileDescriptor: fd, eventMask: eventMask, queue: queue)
         
-        src.setEventHandler {
-            self.waitForDirectoryToFinishChanging()
+        source?.setEventHandler { [weak self] in
+            self?.waitForDirectoryToFinishChanging()
         }
         
-        src.setCancelHandler(handler: cleanUp)
+        source?.setCancelHandler(handler: cleanUp)
         
-        src.resume()
+        source?.resume()
     }
     
     public func stop() {
