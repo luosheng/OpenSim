@@ -75,12 +75,14 @@ protocol MenuManagerDelegate {
                         appMenuItem.representedObject = DeviceApplicationPair(device: device, application: app)
                         appMenuItem.target = self
                         
-                        if let controlItem = submenu.addItemWithTitle("Uninstall \(app.bundleDisplayName)", action: #selector(appMenuItemClicked(_:)), keyEquivalent: "") {
-                            controlItem.representedObject = DeviceApplicationPair(device: device, application: app)
-                            controlItem.target = self
-                            
-                            controlItem.alternate = true
-                            controlItem.keyEquivalentModifierMask = Int(NSEventModifierFlags.ControlKeyMask.rawValue)
+                        if (device.state == .Booted) {
+                            if let controlItem = submenu.addItemWithTitle("Uninstall \(app.bundleDisplayName)", action: #selector(appMenuItemClicked(_:)), keyEquivalent: "") {
+                                controlItem.representedObject = DeviceApplicationPair(device: device, application: app)
+                                controlItem.target = self
+                                
+                                controlItem.alternate = true
+                                controlItem.keyEquivalentModifierMask = Int(NSEventModifierFlags.ControlKeyMask.rawValue)
+                            }
                         }
                     }
                     deviceMenuItem.submenu = submenu
