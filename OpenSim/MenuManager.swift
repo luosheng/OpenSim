@@ -75,6 +75,13 @@ protocol MenuManagerDelegate {
                 appMenuItem.representedObject = DeviceApplicationPair(device: device, application: app)
                 appMenuItem.target = self
 
+                if let iconFile = app.iconFiles?.last,
+                    bundle = Bundle(url: app.url) {
+                    appMenuItem.image = bundle.image(forResource: iconFile)
+                } else {
+                    // TODO: Display a default icon
+                }
+
                 if (device.state == .Booted) {
                     let controlItem = submenu.addItem(withTitle: "Uninstall \(app.bundleDisplayName)", action: #selector(appMenuItemClicked(_:)), keyEquivalent: "")
                     controlItem.representedObject = DeviceApplicationPair(device: device, application: app)
