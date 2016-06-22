@@ -34,6 +34,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuManagerDelegate {
         NSWorkspace.sharedWorkspace().openURL(URL)
     }
     
+    func shouldUninstallContianer(pair: DeviceApplicationPair) {
+        SimulatorController.uninstall(pair)
+    }
+    
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
     }

@@ -21,6 +21,7 @@
 		B3D188E91BF436480064E851 /* Runtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D188E81BF436480064E851 /* Runtime.swift */; };
 		B3E67B5E1CA412BD00744B38 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E67B5D1CA412BD00744B38 /* MenuManager.swift */; };
 		B3F493A61BF0822800C64FF0 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F493A51BF0822800C64FF0 /* Application.swift */; };
+		D17669C11D1883AE00816D61 /* SimulatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17669C01D1883AE00816D61 /* SimulatorController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		B3D188E81BF436480064E851 /* Runtime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Runtime.swift; sourceTree = "<group>"; };
 		B3E67B5D1CA412BD00744B38 /* MenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
 		B3F493A51BF0822800C64FF0 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		D17669C01D1883AE00816D61 /* SimulatorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */,
 				B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */,
 				AF9D00391D110E750065AFD0 /* Helper.swift */,
+				D17669C01D1883AE00816D61 /* SimulatorController.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D17669C11D1883AE00816D61 /* SimulatorController.swift in Sources */,
 				B3F493A61BF0822800C64FF0 /* Application.swift in Sources */,
 				B3A1E3321BF062C40090EC58 /* Device.swift in Sources */,
 				B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */,

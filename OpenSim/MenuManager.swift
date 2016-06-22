@@ -12,9 +12,8 @@ import Cocoa
 protocol MenuManagerDelegate {
     
     func shouldQuitApp()
-    
     func shouldOpenContainer(pair: DeviceApplicationPair)
-    
+    func shouldUninstallContianer(pair: DeviceApplicationPair)
 }
 
 @objc final class MenuManager: NSObject {
@@ -148,32 +147,11 @@ protocol MenuManagerDelegate {
         delegate?.shouldQuitApp()
     }
     
-    func dialogOKCancel(question: String, text: String) -> Bool {
-        let myPopup: NSAlert = NSAlert()
-        myPopup.messageText = question
-        myPopup.informativeText = text
-        myPopup.alertStyle = NSAlertStyle.CriticalAlertStyle
-        myPopup.addButtonWithTitle("OK")
-        myPopup.addButtonWithTitle("Cancel")
-        let res = myPopup.runModal()
-        if res == NSAlertFirstButtonReturn {
-            return true
-        }
-        return false
-    }
-    
     func appMenuItemClicked(sender: AnyObject) {
         if let pair = sender.representedObject as? DeviceApplicationPair {
             // if control click
             if let event = NSApp.currentEvent where event.modifierFlags.contains(.ControlKeyMask) {
-                let answer = dialogOKCancel("Confirm Delete?", text: "Are you sure you want to delete \(pair.application.bundleDisplayName) for \(pair.device.fullName)")
-                if answer {
-                    // delete the app
-                    shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", pair.device.UDID, pair.application.bundleID])
-                    
-                    // rebuild menu
-                    self.buildMenu()
-                }
+                delegate?.shouldUninstallContianer(pair)
             }
             else {
                 // open the app directory
