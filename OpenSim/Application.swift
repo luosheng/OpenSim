@@ -14,12 +14,16 @@ struct Application {
     let bundleID: String
     let bundleShortVersion: String
     let bundleVersion: String
-    let URL: Foundation.URL
+    let url: URL
     let iconFiles: [String]?
 
-    init?(URL: Foundation.URL) {
-        self.URL = URL
-        let contents = try! FileManager.default().contentsOfDirectory(at: URL, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
+    init?(url: Foundation.URL) {
+        let contents = try! FileManager.default().contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
+        guard let url = contents.last else {
+            // If no ".app" directory is detected
+            return nil
+        }
+        self.url = url
         guard let appInfoPath = try! contents.last?.appendingPathComponent("Info.plist"),
             appInfoDict = NSDictionary(contentsOf: appInfoPath),
             aBundleID = appInfoDict["CFBundleIdentifier"] as? String,

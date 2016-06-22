@@ -33,7 +33,7 @@ struct Device {
         let applicationPath = try! URLHelper.deviceURLForUDID(self.UDID).appendingPathComponent("data/Containers/Bundle/Application")
         do {
             let contents = try FileManager.default().contentsOfDirectory(at: applicationPath, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
-            self.applications = contents.map { Application(URL: $0) }.filter { $0 != nil }.map { $0! }
+            self.applications = contents.map { Application(url: $0) }.filter { $0 != nil }.map { $0! }
         } catch {
             self.applications = []
         }
