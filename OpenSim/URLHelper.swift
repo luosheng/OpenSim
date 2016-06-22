@@ -20,7 +20,8 @@ struct URLHelper {
     static var deviceURL: URL {
         get {
             guard let libraryPath = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first else {
-                return URL()
+                // FIXME: Should throw an error instead
+                return URL(fileURLWithPath: "/")
             }
             return try! URL(fileURLWithPath: libraryPath).appendingPathComponent(devicesPathComponent)
         }
