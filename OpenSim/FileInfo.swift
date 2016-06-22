@@ -16,7 +16,7 @@ struct FileInfo {
         URLResourceKey.creationDateKey,
         URLResourceKey.contentModificationDateKey,
         URLResourceKey.fileSizeKey,
-    ]
+    ].map { $0.rawValue }
     
     private enum Error: ErrorProtocol {
         case invalidProperty

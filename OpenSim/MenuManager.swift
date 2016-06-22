@@ -81,7 +81,7 @@ protocol MenuManagerDelegate {
                     controlItem.target = self
 
                     controlItem.isAlternate = true
-                    controlItem.keyEquivalentModifierMask = Int(NSEventModifierFlags.control.rawValue)
+                    controlItem.keyEquivalentModifierMask = NSEventModifierFlags.control
                 }
                 deviceMenuItem.submenu = submenu
             }
