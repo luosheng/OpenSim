@@ -15,50 +15,19 @@ public class DirectoryWatcher {
         case cannotCreateSource
     }
     
-    enum Mask {
-        case attribute
-        case delete
-        case extend
-        case link
-        case rename
-        case revoke
-        case write
-        
-        var flag: dispatch_source_vnode_flags_t {
-            get {
-                switch self {
-                case .attribute:
-                    return DispatchSource.FileSystemEvent.attrib
-                case .delete:
-                    return DispatchSource.FileSystemEvent.delete
-                case .extend:
-                    return DispatchSource.FileSystemEvent.extend
-                case .link:
-                    return DispatchSource.FileSystemEvent.link
-                case .rename:
-                    return DispatchSource.FileSystemEvent.rename
-                case .revoke:
-                    return DispatchSource.FileSystemEvent.revoke
-                case .write:
-                    return DispatchSource.FileSystemEvent.write
-                }
-            }
-        }
-    }
-    
     public typealias CompletionCallback = () -> ()
     
     var watchedURL: URL
-    let mask: Mask
+    let eventMask: DispatchSource.FileSystemEvent
     public var completionCallback: CompletionCallback?
     private let queue = DispatchQueue(label: "com.pop-tap.directory-watcher", attributes: DispatchQueueAttributes.serial)
     private var source: DispatchSource?
     private var directoryChanging = false
     private var oldDirectoryInfo = [FileInfo?]()
     
-    init(URL: Foundation.URL, mask: Mask = .write) {
+    init(URL: Foundation.URL, eventMask: DispatchSource.FileSystemEvent = .write) {
         watchedURL = URL
-        self.mask = mask
+        self.eventMask = eventMask
     }
     
     deinit {
@@ -83,7 +52,7 @@ public class DirectoryWatcher {
             close(fd)
         }
         
-        guard let src = DispatchSource.fileSystemObject(fileDescriptor: fd, eventMask: mask.flag, queue: queue) /*Migrator FIXME: Use DispatchSourceFileSystemObject to avoid the cast*/ as! DispatchSource else {
+        guard let src = DispatchSource.fileSystemObject(fileDescriptor: fd, eventMask: eventMask, queue: queue) /*Migrator FIXME: Use DispatchSourceFileSystemObject to avoid the cast*/ as? DispatchSource else {
             cleanUp()
             throw Error.cannotCreateSource
         }
