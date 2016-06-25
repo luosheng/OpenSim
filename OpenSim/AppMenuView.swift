@@ -14,6 +14,7 @@ class AppMenuView: NSView {
     let application: Application
     var iconView: NSImageView!
     var nameLabel: NSTextField!
+    var bundleLabel: NSTextField!
     
     init(app: Application) {
         application = app
@@ -37,9 +38,16 @@ class AppMenuView: NSView {
         
         nameLabel = createLabel()
         nameLabel.font = NSFont.systemFont(ofSize: 11)
-        nameLabel.frame = NSRect(x: 62, y: 32, width: 148, height: 12)
+        nameLabel.frame = NSRect(x: 62, y: 32, width: 148, height: 13)
         nameLabel.stringValue = application.bundleDisplayName
         addSubview(nameLabel)
+        
+        bundleLabel = createLabel()
+        bundleLabel.textColor = NSColor.secondaryLabelColor()
+        bundleLabel.font = NSFont.systemFont(ofSize: 10)
+        bundleLabel.frame = NSRect(x: 62, y: 19, width: 148, height: 12)
+        bundleLabel.stringValue = application.bundleID
+        addSubview(bundleLabel)
     }
     
     private func createLabel() -> NSTextField {
