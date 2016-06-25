@@ -12,12 +12,11 @@ import Cocoa
 class AppMenuView: NSView {
     
     let application: Application
-    let iconView: NSImageView
+    var iconView: NSImageView!
     var nameLabel: NSTextField!
     
     init(app: Application) {
         application = app
-        iconView = NSImageView(frame: NSRect(x: 20, y: 9, width: 32, height: 32))
         super.init(frame: NSRect(x: 0, y: 0, width: 220, height: 50))
         setupViews()
     }
@@ -27,13 +26,14 @@ class AppMenuView: NSView {
     }
     
     private func setupViews() {
-        addSubview(iconView)
+        iconView = NSImageView(frame: NSRect(x: 20, y: 9, width: 32, height: 32))
         if let iconFile = application.iconFiles?.last,
             bundle = Bundle(url: application.url) {
             iconView.image = bundle.image(forResource: iconFile)?.appIcon()
         } else {
             iconView.image = NSImage(named: "DefaultAppIcon")?.appIcon()
         }
+        addSubview(iconView)
         
         nameLabel = createLabel()
         nameLabel.font = NSFont.systemFont(ofSize: 11)
