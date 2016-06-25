@@ -17,7 +17,9 @@ struct Application {
     let bundleVersion: String
     let url: URL
     let iconFiles: [String]?
-    var sizeDescription: String?
+    
+    var size: UInt64?
+    static let sizeDispatchQueue = DispatchQueue(label: "com.pop-tap.size", attributes: .concurrent, target: nil)
 
     init?(url: Foundation.URL) {
         guard let contents = try? FileManager.default().contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles]),
@@ -39,26 +41,28 @@ struct Application {
         bundleVersion = aBundleVersion
 
         iconFiles = ((appInfoDict["CFBundleIcons"] as? NSDictionary)?["CFBundlePrimaryIcon"] as? NSDictionary)?["CFBundleIconFiles"] as? [String]
-        
-        // TODO: background calculating
-        let size = directorySize(of: url)
-        sizeDescription = ByteCountFormatter.string(fromByteCount: Int64(size), countStyle: .file)
     }
     
-    private func directorySize(of url: URL) -> UInt64 {
-        var size: UInt64 = 0
-        let filesEnumerator = FileManager.default().enumerator(at: url, includingPropertiesForKeys: nil, options: [], errorHandler: { (url, error) -> Bool in
-            return true
-        })
-        while let fileUrl = filesEnumerator?.nextObject() as? URL {
-            do {
-                let attributes = try FileManager.default().attributesOfItem(atPath: fileUrl.path!) as NSDictionary
-                size += attributes.fileSize()
-            } catch {
-                
+    mutating func calcSize(block: (UInt64) -> Void) {
+        if let size = size {
+            block(size)
+        } else {
+            Application.sizeDispatchQueue.async {
+                var size: UInt64 = 0
+                let filesEnumerator = FileManager.default().enumerator(at: self.url, includingPropertiesForKeys: nil, options: [], errorHandler: { (url, error) -> Bool in
+                    return true
+                })
+                while let fileUrl = filesEnumerator?.nextObject() as? URL {
+                    do {
+                        let attributes = try FileManager.default().attributesOfItem(atPath: fileUrl.path!) as NSDictionary
+                        size += attributes.fileSize()
+                    } catch {
+                        
+                    }
+                }
+                self.size = size
+                block(size)
             }
         }
-        return size
     }
-    
 }

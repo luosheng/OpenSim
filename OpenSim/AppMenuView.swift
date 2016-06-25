@@ -11,7 +11,7 @@ import Cocoa
 
 class AppMenuView: NSView {
     
-    let application: Application
+    var application: Application
     var iconView: NSImageView!
     var nameLabel: NSTextField!
     var bundleLabel: NSTextField!
@@ -54,7 +54,12 @@ class AppMenuView: NSView {
         sizeLabel.textColor = NSColor.secondaryLabelColor()
         sizeLabel.font = NSFont.systemFont(ofSize: 10)
         sizeLabel.frame = NSRect(x: 62, y: 6, width: 148, height: 12)
-        sizeLabel.stringValue = application.sizeDescription ?? ""
+        sizeLabel.stringValue = "Calculating…"
+        application.calcSize { (size) in
+            DispatchQueue.main.async { [weak self] in
+                self?.sizeLabel.stringValue = ByteCountFormatter.string(fromByteCount: Int64(size), countStyle: .file)
+            }
+        }
         addSubview(sizeLabel)
     }
     
