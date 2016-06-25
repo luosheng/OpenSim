@@ -48,6 +48,17 @@ class AppMenuView: NSView {
         }
     }
     
+    override func mouseUp(_ event: NSEvent) {
+        guard let menuItem = self.enclosingMenuItem else {
+            return
+        }
+        menuItem.menu?.cancelTracking()
+        if let action = menuItem.action,
+            target = menuItem.target {
+            NSApp.sendAction(action, to: target, from: menuItem)
+        }
+    }
+    
     private func setupViews() {
         iconView = NSImageView(frame: NSRect(x: 20, y: 9, width: 32, height: 32))
         if let iconFile = application.iconFiles?.last,

@@ -80,7 +80,6 @@ protocol MenuManagerDelegate {
                 appMenuItem.keyEquivalent = ""
                 appMenuItem.isEnabled = true
                 submenu.addItem(appMenuItem)
-//                let appMenuItem = submenu.addItem(withTitle: app.bundleDisplayName, action: #selector(appMenuItemClicked(_:)), keyEquivalent: "")
 //
 //
 //                if (device.state == .Booted) {
