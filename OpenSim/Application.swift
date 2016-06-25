@@ -40,6 +40,7 @@ struct Application {
 
         iconFiles = ((appInfoDict["CFBundleIcons"] as? NSDictionary)?["CFBundlePrimaryIcon"] as? NSDictionary)?["CFBundleIconFiles"] as? [String]
         
+        // TODO: background calculating
         let size = directorySize(of: url)
         sizeDescription = ByteCountFormatter.string(fromByteCount: Int64(size), countStyle: .file)
     }
