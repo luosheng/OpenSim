@@ -13,6 +13,7 @@ class AppMenuView: NSView {
     
     let application: Application
     let iconView: NSImageView
+    var nameLabel: NSTextField!
     
     init(app: Application) {
         application = app
@@ -33,6 +34,21 @@ class AppMenuView: NSView {
         } else {
             iconView.image = NSImage(named: "DefaultAppIcon")?.appIcon()
         }
+        
+        nameLabel = createLabel()
+        nameLabel.font = NSFont.systemFont(ofSize: 11)
+        nameLabel.frame = NSRect(x: 62, y: 32, width: 148, height: 12)
+        nameLabel.stringValue = application.bundleDisplayName
+        addSubview(nameLabel)
+    }
+    
+    private func createLabel() -> NSTextField {
+        let label = NSTextField()
+        label.isBezeled = false
+        label.drawsBackground = false
+        label.isEditable = false
+        label.isSelectable = false
+        return label
     }
     
 }
