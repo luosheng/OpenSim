@@ -11,7 +11,7 @@ import Cocoa
 
 class AppMenuView: NSView {
     
-    var application: Application
+    let application: Application
     var iconView: NSImageView!
     var nameLabel: NSTextField!
     var bundleLabel: NSTextField!

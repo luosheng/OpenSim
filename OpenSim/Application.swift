@@ -9,7 +9,7 @@
 import Foundation
 import Cocoa
 
-struct Application {
+final class Application {
     
     let bundleDisplayName: String
     let bundleID: String
@@ -43,7 +43,7 @@ struct Application {
         iconFiles = ((appInfoDict["CFBundleIcons"] as? NSDictionary)?["CFBundlePrimaryIcon"] as? NSDictionary)?["CFBundleIconFiles"] as? [String]
     }
     
-    mutating func calcSize(block: (UInt64) -> Void) {
+    func calcSize(block: (UInt64) -> Void) {
         if let size = size {
             block(size)
         } else {
