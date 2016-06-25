@@ -54,7 +54,7 @@ class AppMenuView: NSView {
         sizeLabel.textColor = NSColor.secondaryLabelColor()
         sizeLabel.font = NSFont.systemFont(ofSize: 10)
         sizeLabel.frame = NSRect(x: 62, y: 6, width: 148, height: 12)
-        sizeLabel.stringValue = "TBD"
+        sizeLabel.stringValue = application.sizeDescription ?? ""
         addSubview(sizeLabel)
     }
     
