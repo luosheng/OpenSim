@@ -18,6 +18,7 @@
 		B3A1E3301BF05F980090EC58 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1E32F1BF05F980090EC58 /* DeviceManager.swift */; };
 		B3A1E3321BF062C40090EC58 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1E3311BF062C40090EC58 /* Device.swift */; };
 		B3A1E3341BF0709A0090EC58 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1E3331BF0709A0090EC58 /* URLHelper.swift */; };
+		B3A31ACA1D1EA1C300F06564 /* AppMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A31AC91D1EA1C300F06564 /* AppMenuView.swift */; };
 		B3CB095A1BF0D9890023C3E0 /* DeviceApplicationPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CB09591BF0D9890023C3E0 /* DeviceApplicationPair.swift */; };
 		B3D188E91BF436480064E851 /* Runtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D188E81BF436480064E851 /* Runtime.swift */; };
 		B3E67B5E1CA412BD00744B38 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E67B5D1CA412BD00744B38 /* MenuManager.swift */; };
@@ -39,6 +40,7 @@
 		B3A1E32F1BF05F980090EC58 /* DeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
 		B3A1E3311BF062C40090EC58 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		B3A1E3331BF0709A0090EC58 /* URLHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLHelper.swift; sourceTree = "<group>"; };
+		B3A31AC91D1EA1C300F06564 /* AppMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppMenuView.swift; sourceTree = "<group>"; };
 		B3CB09591BF0D9890023C3E0 /* DeviceApplicationPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceApplicationPair.swift; sourceTree = "<group>"; };
 		B3D188E81BF436480064E851 /* Runtime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Runtime.swift; sourceTree = "<group>"; };
 		B3E67B5D1CA412BD00744B38 /* MenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				B3E67B5D1CA412BD00744B38 /* MenuManager.swift */,
+				B3A31AC91D1EA1C300F06564 /* AppMenuView.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				B3D188E91BF436480064E851 /* Runtime.swift in Sources */,
 				B3054E181BF381CE00F433C2 /* FileInfo.swift in Sources */,
 				B3E67B5E1CA412BD00744B38 /* MenuManager.swift in Sources */,
+				B3A31ACA1D1EA1C300F06564 /* AppMenuView.swift in Sources */,
 				B3A1E3301BF05F980090EC58 /* DeviceManager.swift in Sources */,
 				B3A1E3231BF049690090EC58 /* AppDelegate.swift in Sources */,
 				B3054E1A1BF3958500F433C2 /* DirectoryWatcher.swift in Sources */,

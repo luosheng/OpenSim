@@ -71,27 +71,31 @@ protocol MenuManagerDelegate {
 
             let submenu = NSMenu()
             device.applications.forEach { app in
-                let appMenuItem = submenu.addItem(withTitle: app.bundleDisplayName, action: #selector(appMenuItemClicked(_:)), keyEquivalent: "")
-                appMenuItem.representedObject = DeviceApplicationPair(device: device, application: app)
-                appMenuItem.target = self
-
-                if let iconFile = app.iconFiles?.last,
-                    bundle = Bundle(url: app.url) {
-                    appMenuItem.image = bundle.image(forResource: iconFile)?.appIcon()
-                } else {
-                    appMenuItem.image = NSImage(named: "DefaultAppIcon")?.appIcon()
-                }
-
-                if (device.state == .Booted) {
-                    let controlItem = submenu.addItem(withTitle: "Uninstall \(app.bundleDisplayName)", action: #selector(appMenuItemClicked(_:)), keyEquivalent: "")
-                    controlItem.representedObject = DeviceApplicationPair(device: device, application: app)
-                    controlItem.target = self
-
-                    controlItem.isAlternate = true
-                    controlItem.keyEquivalentModifierMask = NSEventModifierFlags.control
-                }
-                deviceMenuItem.submenu = submenu
+                let appMenuView = AppMenuView(frame: NSRect(x: 0, y: 0, width: 220, height: 50))
+                let appMenuItem = NSMenuItem()
+                appMenuItem.view = appMenuView
+                submenu.addItem(appMenuItem)
+//                let appMenuItem = submenu.addItem(withTitle: app.bundleDisplayName, action: #selector(appMenuItemClicked(_:)), keyEquivalent: "")
+//                appMenuItem.representedObject = DeviceApplicationPair(device: device, application: app)
+//                appMenuItem.target = self
+//
+//                if let iconFile = app.iconFiles?.last,
+//                    bundle = Bundle(url: app.url) {
+//                    appMenuItem.image = bundle.image(forResource: iconFile)?.appIcon()
+//                } else {
+//                    appMenuItem.image = NSImage(named: "DefaultAppIcon")?.appIcon()
+//                }
+//
+//                if (device.state == .Booted) {
+//                    let controlItem = submenu.addItem(withTitle: "Uninstall \(app.bundleDisplayName)", action: #selector(appMenuItemClicked(_:)), keyEquivalent: "")
+//                    controlItem.representedObject = DeviceApplicationPair(device: device, application: app)
+//                    controlItem.target = self
+//
+//                    controlItem.isAlternate = true
+//                    controlItem.keyEquivalentModifierMask = NSEventModifierFlags.control
+//                }
             }
+            deviceMenuItem.submenu = submenu
         }
 
         menu.addItem(NSMenuItem.separator())
