@@ -74,10 +74,13 @@ protocol MenuManagerDelegate {
                 let appMenuView = AppMenuView(app: app)
                 let appMenuItem = NSMenuItem()
                 appMenuItem.view = appMenuView
+                appMenuItem.representedObject = DeviceApplicationPair(device: device, application: app)
+                appMenuItem.target = self
+                appMenuItem.action = #selector(appMenuItemClicked(_:))
+                appMenuItem.keyEquivalent = ""
+                appMenuItem.isEnabled = true
                 submenu.addItem(appMenuItem)
 //                let appMenuItem = submenu.addItem(withTitle: app.bundleDisplayName, action: #selector(appMenuItemClicked(_:)), keyEquivalent: "")
-//                appMenuItem.representedObject = DeviceApplicationPair(device: device, application: app)
-//                appMenuItem.target = self
 //
 //
 //                if (device.state == .Booted) {

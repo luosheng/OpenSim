@@ -20,11 +20,32 @@ class AppMenuView: NSView {
     init(app: Application) {
         application = app
         super.init(frame: NSRect(x: 0, y: 0, width: 220, height: 50))
+        
         setupViews()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func acceptsFirstMouse(_ event: NSEvent?) -> Bool {
+        return true
+    }
+    
+    override var allowsVibrancy: Bool {
+        return true
+    }
+    
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+        if let highlighted = self.enclosingMenuItem?.isHighlighted {
+            if highlighted {
+                NSColor.controlHighlightColor().set()
+            } else {
+                NSColor.clear().set()
+            }
+            NSRectFill(bounds)
+        }
     }
     
     private func setupViews() {
