@@ -32,8 +32,22 @@ struct Device {
         
         let applicationPath = try! URLHelper.deviceURLForUDID(self.UDID).appendingPathComponent("data/Containers/Bundle/Application")
         do {
-            let contents = try FileManager.default().contentsOfDirectory(at: applicationPath, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
-            self.applications = contents.map { Application(url: $0) }.filter { $0 != nil }.map { $0! }
+            let contents = try FileManager.default().contentsOfDirectory(at: applicationPath, includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
+            self.applications = contents
+                .filter({ (url) -> Bool in
+                    var isDirectoryObj: AnyObject?
+                    do {
+                        try (url as NSURL).getResourceValue(&isDirectoryObj, forKey: URLResourceKey.isDirectoryKey)
+                        if let isDirectory = isDirectoryObj as? Bool where isDirectory {
+                            return true
+                        }
+                    } catch {
+                    }
+                    return false
+                })
+                .map { Application(url: $0) }
+                .filter { $0 != nil }
+                .map { $0! }
         } catch {
             self.applications = []
         }
