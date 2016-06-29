@@ -18,7 +18,13 @@ struct Application {
     
     init?(URL: NSURL) {
         self.URL = URL
-        let contents = try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(URL, includingPropertiesForKeys: nil, options: [.SkipsSubdirectoryDescendants, .SkipsHiddenFiles])
+
+        let fm = NSFileManager.defaultManager()
+
+        guard let contents = try? fm.contentsOfDirectoryAtURL(URL, includingPropertiesForKeys: nil, options: [.SkipsSubdirectoryDescendants, .SkipsHiddenFiles]) else {
+            return nil
+        }
+
         guard let appInfoPath = contents.last?.URLByAppendingPathComponent("Info.plist"),
             appInfoDict = NSDictionary(contentsOfURL: appInfoPath),
             aBundleID = appInfoDict["CFBundleIdentifier"] as? String,
