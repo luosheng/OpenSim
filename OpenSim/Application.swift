@@ -18,20 +18,18 @@ struct Application {
     let iconFiles: [String]?
 
     init?(url: Foundation.URL) {
-        let contents = try! FileManager.default().contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
-        guard let url = contents.last else {
-            // If no ".app" directory is detected
-            return nil
-        }
-        self.url = url
-        guard let appInfoPath = try! contents.last?.appendingPathComponent("Info.plist"),
+        guard let contents = try? FileManager.default().contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles]),
+            url = contents.last, // url ".app" diretory
+            appInfoPath = try? url.appendingPathComponent("Info.plist"),
             appInfoDict = NSDictionary(contentsOf: appInfoPath),
             aBundleID = appInfoDict["CFBundleIdentifier"] as? String,
             aBundleDisplayName = (appInfoDict["CFBundleDisplayName"] as? String) ?? (appInfoDict["CFBundleName"] as? String),
             aBundleShortVersion = appInfoDict["CFBundleShortVersionString"] as? String,
             aBundleVersion = appInfoDict["CFBundleInfoDictionaryVersion"] as? String else {
-                return nil
+            return nil
         }
+
+        self.url = url
         
         bundleDisplayName = aBundleDisplayName
         bundleID = aBundleID
