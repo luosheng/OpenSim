@@ -40,6 +40,7 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
         super.init(frame: NSRect(x: 0, y: 0, width: 220, height: 50))
         
         setupViews()
+        updateViews()
     }
     
     required init?(coder: NSCoder) {
@@ -97,7 +98,6 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
         bundleLabel.textColor = NSColor.secondaryLabelColor()
         bundleLabel.font = NSFont.systemFont(ofSize: 10)
         bundleLabel.frame = NSRect(x: 62, y: 19, width: 148, height: 12)
-        bundleLabel.stringValue = application.bundleID
         addSubview(bundleLabel)
         
         sizeLabel = createLabel()
@@ -111,6 +111,25 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
             }
         }
         addSubview(sizeLabel)
+    }
+
+    private func updateViews() {
+        if let flag = lastFlag {
+            if flag == .control {
+                setUninstallState()
+                return
+            }
+            setDefaultState()
+        }
+        setDefaultState()
+    }
+
+    private func setDefaultState() {
+        bundleLabel.stringValue = application.bundleID
+    }
+
+    private func setUninstallState() {
+        bundleLabel.stringValue = "Uninstall \(application.bundleDisplayName)"
     }
     
     private func createLabel() -> NSTextField {
@@ -128,6 +147,10 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
             return
         }
         lastFlag = flag
+
+        DispatchQueue.main.async { 
+            self.updateViews()
+        }
     }
     
 }
