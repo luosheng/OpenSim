@@ -16,7 +16,7 @@ protocol MenuManagerDelegate {
     func shouldUninstallContianer(_ pair: DeviceApplicationPair)
 }
 
-@objc final class MenuManager: NSObject {
+@objc final class MenuManager: NSObject, NSMenuDelegate {
     
     let statusItem: NSStatusItem
     
@@ -27,6 +27,8 @@ protocol MenuManagerDelegate {
     var block: dispatch_cancelable_block_t?
     
     var delegate: MenuManagerDelegate?
+
+    var menuObserver: CFRunLoopObserver?
     
     override init() {
         statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
@@ -70,6 +72,7 @@ protocol MenuManagerDelegate {
             deviceMenuItem.state = device.state == .Booted ? NSOnState : NSOffState
 
             let submenu = NSMenu()
+            submenu.delegate = self
             device.applications.forEach { app in
                 let appMenuView = AppMenuView(app: app)
                 let appMenuItem = NSMenuItem()
@@ -165,6 +168,22 @@ protocol MenuManagerDelegate {
                 // open the app directory
                 delegate?.shouldOpenContainer(pair)
             }
+        }
+    }
+
+    // MARK: - NSMenuDelegate
+
+    func menuWillOpen(_ menu: NSMenu) {
+        menuObserver =  CFRunLoopObserverCreateWithHandler(nil, CFRunLoopActivity.beforeWaiting.rawValue, true, 0) { (observer, activity) in
+            
+        }
+        CFRunLoopAddObserver(CFRunLoopGetCurrent(), menuObserver, CFRunLoopMode(RunLoopMode.commonModes))
+    }
+
+    func menuDidClose(_ menu: NSMenu) {
+        if let menuObserver = menuObserver {
+            CFRunLoopObserverInvalidate(menuObserver)
+            self.menuObserver = nil
         }
     }
     
