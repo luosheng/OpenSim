@@ -41,6 +41,7 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
         
         setupViews()
         updateViews()
+        addTrackingArea(NSTrackingArea(rect: bounds, options: [.mouseEnteredAndExited, .activeAlways], owner: self, userInfo: nil))
     }
     
     required init?(coder: NSCoder) {
@@ -76,6 +77,11 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
             target = menuItem.target {
             NSApp.sendAction(action, to: target, from: menuItem)
         }
+    }
+
+    override func mouseExited(_ event: NSEvent) {
+        lastFlag = nil
+        setDefaultState()
     }
     
     private func setupViews() {
