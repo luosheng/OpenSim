@@ -175,7 +175,9 @@ protocol MenuManagerDelegate {
 
     func menuWillOpen(_ menu: NSMenu) {
         menuObserver =  CFRunLoopObserverCreateWithHandler(nil, CFRunLoopActivity.beforeWaiting.rawValue, true, 0) { (observer, activity) in
-            
+            if let view = menu.highlightedItem?.view as? ModifyFlagsResponsive {
+                view.processModifyFlags(flags: NSEvent.modifierFlags())
+            }
         }
         CFRunLoopAddObserver(CFRunLoopGetCurrent(), menuObserver, CFRunLoopMode(RunLoopMode.commonModes))
     }

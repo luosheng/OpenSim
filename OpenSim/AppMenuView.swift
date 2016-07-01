@@ -9,13 +9,31 @@
 import Foundation
 import Cocoa
 
-class AppMenuView: NSView {
+protocol ModifyFlagsResponsive {
+
+    var lastFlag: NSEventModifierFlags? { get set }
+
+    func processModifyFlags(flags: NSEventModifierFlags)
+
+}
+
+extension ModifyFlagsResponsive {
+
+    func extractFlag(flags: NSEventModifierFlags) -> NSEventModifierFlags? {
+        let sequence: [NSEventModifierFlags] = [.control, .shift,. option]
+        return sequence.first { flags.contains($0) }
+    }
+
+}
+
+class AppMenuView: NSView, ModifyFlagsResponsive {
     
     let application: Application
     var iconView: NSImageView!
     var nameLabel: NSTextField!
     var bundleLabel: NSTextField!
     var sizeLabel: NSTextField!
+    var lastFlag: NSEventModifierFlags?
     
     init(app: Application) {
         application = app
@@ -102,6 +120,14 @@ class AppMenuView: NSView {
         label.isEditable = false
         label.isSelectable = false
         return label
+    }
+
+    func processModifyFlags(flags: NSEventModifierFlags) {
+        let flag = extractFlag(flags: flags)
+        guard flag != lastFlag else {
+            return
+        }
+        lastFlag = flag
     }
     
 }
