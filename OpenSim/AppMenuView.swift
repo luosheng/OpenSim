@@ -31,7 +31,7 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
     let application: Application
     var iconView: NSImageView!
     var nameLabel: NSTextField!
-    var bundleLabel: NSTextField!
+    var detailedLabel: NSTextField!
     var sizeLabel: NSTextField!
     var lastFlag: NSEventModifierFlags?
     
@@ -94,11 +94,11 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
         nameLabel.stringValue = application.bundleDisplayName
         addSubview(nameLabel)
         
-        bundleLabel = createLabel()
-        bundleLabel.textColor = NSColor.secondaryLabelColor()
-        bundleLabel.font = NSFont.systemFont(ofSize: 10)
-        bundleLabel.frame = NSRect(x: 62, y: 19, width: 148, height: 12)
-        addSubview(bundleLabel)
+        detailedLabel = createLabel()
+        detailedLabel.textColor = NSColor.secondaryLabelColor()
+        detailedLabel.font = NSFont.systemFont(ofSize: 10)
+        detailedLabel.frame = NSRect(x: 62, y: 19, width: 148, height: 12)
+        addSubview(detailedLabel)
         
         sizeLabel = createLabel()
         sizeLabel.textColor = NSColor.secondaryLabelColor()
@@ -125,11 +125,11 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
     }
 
     private func setDefaultState() {
-        bundleLabel.stringValue = application.bundleID
+        detailedLabel.stringValue = application.bundleID
     }
 
     private func setUninstallState() {
-        bundleLabel.stringValue = "Uninstall \(application.bundleDisplayName)"
+        detailedLabel.stringValue = "Uninstall \(application.bundleDisplayName)"
     }
     
     private func createLabel() -> NSTextField {
