@@ -83,16 +83,6 @@ protocol MenuManagerDelegate {
                 appMenuItem.keyEquivalent = ""
                 appMenuItem.isEnabled = true
                 submenu.addItem(appMenuItem)
-//
-//
-//                if (device.state == .Booted) {
-//                    let controlItem = submenu.addItem(withTitle: "Uninstall \(app.bundleDisplayName)", action: #selector(appMenuItemClicked(_:)), keyEquivalent: "")
-//                    controlItem.representedObject = DeviceApplicationPair(device: device, application: app)
-//                    controlItem.target = self
-//
-//                    controlItem.isAlternate = true
-//                    controlItem.keyEquivalentModifierMask = NSEventModifierFlags.control
-//                }
             }
             deviceMenuItem.submenu = submenu
         }
