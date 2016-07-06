@@ -22,7 +22,7 @@ final class Application {
     static let sizeDispatchQueue = DispatchQueue(label: "com.pop-tap.size", attributes: .concurrent, target: nil)
 
     init?(url: Foundation.URL) {
-        guard let contents = try? FileManager.default().contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles]),
+        guard let contents = try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles]),
             url = contents.last, // url ".app" diretory
             appInfoPath = try? url.appendingPathComponent("Info.plist"),
             appInfoDict = NSDictionary(contentsOf: appInfoPath),
@@ -49,12 +49,12 @@ final class Application {
         } else {
             Application.sizeDispatchQueue.async {
                 var size: UInt64 = 0
-                let filesEnumerator = FileManager.default().enumerator(at: self.url, includingPropertiesForKeys: nil, options: [], errorHandler: { (url, error) -> Bool in
+                let filesEnumerator = FileManager.default.enumerator(at: self.url, includingPropertiesForKeys: nil, options: [], errorHandler: { (url, error) -> Bool in
                     return true
                 })
                 while let fileUrl = filesEnumerator?.nextObject() as? URL {
                     do {
-                        let attributes = try FileManager.default().attributesOfItem(atPath: fileUrl.path!) as NSDictionary
+                        let attributes = try FileManager.default.attributesOfItem(atPath: fileUrl.path!) as NSDictionary
                         size += attributes.fileSize()
                     } catch {
                         

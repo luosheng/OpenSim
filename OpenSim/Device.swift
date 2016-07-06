@@ -32,7 +32,7 @@ struct Device {
 
         do {
             let applicationPath = try URLHelper.deviceURLForUDID(self.UDID).appendingPathComponent("data/Containers/Bundle/Application")
-            let contents = try FileManager.default().contentsOfDirectory(at: applicationPath, includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
+            let contents = try FileManager.default.contentsOfDirectory(at: applicationPath, includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
             self.applications = contents
                 .filter({ (url) -> Bool in
                     var isDirectoryObj: AnyObject?
@@ -62,7 +62,7 @@ struct Device {
     func containerURLForApplication(_ application: Application) -> URL? {
         let URL = URLHelper.containersURLForUDID(UDID)
         do {
-            let directories = try FileManager.default().contentsOfDirectory(at: URL, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants)
+            let directories = try FileManager.default.contentsOfDirectory(at: URL, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants)
             if let matchingURL = directories.filter({ dir -> Bool in
                 do {
                     if let contents = NSDictionary(contentsOf: try dir.appendingPathComponent(".com.apple.mobile_container_manager.metadata.plist")),

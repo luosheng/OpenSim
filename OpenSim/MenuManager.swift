@@ -110,7 +110,7 @@ protocol MenuManagerDelegate {
     private func buildSubWatchers() {
         subWatchers?.forEach { $0?.stop() }
         do {
-            let deviceDirectories = try FileManager.default().contentsOfDirectory(at: URLHelper.deviceURL as URL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .skipsSubdirectoryDescendants)
+            let deviceDirectories = try FileManager.default.contentsOfDirectory(at: URLHelper.deviceURL as URL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .skipsSubdirectoryDescendants)
             subWatchers = deviceDirectories.map(createSubWatcherForURL)
         } catch {
             

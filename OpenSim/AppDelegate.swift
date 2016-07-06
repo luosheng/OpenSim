@@ -27,7 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuManagerDelegate {
     
     func shouldOpenContainer(_ pair: DeviceApplicationPair) {
         guard let URL = pair.device.containerURLForApplication(pair.application),
-            path = URL.path where FileManager.default().fileExists(atPath: path) else {
+            path = URL.path where FileManager.default.fileExists(atPath: path) else {
                 return
         }
         
