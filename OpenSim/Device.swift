@@ -38,7 +38,7 @@ struct Device {
                     var isDirectoryObj: AnyObject?
                     do {
                         try (url as NSURL).getResourceValue(&isDirectoryObj, forKey: URLResourceKey.isDirectoryKey)
-                        if let isDirectory = isDirectoryObj as? Bool where isDirectory {
+                        if let isDirectory = isDirectoryObj as? Bool , isDirectory {
                             return true
                         }
                     } catch {
@@ -66,8 +66,7 @@ struct Device {
             if let matchingURL = directories.filter({ dir -> Bool in
                 do {
                     if let contents = NSDictionary(contentsOf: try dir.appendingPathComponent(".com.apple.mobile_container_manager.metadata.plist")),
-                        identifier = contents["MCMMetadataIdentifier"] as? String
-                        where identifier == application.bundleID {
+                        let identifier = contents["MCMMetadataIdentifier"] as? String, identifier == application.bundleID {
                         return true
                     }
                 } catch{

@@ -23,13 +23,13 @@ final class Application {
 
     init?(url: Foundation.URL) {
         guard let contents = try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles]),
-            url = contents.last, // url ".app" diretory
-            appInfoPath = try? url.appendingPathComponent("Info.plist"),
-            appInfoDict = NSDictionary(contentsOf: appInfoPath),
-            aBundleID = appInfoDict["CFBundleIdentifier"] as? String,
-            aBundleDisplayName = (appInfoDict["CFBundleDisplayName"] as? String) ?? (appInfoDict["CFBundleName"] as? String),
-            aBundleShortVersion = appInfoDict["CFBundleShortVersionString"] as? String,
-            aBundleVersion = appInfoDict["CFBundleInfoDictionaryVersion"] as? String else {
+            let url = contents.last, // url ".app" diretory
+            let appInfoPath = try? url.appendingPathComponent("Info.plist"),
+            let appInfoDict = NSDictionary(contentsOf: appInfoPath),
+            let aBundleID = appInfoDict["CFBundleIdentifier"] as? String,
+            let aBundleDisplayName = (appInfoDict["CFBundleDisplayName"] as? String) ?? (appInfoDict["CFBundleName"] as? String),
+            let aBundleShortVersion = appInfoDict["CFBundleShortVersionString"] as? String,
+            let aBundleVersion = appInfoDict["CFBundleInfoDictionaryVersion"] as? String else {
             return nil
         }
 

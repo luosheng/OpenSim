@@ -74,7 +74,7 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
         }
         menuItem.menu?.cancelTracking()
         if let action = menuItem.action,
-            target = menuItem.target {
+            let target = menuItem.target {
             NSApp.sendAction(action, to: target, from: menuItem)
         }
     }
@@ -87,7 +87,7 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
     private func setupViews() {
         iconView = NSImageView(frame: NSRect(x: 20, y: 9, width: 32, height: 32))
         if let iconFile = application.iconFiles?.last,
-            bundle = Bundle(url: application.url) {
+            let bundle = Bundle(url: application.url) {
             iconView.image = bundle.image(forResource: iconFile)?.appIcon()
         } else {
             iconView.image = NSImage(named: "DefaultAppIcon")?.appIcon()

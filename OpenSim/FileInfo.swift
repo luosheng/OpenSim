@@ -46,10 +46,10 @@ struct FileInfo {
             try (URL as NSURL).getResourceValue(&fileSizeObj, forKey: URLResourceKey.fileSizeKey)
             
             guard let name = nameObj as? String,
-                isDirectory = isDirectoryObj as? Bool,
-                creationDate = creationDateObj as? Date,
-                modificationDate = modificationDateObj as? Date,
-                fileSize = isDirectory ? 0 : fileSizeObj as? Int else {
+                let isDirectory = isDirectoryObj as? Bool,
+                let creationDate = creationDateObj as? Date,
+                let modificationDate = modificationDateObj as? Date,
+                let fileSize = isDirectory ? 0 : fileSizeObj as? Int else {
                     throw Error.invalidProperty
             }
             self.name = name

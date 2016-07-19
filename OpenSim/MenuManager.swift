@@ -118,7 +118,7 @@ protocol MenuManagerDelegate {
     }
     
     private func createSubWatcherForURL(_ URL: Foundation.URL) -> DirectoryWatcher? {
-        guard let info = FileInfo(URL: URL) where info.isDirectory else {
+        guard let info = FileInfo(URL: URL), info.isDirectory else {
             return nil
         }
         let watcher = DirectoryWatcher(in: URL)
@@ -148,7 +148,7 @@ protocol MenuManagerDelegate {
     func appMenuItemClicked(_ sender: AnyObject) {
         if let pair = sender.representedObject as? DeviceApplicationPair {
             // if control click
-            if let event = NSApp.currentEvent where event.modifierFlags.contains(.control) {
+            if let event = NSApp.currentEvent, event.modifierFlags.contains(.control) {
                 delegate?.shouldUninstallContianer(pair)
                 
                 // rebuild menu
