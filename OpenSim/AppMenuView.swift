@@ -48,7 +48,7 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func acceptsFirstMouse(_ event: NSEvent?) -> Bool {
+    override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
         return true
     }
     
@@ -68,7 +68,7 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
         }
     }
     
-    override func mouseUp(_ event: NSEvent) {
+    override func mouseUp(with event: NSEvent) {
         guard let menuItem = self.enclosingMenuItem else {
             return
         }
@@ -79,7 +79,7 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
         }
     }
 
-    override func mouseExited(_ event: NSEvent) {
+    override func mouseExited(with event: NSEvent) {
         lastFlag = nil
         setDefaultState()
     }
