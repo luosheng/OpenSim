@@ -60,9 +60,9 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
         super.draw(dirtyRect)
         if let highlighted = self.enclosingMenuItem?.isHighlighted {
             if highlighted {
-                NSColor.controlHighlightColor().set()
+                NSColor.controlHighlightColor.set()
             } else {
-                NSColor.clear().set()
+                NSColor.clear.set()
             }
             NSRectFill(bounds)
         }
@@ -101,13 +101,13 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
         addSubview(nameLabel)
         
         detailedLabel = createLabel()
-        detailedLabel.textColor = NSColor.secondaryLabelColor()
+        detailedLabel.textColor = NSColor.secondaryLabelColor
         detailedLabel.font = NSFont.systemFont(ofSize: 10)
         detailedLabel.frame = NSRect(x: 62, y: 19, width: 148, height: 12)
         addSubview(detailedLabel)
         
         sizeLabel = createLabel()
-        sizeLabel.textColor = NSColor.secondaryLabelColor()
+        sizeLabel.textColor = NSColor.secondaryLabelColor
         sizeLabel.font = NSFont.systemFont(ofSize: 10)
         sizeLabel.frame = NSRect(x: 62, y: 6, width: 148, height: 12)
         sizeLabel.stringValue = "Calculating…"
