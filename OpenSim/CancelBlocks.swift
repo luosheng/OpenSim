@@ -19,7 +19,7 @@ func dispatch_block_t(_ delay: TimeInterval, block: () -> Void) -> dispatch_canc
         cancelableBlock = nil
     }
     cancelableBlock = delayBlock
-    DispatchQueue.main.after(when: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
         if let cancelableBlock = cancelableBlock {
             cancelableBlock(cancelled: false)
         }

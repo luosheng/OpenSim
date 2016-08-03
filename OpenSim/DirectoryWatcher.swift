@@ -19,7 +19,8 @@ public class DirectoryWatcher {
     var watchedURL: URL
     let eventMask: DispatchSource.FileSystemEvent
     public var completionCallback: CompletionCallback?
-    private let queue = DispatchQueue(label: "com.pop-tap.directory-watcher", attributes: DispatchQueueAttributes.serial)
+//    private let queue = DispatchQueue(label: "com.pop-tap.directory-watcher", attributes: DispatchQueueAttributes.serial)
+    private let queue = DispatchQueue(label: "com.pop-tap.directory-watcher")
     private var source: DispatchSourceFileSystemObject?
     private var directoryChanging = false
     private var oldDirectoryInfo = [FileInfo?]()
