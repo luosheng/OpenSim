@@ -18,7 +18,7 @@ struct FileInfo {
         URLResourceKey.fileSizeKey,
     ].map { $0.rawValue }
     
-    private enum Error: ErrorProtocol {
+    private enum FileInfoError: Error {
         case invalidProperty
     }
     
@@ -50,7 +50,7 @@ struct FileInfo {
                 let creationDate = creationDateObj as? Date,
                 let modificationDate = modificationDateObj as? Date,
                 let fileSize = isDirectory ? 0 : fileSizeObj as? Int else {
-                    throw Error.invalidProperty
+                    throw FileInfoError.invalidProperty
             }
             self.name = name
             self.isDirectory = isDirectory

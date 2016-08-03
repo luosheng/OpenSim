@@ -10,7 +10,7 @@ import Foundation
 
 public class DirectoryWatcher {
     
-    enum Error: ErrorProtocol {
+    enum IOError: Error {
         case cannotOpenPath
     }
     
@@ -44,7 +44,7 @@ public class DirectoryWatcher {
         
         let fd = open((path as NSString).fileSystemRepresentation, O_EVTONLY)
         guard fd >= 0 else {
-            throw Error.cannotOpenPath
+            throw IOError.cannotOpenPath
         }
         
         source = DispatchSource.fileSystemObject(fileDescriptor: fd, eventMask: eventMask, queue: queue)
