@@ -54,7 +54,7 @@ final class Application {
                 })
                 while let fileUrl = filesEnumerator?.nextObject() as? URL {
                     do {
-                        let attributes = try FileManager.default.attributesOfItem(atPath: fileUrl.path!) as NSDictionary
+                        let attributes = try FileManager.default.attributesOfItem(atPath: fileUrl.path) as NSDictionary
                         size += attributes.fileSize()
                     } catch {
                         

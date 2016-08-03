@@ -39,9 +39,7 @@ public class DirectoryWatcher {
             return
         }
         
-        guard let path = watchedURL.path else {
-            return
-        }
+        let path = watchedURL.path
         
         let fd = open((path as NSString).fileSystemRepresentation, O_EVTONLY)
         guard fd >= 0 else {
