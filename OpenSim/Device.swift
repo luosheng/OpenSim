@@ -32,7 +32,7 @@ struct Device {
 
         do {
             let applicationPath = try URLHelper.deviceURLForUDID(self.UDID).appendingPathComponent("data/Containers/Bundle/Application")
-            let contents = try FileManager.default.contentsOfDirectory(at: applicationPath, includingPropertiesForKeys: [URLResourceKey.isDirectoryKey.rawValue], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
+            let contents = try FileManager.default.contentsOfDirectory(at: applicationPath, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
             self.applications = contents
                 .filter({ (url) -> Bool in
                     var isDirectoryObj: AnyObject?

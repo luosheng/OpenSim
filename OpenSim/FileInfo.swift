@@ -10,13 +10,13 @@ import Foundation
 
 struct FileInfo {
     
-    static let prefetchedProperties = [
-        URLResourceKey.nameKey,
-        URLResourceKey.isDirectoryKey,
-        URLResourceKey.creationDateKey,
-        URLResourceKey.contentModificationDateKey,
-        URLResourceKey.fileSizeKey,
-    ].map { $0.rawValue }
+    static let prefetchedProperties: [URLResourceKey] = [
+        .nameKey,
+        .isDirectoryKey,
+        .creationDateKey,
+        .contentModificationDateKey,
+        .fileSizeKey,
+    ]
     
     private enum FileInfoError: Error {
         case invalidProperty
