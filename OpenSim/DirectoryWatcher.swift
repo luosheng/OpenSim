@@ -19,9 +19,7 @@ public class DirectoryWatcher {
     var watchedURL: URL
     let eventMask: DispatchSource.FileSystemEvent
     public var completionCallback: CompletionCallback?
-//    private let queue = DispatchQueue(label: "com.pop-tap.directory-watcher", attributes: DispatchQueueAttributes.serial)
-    private let queue = DispatchQueue(label: "com.pop-tap.directory-watcher")
-    private var source: DispatchSourceFileSystemObject?
+    private var source: DispatchSourceFileSystemObject!
     private var directoryChanging = false
     private var oldDirectoryInfo = [FileInfo?]()
     
@@ -46,21 +44,20 @@ public class DirectoryWatcher {
             throw IOError.cannotOpenPath
         }
         
-        source = DispatchSource.fileSystemObject(fileDescriptor: fd, eventMask: eventMask, queue: queue)
-        
-        source?.setEventHandler { [weak self] in
+        source = DispatchSource.makeFileSystemObjectSource(fileDescriptor: fd, eventMask: eventMask)
+        source.setEventHandler { [weak self] in
             self?.waitForDirectoryToFinishChanging()
         }
         
-        source?.setCancelHandler {
+        source.setCancelHandler {
             close(fd)
         }
         
-        source?.resume()
+        source.resume()
     }
     
     public func stop() {
-        source?.cancel()
+        source.cancel()
     }
     
     private func waitForDirectoryToFinishChanging() {
