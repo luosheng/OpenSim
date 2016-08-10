@@ -23,24 +23,24 @@ struct URLHelper {
                 // FIXME: Should throw an error instead
                 return URL(fileURLWithPath: "/")
             }
-            return try! URL(fileURLWithPath: libraryPath).appendingPathComponent(devicesPathComponent)
+            return URL(fileURLWithPath: libraryPath).appendingPathComponent(devicesPathComponent)
         }
     }
     
     static var deviceSetURL: URL {
-        return try! self.deviceURL.appendingPathComponent(deviceSetFileName)
+        return self.deviceURL.appendingPathComponent(deviceSetFileName)
     }
     
     static func deviceURLForUDID(_ UDID: String) -> URL {
-        return try! deviceURL.appendingPathComponent(UDID)
+        return deviceURL.appendingPathComponent(UDID)
     }
     
     static func applicationStateURLForUDID(_ UDID: String) -> URL {
-        return try! deviceURLForUDID(UDID).appendingPathComponent(applicationStatesComponent)
+        return deviceURLForUDID(UDID).appendingPathComponent(applicationStatesComponent)
     }
     
     static func containersURLForUDID(_ UDID: String) -> URL {
-        return try! deviceURLForUDID(UDID).appendingPathComponent(containersComponent, isDirectory: true)
+        return deviceURLForUDID(UDID).appendingPathComponent(containersComponent, isDirectory: true)
     }
     
 }
