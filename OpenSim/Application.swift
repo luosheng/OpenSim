@@ -48,7 +48,7 @@ final class Application {
         iconFiles = ((appInfoDict["CFBundleIcons"] as? NSDictionary)?["CFBundlePrimaryIcon"] as? NSDictionary)?["CFBundleIconFiles"] as? [String]
     }
     
-    func calcSize(block: (UInt64) -> Void) {
+    func calcSize(block: @escaping (UInt64) -> Void) {
         if let size = size {
             block(size)
         } else {

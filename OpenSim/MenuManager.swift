@@ -169,7 +169,7 @@ protocol MenuManagerDelegate {
                 view.processModifyFlags(flags: NSEvent.modifierFlags())
             }
         }
-        CFRunLoopAddObserver(CFRunLoopGetCurrent(), menuObserver, CFRunLoopMode(RunLoopMode.commonModes))
+        CFRunLoopAddObserver(CFRunLoopGetCurrent(), menuObserver, CFRunLoopMode.commonModes)
     }
 
     func menuDidClose(_ menu: NSMenu) {

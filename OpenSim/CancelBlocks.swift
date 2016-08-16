@@ -8,9 +8,9 @@
 
 import Foundation
 
-typealias dispatch_cancelable_block_t = (cancelled: Bool) -> ()
+typealias dispatch_cancelable_block_t = (_ cancelled: Bool) -> ()
 
-func dispatch_block_t(_ delay: TimeInterval, block: () -> Void) -> dispatch_cancelable_block_t {
+func dispatch_block_t(_ delay: TimeInterval, block: @escaping () -> Void) -> dispatch_cancelable_block_t {
     var cancelableBlock: dispatch_cancelable_block_t? = nil
     let delayBlock: dispatch_cancelable_block_t = { (cancelled: Bool) in
         if (!cancelled) {
@@ -21,7 +21,7 @@ func dispatch_block_t(_ delay: TimeInterval, block: () -> Void) -> dispatch_canc
     cancelableBlock = delayBlock
     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
         if let cancelableBlock = cancelableBlock {
-            cancelableBlock(cancelled: false)
+            cancelableBlock(false)
         }
     }
     return delayBlock
@@ -29,6 +29,6 @@ func dispatch_block_t(_ delay: TimeInterval, block: () -> Void) -> dispatch_canc
 
 func dispatch_cancel_block_t(_ block: dispatch_cancelable_block_t?) {
     if let block = block {
-        block(cancelled: true)
+        block(true)
     }
 }

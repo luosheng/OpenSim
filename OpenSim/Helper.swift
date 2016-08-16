@@ -10,13 +10,13 @@ import Foundation
 
 func shell(_ launchPath: String, arguments: [String]) -> String
 {
-    let task = Task()
-    task.launchPath = launchPath
-    task.arguments = arguments
+    let progress = Process()
+    progress.launchPath = launchPath
+    progress.arguments = arguments
     
     let pipe = Pipe()
-    task.standardOutput = pipe
-    task.launch()
+    progress.standardOutput = pipe
+    progress.launch()
     
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
     let output = String(data: data, encoding: String.Encoding.utf8)!
