@@ -4,6 +4,21 @@ OpenSim is an open source alternative to [SimPholders](https://simpholders.com),
 
 You can visit the latest [release](https://github.com/luosheng/OpenSim/releases) to grab a compiled version. (Warning: It's not code-signed.)
 
+## Install with Homebrew Cask
+
+1. Install Homebrew:
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+2. Install Cask:
+```
+brew install cask
+```
+3. Install OpenSim:
+```
+brew cask install OpenSim
+```
+
 ## TODO
 
 - [x] Parsing results from `xcrun` command rather than `device_set.plist` file (thank @bradvandyk)
