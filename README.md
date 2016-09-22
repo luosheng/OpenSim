@@ -6,18 +6,9 @@ You can visit the latest [release](https://github.com/luosheng/OpenSim/releases)
 
 ## Install with Homebrew Cask
 
-1. Install Homebrew:
-```
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-2. Install Cask:
-```
-brew install cask
-```
-3. Install OpenSim:
-```
-brew cask install OpenSim
-```
+1. Install Homebrew: `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+2. Install Cask: `brew install cask`
+3. Install OpenSim: `brew cask install OpenSim`
 
 ## TODO
 
