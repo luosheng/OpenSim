@@ -26,12 +26,23 @@
 		D17669C11D1883AE00816D61 /* SimulatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17669C01D1883AE00816D61 /* SimulatorController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B37B3BF71DACB60F004CCD8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B37B3BF31DACB60F004CCD8F /* OpenSimHelper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B37B3BE11DACB5C2004CCD8F;
+			remoteInfo = OpenSimHelper;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		AF9D00391D110E750065AFD0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		B3054E161BF381CE00F433C2 /* FileInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileInfo.swift; sourceTree = "<group>"; };
 		B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryWatcher.swift; sourceTree = "<group>"; };
 		B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelBlocks.swift; sourceTree = "<group>"; };
 		B310B99A1D1AA08500D880CA /* ImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
+		B37B3BF31DACB60F004CCD8F /* OpenSimHelper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OpenSimHelper.xcodeproj; path = OpenSimHelper/OpenSimHelper.xcodeproj; sourceTree = "<group>"; };
 		B3A1E31F1BF049690090EC58 /* OpenSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A1E3221BF049690090EC58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A1E3241BF049690090EC58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -94,9 +105,18 @@
 			name = UI;
 			sourceTree = "<group>";
 		};
+		B37B3BF41DACB60F004CCD8F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B37B3BF81DACB60F004CCD8F /* OpenSimHelper.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		B3A1E3161BF049690090EC58 = {
 			isa = PBXGroup;
 			children = (
+				B37B3BF31DACB60F004CCD8F /* OpenSimHelper.xcodeproj */,
 				B3A1E3211BF049690090EC58 /* OpenSim */,
 				B3A1E3201BF049690090EC58 /* Products */,
 			);
@@ -171,12 +191,28 @@
 			mainGroup = B3A1E3161BF049690090EC58;
 			productRefGroup = B3A1E3201BF049690090EC58 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = B37B3BF41DACB60F004CCD8F /* Products */;
+					ProjectRef = B37B3BF31DACB60F004CCD8F /* OpenSimHelper.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				B3A1E31E1BF049690090EC58 /* OpenSim */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		B37B3BF81DACB60F004CCD8F /* OpenSimHelper.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = OpenSimHelper.app;
+			remoteRef = B37B3BF71DACB60F004CCD8F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B3A1E31D1BF049690090EC58 /* Resources */ = {
