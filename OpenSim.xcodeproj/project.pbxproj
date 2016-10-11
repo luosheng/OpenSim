@@ -12,6 +12,7 @@
 		B3054E1A1BF3958500F433C2 /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */; };
 		B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */; };
 		B310B99B1D1AA08500D880CA /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310B99A1D1AA08500D880CA /* ImageExtension.swift */; };
+		B37B3BFA1DACB86C004CCD8F /* OpenSimHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = B37B3BF81DACB60F004CCD8F /* OpenSimHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B3A1E3231BF049690090EC58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1E3221BF049690090EC58 /* AppDelegate.swift */; };
 		B3A1E3251BF049690090EC58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A1E3241BF049690090EC58 /* Assets.xcassets */; };
 		B3A1E3281BF049690090EC58 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A1E3261BF049690090EC58 /* MainMenu.xib */; };
@@ -35,6 +36,19 @@
 			remoteInfo = OpenSimHelper;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B37B3BF91DACB856004CCD8F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				B37B3BFA1DACB86C004CCD8F /* OpenSimHelper.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AF9D00391D110E750065AFD0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -154,6 +168,7 @@
 				B3A1E31B1BF049690090EC58 /* Sources */,
 				B3A1E31C1BF049690090EC58 /* Frameworks */,
 				B3A1E31D1BF049690090EC58 /* Resources */,
+				B37B3BF91DACB856004CCD8F /* CopyFiles */,
 			);
 			buildRules = (
 			);
