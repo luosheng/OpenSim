@@ -14,6 +14,8 @@ protocol MenuManagerDelegate {
     func shouldQuitApp()
     func shouldOpenContainer(_ pair: DeviceApplicationPair)
     func shouldUninstallContianer(_ pair: DeviceApplicationPair)
+    func shouldEnableLoginAtStartup(enabled: Bool)
+
 }
 
 @objc final class MenuManager: NSObject, NSMenuDelegate {
@@ -88,6 +90,10 @@ protocol MenuManagerDelegate {
         }
 
         menu.addItem(NSMenuItem.separator())
+
+        let loginMenu = menu.addItem(withTitle: "Launch at Login", action: #selector(loginItemClicked(_:)), keyEquivalent: "")
+        loginMenu.target = self
+
         let quitMenu = menu.addItem(withTitle: "Quit", action: #selector(quitItemClicked(_:)), keyEquivalent: "q")
         quitMenu.target = self
 
@@ -138,6 +144,14 @@ protocol MenuManagerDelegate {
         dispatch_cancel_block_t(self.block)
         self.block = dispatch_block_t(1) { [weak self] in
             self?.buildMenu()
+        }
+    }
+
+    func loginItemClicked(_ sender: AnyObject) {
+        if let menuItem = sender as? NSMenuItem {
+            let isOn = !(menuItem.state == NSOnState)
+            menuItem.state = isOn ? NSOnState : NSOffState 
+            delegate?.shouldEnableLoginAtStartup(enabled: !isOn)
         }
     }
     

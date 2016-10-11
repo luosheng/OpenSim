@@ -37,6 +37,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuManagerDelegate {
     func shouldUninstallContianer(_ pair: DeviceApplicationPair) {
         SimulatorController.uninstall(pair)
     }
+
+    func shouldEnableLoginAtStartup(enabled: Bool) {
+        
+    }
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
