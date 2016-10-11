@@ -11,10 +11,11 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        let components = Bundle.main.bundleURL.pathComponents
+        let path = NSString.path(withComponents: [String](components[0...components.count - 4]))
+        NSWorkspace.shared().launchApplication(path)
+        NSApp.terminate(nil)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
