@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import ServiceManagement
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate, MenuManagerDelegate {
@@ -39,7 +40,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuManagerDelegate {
     }
 
     func shouldEnableLoginAtStartup(enabled: Bool) {
-        
+        let appBundleId = "com.pop-tap.OpenSimHelper"
+        SMLoginItemSetEnabled(appBundleId as CFString, enabled)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
