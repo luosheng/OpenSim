@@ -58,6 +58,7 @@ public class DirectoryWatcher {
     
     public func stop() {
         source.cancel()
+        source = nil
     }
     
     private func waitForDirectoryToFinishChanging() {
