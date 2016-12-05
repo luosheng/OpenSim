@@ -137,7 +137,9 @@ protocol MenuManagerDelegate {
     private func reloadWhenReady() {
         dispatch_cancel_block_t(self.block)
         self.block = dispatch_block_t(1) { [weak self] in
+            self?.watcher.stop()
             self?.buildMenu()
+            try? self?.watcher.start()
         }
     }
     
