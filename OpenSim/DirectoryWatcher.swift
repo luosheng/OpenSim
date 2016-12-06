@@ -19,7 +19,7 @@ public class DirectoryWatcher {
     var watchedURL: URL
     let eventMask: DispatchSource.FileSystemEvent
     public var completionCallback: CompletionCallback?
-    private var source: DispatchSourceFileSystemObject!
+    private var source: DispatchSourceFileSystemObject?
     private var directoryChanging = false
     private var oldDirectoryInfo = [FileInfo?]()
     
@@ -45,19 +45,19 @@ public class DirectoryWatcher {
         }
         
         source = DispatchSource.makeFileSystemObjectSource(fileDescriptor: fd, eventMask: eventMask)
-        source.setEventHandler { [weak self] in
+        source?.setEventHandler { [weak self] in
             self?.waitForDirectoryToFinishChanging()
         }
         
-        source.setCancelHandler {
+        source?.setCancelHandler {
             close(fd)
         }
         
-        source.resume()
+        source?.resume()
     }
     
     public func stop() {
-        source.cancel()
+        source?.cancel()
         source = nil
     }
     
