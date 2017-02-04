@@ -61,13 +61,12 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
         if let highlighted = self.enclosingMenuItem?.isHighlighted {
             if highlighted {
                 NSColor.controlHighlightColor.set()
-            } else {
-                NSColor.clear.set()
+                NSRectFill(dirtyRect)
+                return
             }
-            NSRectFill(bounds)
         }
     }
-    
+
     override func mouseUp(with event: NSEvent) {
         guard let menuItem = self.enclosingMenuItem else {
             return
