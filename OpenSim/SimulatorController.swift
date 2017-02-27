@@ -16,8 +16,8 @@ class SimulatorController: NSObject {
         myPopup.messageText = question
         myPopup.informativeText = text
         myPopup.alertStyle = NSAlertStyle.critical
-        myPopup.addButton(withTitle: "OK")
-        myPopup.addButton(withTitle: "Cancel")
+        myPopup.addButton(withTitle: NSLocalizedString("OK", comment: ""))
+        myPopup.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         let res = myPopup.runModal()
         if res == NSAlertFirstButtonReturn {
             return true
@@ -26,7 +26,7 @@ class SimulatorController: NSObject {
     }
     
     static func uninstall(_ pair:DeviceApplicationPair) {
-        let answer = dialogOKCancel("Confirm Delete?", text: "Are you sure you want to delete \(pair.application.bundleDisplayName) for \(pair.device.fullName)")
+        let answer = dialogOKCancel(NSLocalizedString("Confirm Delete?", comment: ""), text: NSLocalizedString("Are you sure you want to delete \(pair.application.bundleDisplayName) for \(pair.device.fullName)", comment: ""))
         if answer {
             // delete the app
             _ = shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", pair.device.UDID, pair.application.bundleID])
