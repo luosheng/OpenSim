@@ -58,7 +58,11 @@ protocol MenuManagerDelegate {
         let menu = NSMenu()
         
         DeviceManager.defaultManager.reload()
-        
+
+        let refreshMenuItem = menu.addItem(withTitle: NSLocalizedString("Refresh", comment: ""), action: #selector(refreshItemClicked(_:)), keyEquivalent: "r")
+        refreshMenuItem.target = self
+        menu.addItem(NSMenuItem.separator())
+
         var currentRuntime = ""
         DeviceManager.defaultManager.deviceMapping.forEach { device in
             if (currentRuntime != "" && device.runtime.name != currentRuntime) {
@@ -88,7 +92,7 @@ protocol MenuManagerDelegate {
         }
 
         menu.addItem(NSMenuItem.separator())
-        let quitMenu = menu.addItem(withTitle: "Quit", action: #selector(quitItemClicked(_:)), keyEquivalent: "q")
+        let quitMenu = menu.addItem(withTitle: NSLocalizedString("Quit", comment: ""), action: #selector(quitItemClicked(_:)), keyEquivalent: "q")
         quitMenu.target = self
 
         statusItem.menu = menu
@@ -145,6 +149,10 @@ protocol MenuManagerDelegate {
     
     func quitItemClicked(_ sender: AnyObject) {
         delegate?.shouldQuitApp()
+    }
+
+    func refreshItemClicked(_ sender: AnyObject) {
+        reloadWhenReady()
     }
     
     func appMenuItemClicked(_ sender: AnyObject) {
