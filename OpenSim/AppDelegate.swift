@@ -33,6 +33,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuManagerDelegate {
         
         NSWorkspace.shared().open(URL)
     }
+
+    func shouldOpenRealm(_ pair: DeviceApplicationPair) {
+        guard let URL = pair.device.realmURLForApplication(pair.application),
+            FileManager.default.fileExists(atPath: URL.path) else {
+                return
+        }
+
+        NSWorkspace.shared().open(URL)
+    }
     
     func shouldUninstallContianer(_ pair: DeviceApplicationPair) {
         SimulatorController.uninstall(pair)

@@ -78,6 +78,17 @@ class AppMenuView: NSView, ModifyFlagsResponsive {
         }
     }
 
+    override func rightMouseUp(with event: NSEvent) {
+        guard let menuItem = self.enclosingMenuItem else {
+            return
+        }
+        menuItem.menu?.cancelTracking()
+        if let action = menuItem.action,
+            let target = menuItem.target {
+            NSApp.sendAction(action, to: target, from: menuItem)
+        }
+    }
+
     override func mouseExited(with event: NSEvent) {
         lastFlag = nil
         setDefaultState()

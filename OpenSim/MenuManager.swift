@@ -13,6 +13,7 @@ protocol MenuManagerDelegate {
     
     func shouldQuitApp()
     func shouldOpenContainer(_ pair: DeviceApplicationPair)
+    func shouldOpenRealm(_ pair: DeviceApplicationPair)
     func shouldUninstallContianer(_ pair: DeviceApplicationPair)
 }
 
@@ -157,14 +158,23 @@ protocol MenuManagerDelegate {
     
     func appMenuItemClicked(_ sender: AnyObject) {
         if let pair = sender.representedObject as? DeviceApplicationPair {
+
+            guard let  event = NSApp.currentEvent else {
+                return
+            }
+
             // if control click
-            if let event = NSApp.currentEvent, event.modifierFlags.contains(.control) {
+            if event.modifierFlags.contains(.control) {
                 delegate?.shouldUninstallContianer(pair)
-                
+
                 // rebuild menu
                 self.buildMenu()
             }
-            else {
+            else if event.type == NSEventType.rightMouseUp {
+                // open realm db with Realm Browser
+                delegate?.shouldOpenRealm(pair)
+            }
+            else if event.type == NSEventType.leftMouseUp {
                 // open the app directory
                 delegate?.shouldOpenContainer(pair)
             }
