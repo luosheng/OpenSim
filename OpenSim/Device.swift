@@ -78,5 +78,22 @@ struct Device {
             return nil
         }
     }
+
+    func realmURLForApplication(_ application: Application) -> URL? {
+        var containerURL = containerURLForApplication(application)
+        if containerURL == nil { return nil }
+        containerURL!.appendPathComponent("Documents/")
+
+        do {
+            let directories = try FileManager.default.contentsOfDirectory(at: containerURL!, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants)
+            if let matchingURL = directories.filter({ $0.absoluteString.hasSuffix(".realm") }).first {
+                return matchingURL
+            } else {
+                return nil
+            }
+        } catch {
+            return nil
+        }
+    }
     
 }
