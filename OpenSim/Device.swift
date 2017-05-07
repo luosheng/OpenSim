@@ -33,7 +33,7 @@ final class Device {
         self.type = type
         self.name = name
         self.state = State(rawValue: state) ?? .Unknown
-        self.availability = Availability(rawValue: availability) ?? .unavailable
+        self.availability = Availability(rawValue: availability.trimmingCharacters(in: .whitespacesAndNewlines)) ?? .unavailable
         
         let applicationPath = URLHelper.deviceURLForUDID(self.UDID).appendingPathComponent("data/Containers/Bundle/Application")
         let contents = try? FileManager.default.contentsOfDirectory(at: applicationPath, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
