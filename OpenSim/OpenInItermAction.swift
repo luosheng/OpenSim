@@ -10,12 +10,18 @@ import Cocoa
 
 class OpenInItermAction: ExtraApplicationActionable {
     
+    var application: Application?
+    
     let appBundleIdentifier = "com.googlecode.iterm2"
     
     let title = NSLocalizedString("Open Sandbox in iTerm", comment: "")
     
-    func perform(with application: Application) {
-        if let url = application.sandboxUrl {
+    required init(application: Application) {
+        self.application = application
+    }
+    
+    func perform() {
+        if let url = application?.sandboxUrl {
             NSWorkspace.shared().openFile(url.path, withApplication: "iTerm")
         }
     }

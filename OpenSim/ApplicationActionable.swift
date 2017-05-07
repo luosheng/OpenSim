@@ -10,12 +10,16 @@ import Cocoa
 
 protocol ApplicationActionable {
     
+    init(application: Application)
+    
+    var application: Application? { get set }
+    
     var title: String { get }
     
     var icon: NSImage? { get }
     
     var isAvailable: Bool { get }
     
-    func perform(with application: Application)
+    func perform()
     
 }

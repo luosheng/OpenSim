@@ -10,14 +10,20 @@ import Cocoa
 
 final class CopyToPasteboardAction: ApplicationActionable {
     
+    var application: Application?
+    
     let title = NSLocalizedString("Copy Sandbox Path to Pasteboard", comment: "")
     
     let icon = templatize(#imageLiteral(resourceName: "share"))
     
     let isAvailable: Bool = true
     
-    func perform(with application: Application) {
-        if let url = application.sandboxUrl {
+    init(application: Application) {
+        self.application = application
+    }
+    
+    func perform() {
+        if let url = application?.sandboxUrl {
             NSPasteboard.general().setString(url.path, forType: NSPasteboardTypeString)
         }
     }

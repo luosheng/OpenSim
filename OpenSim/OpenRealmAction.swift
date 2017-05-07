@@ -8,13 +8,19 @@
 
 import Cocoa
 
-class OpenRealmAction: ExtraApplicationActionable {
+final class OpenRealmAction: ExtraApplicationActionable {
+    
+    var application: Application?
     
     let appBundleIdentifier = "io.realm.Realm-Browser"
     
     let title = "Open Realm Database"
     
-    func perform(with application: Application) {
+    init(application: Application) {
+        self.application = application
+    }
+    
+    func perform() {
         
     }
     

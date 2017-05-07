@@ -10,14 +10,20 @@ import Cocoa
 
 final class RevealInFinderAction: ApplicationActionable {
     
+    var application: Application?
+    
     let title = NSLocalizedString("Reveal Sandbox in Finder", comment: "")
     
     let icon = templatize(#imageLiteral(resourceName: "reveal"))
     
     let isAvailable: Bool = true
     
-    func perform(with application: Application) {
-        if let url = application.sandboxUrl {
+    init(application: Application) {
+        self.application = application
+    }
+    
+    func perform() {
+        if let url = application?.sandboxUrl {
             NSWorkspace.shared().open(url)
         }
     }

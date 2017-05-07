@@ -12,16 +12,16 @@ final class ActionMenu: NSMenu {
     
     private weak var application: Application!
     
-    private static let standardActions: [ApplicationActionable] = [
-        RevealInFinderAction(),
-        CopyToPasteboardAction(),
-        OpenInTerminalAction(),
-        UninstallAction()
+    private static let standardActions: [ApplicationActionable.Type] = [
+        RevealInFinderAction.self,
+        CopyToPasteboardAction.self,
+        OpenInTerminalAction.self,
+        UninstallAction.self
     ]
     
-    private static let extraActions: [ApplicationActionable] = [
-        OpenInItermAction(),
-        OpenRealmAction()
+    private static let extraActions: [ApplicationActionable.Type] = [
+        OpenInItermAction.self,
+        OpenRealmAction.self
     ]
     
     private var appInfoItem: NSMenuItem {
@@ -43,8 +43,10 @@ final class ActionMenu: NSMenu {
     }
     
     private func buildMenuItems() {
-        self.buildMenuSection(title: NSLocalizedString("Actions", comment: ""), actions: ActionMenu.standardActions)
-        self.buildMenuSection(title: NSLocalizedString("Extensions", comment: ""), actions: ActionMenu.extraActions)
+        let createAction: (ApplicationActionable.Type) -> ApplicationActionable = { $0.init(application: self.application) }
+        
+        self.buildMenuSection(title: NSLocalizedString("Actions", comment: ""), actions: ActionMenu.standardActions.map(createAction))
+        self.buildMenuSection(title: NSLocalizedString("Extensions", comment: ""), actions: ActionMenu.extraActions.map(createAction))
         self.addItem(self.buildSectionTitle(title: NSLocalizedString("App Information", comment: "")))
         self.addItem(appInfoItem)
     }
@@ -79,7 +81,7 @@ final class ActionMenu: NSMenu {
     }
     
     @objc private func actionMenuItemClicked(_ sender: NSMenuItem) {
-        (sender.representedObject as? ApplicationActionable)?.perform(with: application)
+        (sender.representedObject as? ApplicationActionable)?.perform()
     }
     
 }

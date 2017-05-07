@@ -10,13 +10,22 @@ import Cocoa
 
 final class UninstallAction: ApplicationActionable {
     
+    var application: Application?
+    
     let title = NSLocalizedString("Uninstall…", comment: "")
     
     let icon = templatize(#imageLiteral(resourceName: "uninstall"))
     
     let isAvailable = true
     
-    func perform(with application: Application) {
+    init(application: Application) {
+        self.application = application
+    }
+    
+    func perform() {
+        guard let application = application else {
+            return
+        }
         let alert: NSAlert = NSAlert()
         let alertFormat = "Are you sure you want to uninstall %1$@ from %1$@?"
         alert.messageText = String(format: NSLocalizedString(alertFormat, comment: ""), application.bundleDisplayName, application.device.name)

@@ -10,14 +10,20 @@ import Cocoa
 
 final class OpenInTerminalAction: ApplicationActionable {
     
+    var application: Application?
+    
     let title = NSLocalizedString("Open Sandbox in Terminal", comment: "")
     
     let icon = templatize(#imageLiteral(resourceName: "terminal"))
     
     let isAvailable = true
     
-    func perform(with application: Application) {
-        if let url = application.sandboxUrl {
+    init(application: Application) {
+        self.application = application
+    }
+    
+    func perform() {
+        if let url = application?.sandboxUrl {
             NSWorkspace.shared().openFile(url.path, withApplication: "Terminal")
         }
     }
