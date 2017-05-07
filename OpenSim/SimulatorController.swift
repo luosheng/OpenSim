@@ -11,26 +11,8 @@ import Cocoa
 
 class SimulatorController: NSObject {
     
-    static func dialogOKCancel(_ question: String, text: String) -> Bool {
-        let myPopup: NSAlert = NSAlert()
-        myPopup.messageText = question
-        myPopup.informativeText = text
-        myPopup.alertStyle = NSAlertStyle.critical
-        myPopup.addButton(withTitle: NSLocalizedString("OK", comment: ""))
-        myPopup.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
-        let res = myPopup.runModal()
-        if res == NSAlertFirstButtonReturn {
-            return true
-        }
-        return false
-    }
-    
     static func uninstall(_ application: Application) {
-        let answer = dialogOKCancel(NSLocalizedString("Confirm Delete?", comment: ""), text: NSLocalizedString("Are you sure you want to delete \(application.bundleDisplayName) for \(application.device.fullName)", comment: ""))
-        if answer {
-            // delete the app
-            _ = shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", application.device.UDID, application.bundleID])
-        }
+        _ = shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", application.device.UDID, application.bundleID])
     }
     
     static func deviceList() -> [Device] {

@@ -116,6 +116,15 @@ final class ActionMenu: NSMenu {
     }
     
     @objc private func uninstall(_ sender: AnyObject) {
-        application.uninstall()
+        let alert: NSAlert = NSAlert()
+        let alertFormat = "Are you sure you want to uninstall %1$@ from %1$@?"
+        alert.messageText = String(format: NSLocalizedString(alertFormat, comment: ""), application.bundleDisplayName, application.device.name)
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: NSLocalizedString("Uninstall", comment: ""))
+        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+        let response = alert.runModal()
+        if response == NSAlertFirstButtonReturn {
+            application.uninstall()
+        }
     }
 }
