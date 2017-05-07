@@ -54,6 +54,12 @@ final class ActionMenu: NSMenu {
         return item
     }
     
+    private var appInfoTitleItem: NSMenuItem {
+        let item = NSMenuItem(title: "App Information", action: nil, keyEquivalent: "")
+        item.isEnabled = false
+        return item
+    }
+    
     private var sandboxUrl: URL? {
         guard let url = device.containerURLForApplication(application),
             FileManager.default.fileExists(atPath: url.path)
@@ -68,6 +74,14 @@ final class ActionMenu: NSMenu {
         self.application = application
         super.init(title: "")
         
+        buildMenuItems()
+    }
+    
+    required init(coder decoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func buildMenuItems() {
         let items = [
             titleItem,
             revealInFinderItem,
@@ -80,10 +94,10 @@ final class ActionMenu: NSMenu {
                 self.addItem(item)
             }
         }
-    }
-    
-    required init(coder decoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        
+        self.addItem(NSMenuItem.separator())
+        
+        self.addItem(appInfoTitleItem)
     }
     
     @objc private func revealInFinder(_ sender: AnyObject) {
