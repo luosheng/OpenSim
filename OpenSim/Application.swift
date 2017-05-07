@@ -34,7 +34,7 @@ final class Application {
             let aBundleID = appInfoDict["CFBundleIdentifier"] as? String,
             let aBundleDisplayName = (appInfoDict["CFBundleDisplayName"] as? String) ?? (appInfoDict["CFBundleName"] as? String),
             let aBundleShortVersion = appInfoDict["CFBundleShortVersionString"] as? String,
-            let aBundleVersion = appInfoDict["CFBundleInfoDictionaryVersion"] as? String else {
+            let aBundleVersion = appInfoDict["CFBundleVersion"] as? String else {
                 return nil
         }
 
