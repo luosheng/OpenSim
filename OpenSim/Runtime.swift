@@ -8,9 +8,10 @@
 
 import Foundation
 
-struct Runtime: CustomStringConvertible {
+final class Runtime: CustomStringConvertible {
     
     let name: String
+    var devices: [Device] = []
     
     var description: String {
         // current version is format "iOS major.minir"
