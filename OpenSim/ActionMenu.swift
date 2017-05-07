@@ -12,24 +12,16 @@ final class ActionMenu: NSMenu {
     
     private weak var application: Application!
     
-    private let standardActions: [ApplicationActionable] = [
+    private static let standardActions: [ApplicationActionable] = [
         RevealInFinderAction(),
         CopyToPasteboardAction(),
         OpenInTerminalAction(),
         UninstallAction()
     ]
     
-    private var titleItem: NSMenuItem {
-        let item = NSMenuItem(title: "Actions", action: nil, keyEquivalent: "")
-        item.isEnabled = false
-        return item
-    }
-    
-    private var appInfoTitleItem: NSMenuItem {
-        let item = NSMenuItem(title: "App Information", action: nil, keyEquivalent: "")
-        item.isEnabled = false
-        return item
-    }
+    private static let extraActions: [ApplicationActionable] = [
+        OpenInItermAction(),
+    ]
     
     private var appInfoItem: NSMenuItem {
         let item = NSMenuItem()
@@ -50,16 +42,28 @@ final class ActionMenu: NSMenu {
     }
     
     private func buildMenuItems() {
-        standardActions.forEach { (action) in
+        self.buildMenuSection(title: NSLocalizedString("Actions", comment: ""), actions: ActionMenu.standardActions)
+        self.buildMenuSection(title: NSLocalizedString("Extensions", comment: ""), actions: ActionMenu.extraActions)
+        self.addItem(self.buildSectionTitle(title: NSLocalizedString("App Information", comment: "")))
+        self.addItem(appInfoItem)
+    }
+    
+    private func buildMenuSection(title: String, actions: [ApplicationActionable]) {
+        self.addItem(self.buildSectionTitle(title: title))
+        
+        actions.forEach { (action) in
             if let item = buildMenuItem(for: action) {
                 self.addItem(item)
             }
         }
         
         self.addItem(NSMenuItem.separator())
-        
-        self.addItem(appInfoTitleItem)
-        self.addItem(appInfoItem)
+    }
+    
+    private func buildSectionTitle(title: String) -> NSMenuItem {
+        let titleItem = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+        titleItem.isEnabled = false
+        return titleItem
     }
     
     private func buildMenuItem(`for` action: ApplicationActionable) -> NSMenuItem? {
