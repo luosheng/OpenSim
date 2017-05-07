@@ -8,8 +8,7 @@
 
 import Foundation
 
-func shell(_ launchPath: String, arguments: [String]) -> String
-{
+func shell(_ launchPath: String, arguments: [String]) -> String? {
     let progress = Process()
     progress.launchPath = launchPath
     progress.arguments = arguments
@@ -19,7 +18,7 @@ func shell(_ launchPath: String, arguments: [String]) -> String
     progress.launch()
     
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    let output = String(data: data, encoding: String.Encoding.utf8)!
+    let output = String(data: data, encoding: String.Encoding.utf8)
     
     return output
 }

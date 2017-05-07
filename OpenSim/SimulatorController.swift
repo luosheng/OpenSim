@@ -19,10 +19,10 @@ struct SimulatorController {
         // extract json from xcrun simctl list -j devices
         // to get a list of devices
         
-        var jsonString = shell("/usr/bin/xcrun", arguments: ["simctl", "list", "-j", "devices"]);
-        jsonString = jsonString.replacingOccurrences(of: "\n", with: "")
-        jsonString = jsonString.trimmingCharacters(in: CharacterSet.newlines)
-        let data: Data = jsonString.data(using: String.Encoding.utf8)!
+        guard let jsonString = shell("/usr/bin/xcrun", arguments: ["simctl", "list", "-j", "devices"]),
+        let data = jsonString.data(using: String.Encoding.utf8) else {
+            return []
+        }
         
         // array of devices to return
         var mapping = [String: [Device]]()
