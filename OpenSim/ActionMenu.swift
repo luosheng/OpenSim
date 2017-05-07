@@ -10,23 +10,29 @@ import Cocoa
 
 final class ActionMenu: NSMenu {
     
-    weak var device: Device?
-    weak var application: Application?
+    private weak var device: Device?
+    private weak var application: Application?
     
-    var revealInFinderMenuItem: NSMenuItem {
+    private var revealInFinderMenuItem: NSMenuItem {
         let item = NSMenuItem(title: "Reveal Sandbox in Finder", action: #selector(revealInFinder(_:)), keyEquivalent: "")
         item.target = self
         return item
     }
     
-    var copyPathMenuItem: NSMenuItem {
+    private var copyPathMenuItem: NSMenuItem {
         let item = NSMenuItem(title: "Copy Sandbox Path to Pasteboard", action: #selector(copyToPasteboard(_:)), keyEquivalent: "")
         item.target = self
         return item
     }
     
-    var openInTerminalMenuItem: NSMenuItem {
+    private var openInTerminalMenuItem: NSMenuItem {
         let item = NSMenuItem(title: "Open Sandbox in Terminal", action: #selector(openInTerminal(_:)), keyEquivalent: "")
+        item.target = self
+        return item
+    }
+    
+    private var uninstallMenuItem: NSMenuItem {
+        let item = NSMenuItem(title: "Uninstall…", action: #selector(uninstall(_:)), keyEquivalent: "")
         item.target = self
         return item
     }
@@ -49,6 +55,7 @@ final class ActionMenu: NSMenu {
         self.addItem(revealInFinderMenuItem)
         self.addItem(copyPathMenuItem)
         self.addItem(openInTerminalMenuItem)
+        self.addItem(uninstallMenuItem)
     }
     
     required init(coder decoder: NSCoder) {
@@ -70,6 +77,13 @@ final class ActionMenu: NSMenu {
     @objc private func openInTerminal(_ sender: AnyObject) {
         if let url = sandboxUrl {
             NSWorkspace.shared().openFile(url.path, withApplication: "Terminal")
+        }
+    }
+    
+    @objc private func uninstall(_ sender: AnyObject) {
+        if let device = device,
+            let application = application {
+            SimulatorController.uninstall(DeviceApplicationPair(device: device, application: application))
         }
     }
 }
