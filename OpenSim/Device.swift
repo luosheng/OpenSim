@@ -24,17 +24,16 @@ final class Device {
     let UDID: String
     let type: String
     let name: String
-    let runtime: Runtime
     let state: State
     let availability: Availability
     var applications: [Application]?
 
-    init(UDID: String, type: String, name: String, runtime: String, state: State) {
-        self.UDID = UDID
+    init(udid: String, type: String, name: String, state: String, availability: String) {
+        self.UDID = udid
         self.type = type
         self.name = name
-        self.runtime = Runtime(name: runtime)
-        self.state = state
+        self.state = State(rawValue: state) ?? .Unknown
+        self.availability = Availability(rawValue: availability) ?? .unavailable
         
         let applicationPath = URLHelper.deviceURLForUDID(self.UDID).appendingPathComponent("data/Containers/Bundle/Application")
         let contents = try? FileManager.default.contentsOfDirectory(at: applicationPath, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
@@ -56,7 +55,7 @@ final class Device {
 
     var fullName:String {
         get {
-            return "\(self.name) (\(self.runtime))"
+            return "\(self.name)"
         }
     }
 
