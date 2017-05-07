@@ -33,16 +33,17 @@ struct SimulatorController {
                         let name = deviceJson["name"],
                         let udid = deviceJson["udid"] {
                         let device = Device(udid: udid, type: name, name: name, state: state, availability: availability)
-                        runtime.devices.append(device)
+                        
+                        if let apps = device.applications, apps.count > 0, device.availability == .available {
+                            runtime.devices.append(device)
+                        }
                     }
                 }
             }
             runtimes.append(runtime)
         }
         
-        let filteredRuntime = runtimes.filter {
-            $0.name.contains("iOS") && $0.devices.filter { $0.availability == .available }.count > 0
-        }
+        let filteredRuntime = runtimes.filter { $0.name.contains("iOS") && $0.devices.count > 0 }
         
         return filteredRuntime
     }
