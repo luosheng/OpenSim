@@ -21,6 +21,7 @@
 		B39B2B6F1EBF567F00CDD74C /* CopyToPasteboardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B6E1EBF567F00CDD74C /* CopyToPasteboardAction.swift */; };
 		B39B2B711EBF56F200CDD74C /* OpenInTerminalAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B701EBF56F200CDD74C /* OpenInTerminalAction.swift */; };
 		B39B2B731EBF573C00CDD74C /* UninstallAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B721EBF573C00CDD74C /* UninstallAction.swift */; };
+		B39B2B751EBF58EC00CDD74C /* OpenInItermAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B741EBF58EC00CDD74C /* OpenInItermAction.swift */; };
 		B3A1E3231BF049690090EC58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1E3221BF049690090EC58 /* AppDelegate.swift */; };
 		B3A1E3251BF049690090EC58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A1E3241BF049690090EC58 /* Assets.xcassets */; };
 		B3A1E3281BF049690090EC58 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A1E3261BF049690090EC58 /* MainMenu.xib */; };
@@ -48,6 +49,7 @@
 		B39B2B6E1EBF567F00CDD74C /* CopyToPasteboardAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyToPasteboardAction.swift; sourceTree = "<group>"; };
 		B39B2B701EBF56F200CDD74C /* OpenInTerminalAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenInTerminalAction.swift; sourceTree = "<group>"; };
 		B39B2B721EBF573C00CDD74C /* UninstallAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UninstallAction.swift; sourceTree = "<group>"; };
+		B39B2B741EBF58EC00CDD74C /* OpenInItermAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenInItermAction.swift; sourceTree = "<group>"; };
 		B3A1E31F1BF049690090EC58 /* OpenSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A1E3221BF049690090EC58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A1E3241BF049690090EC58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				B39B2B6E1EBF567F00CDD74C /* CopyToPasteboardAction.swift */,
 				B39B2B701EBF56F200CDD74C /* OpenInTerminalAction.swift */,
 				B39B2B721EBF573C00CDD74C /* UninstallAction.swift */,
+				B39B2B741EBF58EC00CDD74C /* OpenInItermAction.swift */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 				B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */,
 				B3A1E3341BF0709A0090EC58 /* URLHelper.swift in Sources */,
 				B3D188E91BF436480064E851 /* Runtime.swift in Sources */,
+				B39B2B751EBF58EC00CDD74C /* OpenInItermAction.swift in Sources */,
 				B3054E181BF381CE00F433C2 /* FileInfo.swift in Sources */,
 				B39B2B6A1EBF501F00CDD74C /* ApplicationActionable.swift in Sources */,
 				B3E67B5E1CA412BD00744B38 /* MenuManager.swift in Sources */,
