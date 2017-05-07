@@ -9,7 +9,7 @@
 import Foundation
 import Cocoa
 
-class SimulatorController: NSObject {
+struct SimulatorController {
     
     static func uninstall(_ application: Application) {
         _ = shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", application.device.UDID, application.bundleID])
