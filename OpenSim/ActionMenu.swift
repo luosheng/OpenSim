@@ -10,8 +10,8 @@ import Cocoa
 
 final class ActionMenu: NSMenu {
     
-    private weak var device: Device?
-    private weak var application: Application?
+    private weak var device: Device!
+    private weak var application: Application!
     
     private var revealInFinderMenuItem: NSMenuItem {
         let item = NSMenuItem(title: "Reveal Sandbox in Finder", action: #selector(revealInFinder(_:)), keyEquivalent: "")
@@ -38,8 +38,7 @@ final class ActionMenu: NSMenu {
     }
     
     private var sandboxUrl: URL? {
-        guard let application = application,
-            let url = device?.containerURLForApplication(application),
+        guard let url = device.containerURLForApplication(application),
             FileManager.default.fileExists(atPath: url.path)
             else {
                 return nil
@@ -81,9 +80,6 @@ final class ActionMenu: NSMenu {
     }
     
     @objc private func uninstall(_ sender: AnyObject) {
-        if let device = device,
-            let application = application {
-            SimulatorController.uninstall(DeviceApplicationPair(device: device, application: application))
-        }
+        SimulatorController.uninstall(DeviceApplicationPair(device: device, application: application))
     }
 }
