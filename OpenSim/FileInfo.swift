@@ -29,37 +29,33 @@ struct FileInfo {
     let fileSize: Int
     
     init?(URL: Foundation.URL) {
-        do {
-            var nameObj: AnyObject?
-            try (URL as NSURL).getResourceValue(&nameObj, forKey: URLResourceKey.nameKey)
-            
-            var isDirectoryObj: AnyObject?
-            try (URL as NSURL).getResourceValue(&isDirectoryObj, forKey: URLResourceKey.isDirectoryKey)
-            
-            var creationDateObj: AnyObject?
-            try (URL as NSURL).getResourceValue(&creationDateObj, forKey: URLResourceKey.creationDateKey)
-            
-            var modificationDateObj: AnyObject?
-            try (URL as NSURL).getResourceValue(&modificationDateObj, forKey: URLResourceKey.contentModificationDateKey)
-            
-            var fileSizeObj: AnyObject?
-            try (URL as NSURL).getResourceValue(&fileSizeObj, forKey: URLResourceKey.fileSizeKey)
-            
-            guard let name = nameObj as? String,
-                let isDirectory = isDirectoryObj as? Bool,
-                let creationDate = creationDateObj as? Date,
-                let modificationDate = modificationDateObj as? Date,
-                let fileSize = isDirectory ? 0 : fileSizeObj as? Int else {
-                    throw FileInfoError.invalidProperty
-            }
-            self.name = name
-            self.isDirectory = isDirectory
-            self.creationDate = creationDate
-            self.modificationDate = modificationDate
-            self.fileSize = fileSize
-        } catch {
-            return nil
+        var nameObj: AnyObject?
+        try? (URL as NSURL).getResourceValue(&nameObj, forKey: URLResourceKey.nameKey)
+        
+        var isDirectoryObj: AnyObject?
+        try? (URL as NSURL).getResourceValue(&isDirectoryObj, forKey: URLResourceKey.isDirectoryKey)
+        
+        var creationDateObj: AnyObject?
+        try? (URL as NSURL).getResourceValue(&creationDateObj, forKey: URLResourceKey.creationDateKey)
+        
+        var modificationDateObj: AnyObject?
+        try? (URL as NSURL).getResourceValue(&modificationDateObj, forKey: URLResourceKey.contentModificationDateKey)
+        
+        var fileSizeObj: AnyObject?
+        try? (URL as NSURL).getResourceValue(&fileSizeObj, forKey: URLResourceKey.fileSizeKey)
+        
+        guard let name = nameObj as? String,
+            let isDirectory = isDirectoryObj as? Bool,
+            let creationDate = creationDateObj as? Date,
+            let modificationDate = modificationDateObj as? Date,
+            let fileSize = isDirectory ? 0 : fileSizeObj as? Int else {
+                return nil
         }
+        self.name = name
+        self.isDirectory = isDirectory
+        self.creationDate = creationDate
+        self.modificationDate = modificationDate
+        self.fileSize = fileSize
     }
     
 }

@@ -73,12 +73,8 @@ public class DirectoryWatcher {
     }
     
     private func directoryInfo() -> [FileInfo?] {
-        do {
-            let contents = try FileManager.default.contentsOfDirectory(at: watchedURL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .skipsSubdirectoryDescendants)
-            return contents.map { FileInfo(URL: $0) }
-        } catch {
-            return []
-        }
+        let contents = try? FileManager.default.contentsOfDirectory(at: watchedURL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .skipsSubdirectoryDescendants)
+            return contents?.map { FileInfo(URL: $0) } ?? []
     }
     
     @objc private func checkDirectoryInfo(_ timer: Timer) {

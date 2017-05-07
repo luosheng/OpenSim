@@ -91,25 +91,17 @@ protocol MenuManagerDelegate {
 
     private func buildWatcher() {
         watcher = DirectoryWatcher(in: URLHelper.deviceURL)
-        watcher.completionCallback = {
-            self.reloadWhenReady()
-            self.buildSubWatchers()
+        watcher.completionCallback = { [weak self] in
+            self?.reloadWhenReady()
+            self?.buildSubWatchers()
         }
-        do {
-            try watcher.start()
-        } catch {
-            
-        }
+        try? watcher.start()
     }
     
     private func buildSubWatchers() {
         subWatchers?.forEach { $0?.stop() }
-        do {
-            let deviceDirectories = try FileManager.default.contentsOfDirectory(at: URLHelper.deviceURL as URL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .skipsSubdirectoryDescendants)
-            subWatchers = deviceDirectories.map(createSubWatcherForURL)
-        } catch {
-            
-        }
+        let deviceDirectories = try? FileManager.default.contentsOfDirectory(at: URLHelper.deviceURL as URL, includingPropertiesForKeys: FileInfo.prefetchedProperties, options: .skipsSubdirectoryDescendants)
+        subWatchers = deviceDirectories?.map(createSubWatcherForURL)
     }
     
     private func createSubWatcherForURL(_ URL: Foundation.URL) -> DirectoryWatcher? {
@@ -120,11 +112,7 @@ protocol MenuManagerDelegate {
         watcher.completionCallback = { [weak self] in
             self?.reloadWhenReady()
         }
-        do {
-            try watcher.start()
-        } catch {
-            
-        }
+        try? watcher.start()
         return watcher
     }
     
