@@ -9,7 +9,7 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, MenuManagerDelegate {
 
     @IBOutlet weak var window: NSWindow!
     
@@ -17,17 +17,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         menuManager = MenuManager()
+        menuManager.delegate = self
         menuManager.start()
-    }
-    
-    func shouldQuitApp() {
-        NSApplication.shared().terminate(self)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-
+    
+    func shouldQuitApp() {
+        NSApplication.shared().terminate(self)
+    }
 
 }
 
