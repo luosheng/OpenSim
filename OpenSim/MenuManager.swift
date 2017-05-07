@@ -57,12 +57,16 @@ protocol MenuManagerDelegate {
         DeviceManager.defaultManager.reload()
 
         DeviceManager.defaultManager.runtimes.forEach { (runtime) in
+            let devices = runtime.devices.filter { $0.applications?.count ?? 0 > 0 }
+            if devices.count == 0 {
+                return
+            }
             menu.addItem(NSMenuItem.separator())
             let titleItem = NSMenuItem(title: "\(runtime) Simulators", action: nil, keyEquivalent: "")
             titleItem.isEnabled = false
             menu.addItem(titleItem)
             
-            runtime.devices.forEach({ (device) in
+            devices.forEach({ (device) in
                 let deviceMenuItem = menu.addItem(withTitle: device.fullName, action: nil, keyEquivalent: "")
                 deviceMenuItem.onStateImage = NSImage(named: "active")
                 deviceMenuItem.offStateImage = NSImage(named: "inactive")
