@@ -13,6 +13,12 @@ final class ActionMenu: NSMenu {
     private weak var device: Device!
     private weak var application: Application!
     
+    private var titleMenuItem: NSMenuItem {
+        let item = NSMenuItem(title: "Actions", action: nil, keyEquivalent: "")
+        item.isEnabled = false
+        return item
+    }
+    
     private var revealInFinderMenuItem: NSMenuItem {
         let item = NSMenuItem(title: "Reveal Sandbox in Finder", action: #selector(revealInFinder(_:)), keyEquivalent: "")
         item.target = self
@@ -51,6 +57,7 @@ final class ActionMenu: NSMenu {
         self.application = application
         super.init(title: "")
         
+        self.addItem(titleMenuItem)
         self.addItem(revealInFinderMenuItem)
         self.addItem(copyPathMenuItem)
         self.addItem(openInTerminalMenuItem)
