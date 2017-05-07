@@ -23,6 +23,7 @@
 		B39B2B731EBF573C00CDD74C /* UninstallAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B721EBF573C00CDD74C /* UninstallAction.swift */; };
 		B39B2B751EBF58EC00CDD74C /* OpenInItermAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B741EBF58EC00CDD74C /* OpenInItermAction.swift */; };
 		B39B2B771EBF5F4200CDD74C /* ExtraApplicationActionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B761EBF5F4200CDD74C /* ExtraApplicationActionable.swift */; };
+		B39B2B791EBF614400CDD74C /* OpenRealmAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B781EBF614400CDD74C /* OpenRealmAction.swift */; };
 		B3A1E3231BF049690090EC58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1E3221BF049690090EC58 /* AppDelegate.swift */; };
 		B3A1E3251BF049690090EC58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A1E3241BF049690090EC58 /* Assets.xcassets */; };
 		B3A1E3281BF049690090EC58 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A1E3261BF049690090EC58 /* MainMenu.xib */; };
@@ -52,6 +53,7 @@
 		B39B2B721EBF573C00CDD74C /* UninstallAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UninstallAction.swift; sourceTree = "<group>"; };
 		B39B2B741EBF58EC00CDD74C /* OpenInItermAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenInItermAction.swift; sourceTree = "<group>"; };
 		B39B2B761EBF5F4200CDD74C /* ExtraApplicationActionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtraApplicationActionable.swift; sourceTree = "<group>"; };
+		B39B2B781EBF614400CDD74C /* OpenRealmAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenRealmAction.swift; sourceTree = "<group>"; };
 		B3A1E31F1BF049690090EC58 /* OpenSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A1E3221BF049690090EC58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A1E3241BF049690090EC58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				B39B2B701EBF56F200CDD74C /* OpenInTerminalAction.swift */,
 				B39B2B721EBF573C00CDD74C /* UninstallAction.swift */,
 				B39B2B741EBF58EC00CDD74C /* OpenInItermAction.swift */,
+				B39B2B781EBF614400CDD74C /* OpenRealmAction.swift */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */,
 				B3A1E3341BF0709A0090EC58 /* URLHelper.swift in Sources */,
 				B3D188E91BF436480064E851 /* Runtime.swift in Sources */,
+				B39B2B791EBF614400CDD74C /* OpenRealmAction.swift in Sources */,
 				B39B2B771EBF5F4200CDD74C /* ExtraApplicationActionable.swift in Sources */,
 				B39B2B751EBF58EC00CDD74C /* OpenInItermAction.swift in Sources */,
 				B3054E181BF381CE00F433C2 /* FileInfo.swift in Sources */,

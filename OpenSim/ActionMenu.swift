@@ -21,6 +21,7 @@ final class ActionMenu: NSMenu {
     
     private static let extraActions: [ApplicationActionable] = [
         OpenInItermAction(),
+        OpenRealmAction()
     ]
     
     private var appInfoItem: NSMenuItem {
