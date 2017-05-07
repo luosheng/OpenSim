@@ -80,6 +80,6 @@ final class Application {
     }
     
     func uninstall() {
-        SimulatorController.uninstall(DeviceApplicationPair(device: device, application: self))
+        SimulatorController.uninstall(self)
     }
 }

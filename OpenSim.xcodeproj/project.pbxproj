@@ -23,7 +23,6 @@
 		B3A1E3321BF062C40090EC58 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1E3311BF062C40090EC58 /* Device.swift */; };
 		B3A1E3341BF0709A0090EC58 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1E3331BF0709A0090EC58 /* URLHelper.swift */; };
 		B3A31ACA1D1EA1C300F06564 /* AppMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A31AC91D1EA1C300F06564 /* AppMenuView.swift */; };
-		B3CB095A1BF0D9890023C3E0 /* DeviceApplicationPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CB09591BF0D9890023C3E0 /* DeviceApplicationPair.swift */; };
 		B3D188E91BF436480064E851 /* Runtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D188E81BF436480064E851 /* Runtime.swift */; };
 		B3E67B5E1CA412BD00744B38 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E67B5D1CA412BD00744B38 /* MenuManager.swift */; };
 		B3F493A61BF0822800C64FF0 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F493A51BF0822800C64FF0 /* Application.swift */; };
@@ -49,7 +48,6 @@
 		B3A1E3311BF062C40090EC58 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		B3A1E3331BF0709A0090EC58 /* URLHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLHelper.swift; sourceTree = "<group>"; };
 		B3A31AC91D1EA1C300F06564 /* AppMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppMenuView.swift; sourceTree = "<group>"; };
-		B3CB09591BF0D9890023C3E0 /* DeviceApplicationPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceApplicationPair.swift; sourceTree = "<group>"; };
 		B3D188E81BF436480064E851 /* Runtime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Runtime.swift; sourceTree = "<group>"; };
 		B3E67B5D1CA412BD00744B38 /* MenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
 		B3F493A51BF0822800C64FF0 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
@@ -72,7 +70,6 @@
 			children = (
 				B3F493A51BF0822800C64FF0 /* Application.swift */,
 				B3A1E3311BF062C40090EC58 /* Device.swift */,
-				B3CB09591BF0D9890023C3E0 /* DeviceApplicationPair.swift */,
 				B3A1E32F1BF05F980090EC58 /* DeviceManager.swift */,
 				B3D188E81BF436480064E851 /* Runtime.swift */,
 				B3054E161BF381CE00F433C2 /* FileInfo.swift */,
@@ -213,7 +210,6 @@
 				B3A1E3321BF062C40090EC58 /* Device.swift in Sources */,
 				B310B99B1D1AA08500D880CA /* ImageExtension.swift in Sources */,
 				B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */,
-				B3CB095A1BF0D9890023C3E0 /* DeviceApplicationPair.swift in Sources */,
 				B3A1E3341BF0709A0090EC58 /* URLHelper.swift in Sources */,
 				B3D188E91BF436480064E851 /* Runtime.swift in Sources */,
 				B3054E181BF381CE00F433C2 /* FileInfo.swift in Sources */,

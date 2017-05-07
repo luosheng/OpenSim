@@ -25,11 +25,11 @@ class SimulatorController: NSObject {
         return false
     }
     
-    static func uninstall(_ pair:DeviceApplicationPair) {
-        let answer = dialogOKCancel(NSLocalizedString("Confirm Delete?", comment: ""), text: NSLocalizedString("Are you sure you want to delete \(pair.application.bundleDisplayName) for \(pair.device.fullName)", comment: ""))
+    static func uninstall(_ application: Application) {
+        let answer = dialogOKCancel(NSLocalizedString("Confirm Delete?", comment: ""), text: NSLocalizedString("Are you sure you want to delete \(application.bundleDisplayName) for \(application.device.fullName)", comment: ""))
         if answer {
             // delete the app
-            _ = shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", pair.device.UDID, pair.application.bundleID])
+            _ = shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", application.device.UDID, application.bundleID])
         }
     }
     
