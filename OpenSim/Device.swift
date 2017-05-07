@@ -15,12 +15,18 @@ final class Device {
         case Unknown = "Unknown"
         case Booted = "Booted"
     }
+    
+    enum Availability: String {
+        case available = "(available)"
+        case unavailable = "(unavailable, runtime profile not found)"
+    }
 
     let UDID: String
     let type: String
     let name: String
     let runtime: Runtime
     let state: State
+    let availability: Availability
     var applications: [Application]?
 
     init(UDID: String, type: String, name: String, runtime: String, state: State) {
