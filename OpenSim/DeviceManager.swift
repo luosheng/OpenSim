@@ -14,9 +14,10 @@ final class DeviceManager {
     static let deviceRuntimePrefix = "com.apple.CoreSimulator.SimRuntime"
     
     static let defaultManager = DeviceManager()
-    var deviceMapping = [Device]()
+    
+    var runtimes = [Runtime]()
     
     func reload() {
-        self.deviceMapping = SimulatorController.deviceList()
+        self.runtimes = SimulatorController.listDevices()
     }
 }
