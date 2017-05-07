@@ -25,6 +25,12 @@ final class ActionMenu: NSMenu {
         return item
     }
     
+    var openInTerminalMenuItem: NSMenuItem {
+        let item = NSMenuItem(title: "Open Sandbox in Terminal", action: #selector(openInTerminal(_:)), keyEquivalent: "")
+        item.target = self
+        return item
+    }
+    
     private var sandboxUrl: URL? {
         guard let application = application,
             let url = device?.containerURLForApplication(application),
@@ -42,6 +48,7 @@ final class ActionMenu: NSMenu {
         
         self.addItem(revealInFinderMenuItem)
         self.addItem(copyPathMenuItem)
+        self.addItem(openInTerminalMenuItem)
     }
     
     required init(coder decoder: NSCoder) {
@@ -57,6 +64,12 @@ final class ActionMenu: NSMenu {
     @objc private func copyToPasteboard(_ sender: AnyObject) {
         if let url = sandboxUrl {
             NSPasteboard.general().setString(url.path, forType: NSPasteboardTypeString)
+        }
+    }
+    
+    @objc private func openInTerminal(_ sender: AnyObject) {
+        if let url = sandboxUrl {
+            NSWorkspace.shared().openFile(url.path, withApplication: "Terminal")
         }
     }
 }
