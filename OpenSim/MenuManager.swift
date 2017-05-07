@@ -82,6 +82,14 @@ protocol MenuManagerDelegate {
 
         let refreshMenuItem = menu.addItem(withTitle: NSLocalizedString("Refresh", comment: ""), action: #selector(refreshItemClicked(_:)), keyEquivalent: "r")
         refreshMenuItem.target = self
+        
+        let launchAtLoginMenuItem = menu.addItem(withTitle: NSLocalizedString("Launch at Login", comment: ""), action: #selector(launchItemClicked(_:)), keyEquivalent: "")
+        launchAtLoginMenuItem.target = self
+        if existingItem(itemUrl: Bundle.main.bundleURL) != nil {
+            launchAtLoginMenuItem.state = NSOnState
+        } else {
+            launchAtLoginMenuItem.state = NSOffState
+        }
 
         let quitMenu = menu.addItem(withTitle: NSLocalizedString("Quit", comment: ""), action: #selector(quitItemClicked(_:)), keyEquivalent: "q")
         quitMenu.target = self
@@ -132,6 +140,12 @@ protocol MenuManagerDelegate {
 
     func refreshItemClicked(_ sender: AnyObject) {
         reloadWhenReady()
+    }
+    
+    func launchItemClicked(_ sender: NSMenuItem) {
+        let wasOn = sender.state == NSOnState
+        sender.state = (wasOn ? NSOffState : NSOnState)
+        setLaunchAtLogin(itemUrl: Bundle.main.bundleURL, enabled: !wasOn)
     }
 
     // MARK: - NSMenuDelegate
