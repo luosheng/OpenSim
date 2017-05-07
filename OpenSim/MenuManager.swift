@@ -71,14 +71,8 @@ protocol MenuManagerDelegate {
             let submenu = NSMenu()
             submenu.delegate = self
             device.applications.forEach { app in
-                let appMenuView = AppMenuView(app: app)
-                let appMenuItem = NSMenuItem()
-                appMenuItem.view = appMenuView
-                appMenuItem.keyEquivalent = ""
-                appMenuItem.isEnabled = true
-                
+                let appMenuItem = AppMenuItem(application: app)
                 appMenuItem.submenu = ActionMenu(device: device, application: app)
-                
                 submenu.addItem(appMenuItem)
             }
             deviceMenuItem.submenu = submenu
