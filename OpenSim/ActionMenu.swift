@@ -19,30 +19,37 @@ final class ActionMenu: NSMenu {
         return item
     }
     
+    private let templatize: (NSImage) -> (NSImage) = {
+        $0.isTemplate = true
+        return $0
+    }
+    
     private var revealInFinderItem: NSMenuItem? {
         let item = NSMenuItem(title: "Reveal Sandbox in Finder", action: #selector(revealInFinder(_:)), keyEquivalent: "")
-        item.image = #imageLiteral(resourceName: "reveal")
+        let image = templatize(#imageLiteral(resourceName: "reveal"))
+        image.isTemplate = true
+        item.image = image
         item.target = self
         return item
     }
     
     private var copyPathItem: NSMenuItem? {
         let item = NSMenuItem(title: "Copy Sandbox Path to Pasteboard", action: #selector(copyToPasteboard(_:)), keyEquivalent: "")
-        item.image = #imageLiteral(resourceName: "share")
+        item.image = templatize(#imageLiteral(resourceName: "share"))
         item.target = self
         return item
     }
     
     private var openInTerminalItem: NSMenuItem? {
         let item = NSMenuItem(title: "Open Sandbox in Terminal", action: #selector(openInTerminal(_:)), keyEquivalent: "")
-        item.image = #imageLiteral(resourceName: "terminal")
+        item.image = templatize(#imageLiteral(resourceName: "terminal"))
         item.target = self
         return item
     }
     
     private var uninstallItem: NSMenuItem? {
         let item = NSMenuItem(title: "Uninstall…", action: #selector(uninstall(_:)), keyEquivalent: "")
-        item.image = #imageLiteral(resourceName: "uninstall")
+        item.image = templatize(#imageLiteral(resourceName: "uninstall"))
         item.target = self
         return item
     }
