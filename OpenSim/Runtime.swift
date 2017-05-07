@@ -24,8 +24,7 @@ final class Runtime: CustomStringConvertible {
             return name
         }
         
-        let lastTwoComponents = components[components.count - 2 ..< components.count]
-        return lastTwoComponents.joined(separator: ".")
+        return "\(components[components.count - 3]) \(components[components.count - 2]).\(components[components.count - 1])"
     }
     
     init(name: String) {
