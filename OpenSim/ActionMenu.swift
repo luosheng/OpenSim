@@ -60,6 +60,12 @@ final class ActionMenu: NSMenu {
         return item
     }
     
+    private var appInfoItem: NSMenuItem {
+        let item = NSMenuItem()
+        item.view = AppInfoView(application: application)
+        return item
+    }
+    
     private var sandboxUrl: URL? {
         guard let url = device.containerURLForApplication(application),
             FileManager.default.fileExists(atPath: url.path)
@@ -72,6 +78,7 @@ final class ActionMenu: NSMenu {
     init(device: Device, application: Application) {
         self.device = device
         self.application = application
+        
         super.init(title: "")
         
         buildMenuItems()
@@ -98,6 +105,7 @@ final class ActionMenu: NSMenu {
         self.addItem(NSMenuItem.separator())
         
         self.addItem(appInfoTitleItem)
+        self.addItem(appInfoItem)
     }
     
     @objc private func revealInFinder(_ sender: AnyObject) {
