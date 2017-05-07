@@ -153,23 +153,5 @@ protocol MenuManagerDelegate {
         sender.state = (wasOn ? NSOffState : NSOnState)
         setLaunchAtLogin(itemUrl: Bundle.main.bundleURL, enabled: !wasOn)
     }
-
-    // MARK: - NSMenuDelegate
-
-    func menuWillOpen(_ menu: NSMenu) {
-        menuObserver =  CFRunLoopObserverCreateWithHandler(nil, CFRunLoopActivity.beforeWaiting.rawValue, true, 0) { (observer, activity) in
-            if let view = menu.highlightedItem?.view as? ModifyFlagsResponsive {
-                view.processModifyFlags(flags: NSEvent.modifierFlags())
-            }
-        }
-        CFRunLoopAddObserver(CFRunLoopGetCurrent(), menuObserver, CFRunLoopMode.commonModes)
-    }
-
-    func menuDidClose(_ menu: NSMenu) {
-        if let menuObserver = menuObserver {
-            CFRunLoopObserverInvalidate(menuObserver)
-            self.menuObserver = nil
-        }
-    }
     
 }
