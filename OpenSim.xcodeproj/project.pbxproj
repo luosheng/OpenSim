@@ -15,6 +15,7 @@
 		B32480551EBEB705000633FC /* ActionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32480541EBEB705000633FC /* ActionMenu.swift */; };
 		B39B2B611EBEF1A100CDD74C /* AppMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B601EBEF1A100CDD74C /* AppMenuItem.swift */; };
 		B39B2B631EBEFFB700CDD74C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B621EBEFFB700CDD74C /* AppInfoView.swift */; };
+		B39B2B671EBF0D0600CDD74C /* LaunchAtLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B661EBF0D0600CDD74C /* LaunchAtLoginHelper.swift */; };
 		B3A1E3231BF049690090EC58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1E3221BF049690090EC58 /* AppDelegate.swift */; };
 		B3A1E3251BF049690090EC58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A1E3241BF049690090EC58 /* Assets.xcassets */; };
 		B3A1E3281BF049690090EC58 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A1E3261BF049690090EC58 /* MainMenu.xib */; };
@@ -38,6 +39,7 @@
 		B32480541EBEB705000633FC /* ActionMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionMenu.swift; sourceTree = "<group>"; };
 		B39B2B601EBEF1A100CDD74C /* AppMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppMenuItem.swift; sourceTree = "<group>"; };
 		B39B2B621EBEFFB700CDD74C /* AppInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
+		B39B2B661EBF0D0600CDD74C /* LaunchAtLoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginHelper.swift; sourceTree = "<group>"; };
 		B3A1E31F1BF049690090EC58 /* OpenSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A1E3221BF049690090EC58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A1E3241BF049690090EC58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				AF9D00391D110E750065AFD0 /* Helper.swift */,
 				D17669C01D1883AE00816D61 /* SimulatorController.swift */,
 				B310B99A1D1AA08500D880CA /* ImageExtension.swift */,
+				B39B2B661EBF0D0600CDD74C /* LaunchAtLoginHelper.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				B3D188E91BF436480064E851 /* Runtime.swift in Sources */,
 				B3054E181BF381CE00F433C2 /* FileInfo.swift in Sources */,
 				B3E67B5E1CA412BD00744B38 /* MenuManager.swift in Sources */,
+				B39B2B671EBF0D0600CDD74C /* LaunchAtLoginHelper.swift in Sources */,
 				B3A31ACA1D1EA1C300F06564 /* AppMenuView.swift in Sources */,
 				B39B2B631EBEFFB700CDD74C /* AppInfoView.swift in Sources */,
 				B3A1E3301BF05F980090EC58 /* DeviceManager.swift in Sources */,
