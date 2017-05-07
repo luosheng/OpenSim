@@ -10,11 +10,11 @@ import Cocoa
 
 final class UninstallAction: ApplicationActionable {
     
-    let title: String = NSLocalizedString("Uninstall…", comment: "")
+    let title = NSLocalizedString("Uninstall…", comment: "")
     
-    let icon: NSImage = templatize(#imageLiteral(resourceName: "uninstall"))
+    let icon = templatize(#imageLiteral(resourceName: "uninstall"))
     
-    let isAvailable: Bool = true
+    let isAvailable = true
     
     func perform(with application: Application) {
         let alert: NSAlert = NSAlert()

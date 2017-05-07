@@ -10,9 +10,9 @@ import Cocoa
 
 final class CopyToPasteboardAction: ApplicationActionable {
     
-    let title: String = NSLocalizedString("Copy Sandbox Path to Pasteboard", comment: "")
+    let title = NSLocalizedString("Copy Sandbox Path to Pasteboard", comment: "")
     
-    let icon: NSImage = templatize(#imageLiteral(resourceName: "share"))
+    let icon = templatize(#imageLiteral(resourceName: "share"))
     
     let isAvailable: Bool = true
     

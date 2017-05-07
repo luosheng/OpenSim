@@ -10,9 +10,9 @@ import Cocoa
 
 final class RevealInFinderAction: ApplicationActionable {
     
-    let title: String = NSLocalizedString("Reveal Sandbox in Finder", comment: "")
+    let title = NSLocalizedString("Reveal Sandbox in Finder", comment: "")
     
-    let icon: NSImage = templatize(#imageLiteral(resourceName: "reveal"))
+    let icon = templatize(#imageLiteral(resourceName: "reveal"))
     
     let isAvailable: Bool = true
     

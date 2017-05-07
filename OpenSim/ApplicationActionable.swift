@@ -12,7 +12,7 @@ protocol ApplicationActionable {
     
     var title: String { get }
     
-    var icon: NSImage { get }
+    var icon: NSImage? { get }
     
     var isAvailable: Bool { get }
     

@@ -10,11 +10,11 @@ import Cocoa
 
 final class OpenInTerminalAction: ApplicationActionable {
     
-    let title: String = NSLocalizedString("Open Sandbox in Terminal", comment: "")
+    let title = NSLocalizedString("Open Sandbox in Terminal", comment: "")
     
-    let icon: NSImage = templatize(#imageLiteral(resourceName: "terminal"))
+    let icon = templatize(#imageLiteral(resourceName: "terminal"))
     
-    let isAvailable: Bool = true
+    let isAvailable = true
     
     func perform(with application: Application) {
         if let url = application.sandboxUrl {
