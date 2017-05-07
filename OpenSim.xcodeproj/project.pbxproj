@@ -17,6 +17,10 @@
 		B39B2B631EBEFFB700CDD74C /* AppInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B621EBEFFB700CDD74C /* AppInfoView.swift */; };
 		B39B2B671EBF0D0600CDD74C /* LaunchAtLoginHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B661EBF0D0600CDD74C /* LaunchAtLoginHelper.swift */; };
 		B39B2B6A1EBF501F00CDD74C /* ApplicationActionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B691EBF501F00CDD74C /* ApplicationActionable.swift */; };
+		B39B2B6C1EBF510F00CDD74C /* RevealInFinderAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B6B1EBF510F00CDD74C /* RevealInFinderAction.swift */; };
+		B39B2B6F1EBF567F00CDD74C /* CopyToPasteboardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B6E1EBF567F00CDD74C /* CopyToPasteboardAction.swift */; };
+		B39B2B711EBF56F200CDD74C /* OpenInTerminalAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B701EBF56F200CDD74C /* OpenInTerminalAction.swift */; };
+		B39B2B731EBF573C00CDD74C /* UninstallAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B721EBF573C00CDD74C /* UninstallAction.swift */; };
 		B3A1E3231BF049690090EC58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1E3221BF049690090EC58 /* AppDelegate.swift */; };
 		B3A1E3251BF049690090EC58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A1E3241BF049690090EC58 /* Assets.xcassets */; };
 		B3A1E3281BF049690090EC58 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A1E3261BF049690090EC58 /* MainMenu.xib */; };
@@ -40,6 +44,10 @@
 		B39B2B621EBEFFB700CDD74C /* AppInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
 		B39B2B661EBF0D0600CDD74C /* LaunchAtLoginHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginHelper.swift; sourceTree = "<group>"; };
 		B39B2B691EBF501F00CDD74C /* ApplicationActionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationActionable.swift; sourceTree = "<group>"; };
+		B39B2B6B1EBF510F00CDD74C /* RevealInFinderAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RevealInFinderAction.swift; sourceTree = "<group>"; };
+		B39B2B6E1EBF567F00CDD74C /* CopyToPasteboardAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyToPasteboardAction.swift; sourceTree = "<group>"; };
+		B39B2B701EBF56F200CDD74C /* OpenInTerminalAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenInTerminalAction.swift; sourceTree = "<group>"; };
+		B39B2B721EBF573C00CDD74C /* UninstallAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UninstallAction.swift; sourceTree = "<group>"; };
 		B3A1E31F1BF049690090EC58 /* OpenSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A1E3221BF049690090EC58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A1E3241BF049690090EC58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -103,6 +111,17 @@
 			name = UI;
 			sourceTree = "<group>";
 		};
+		B39B2B6D1EBF511200CDD74C /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				B39B2B6B1EBF510F00CDD74C /* RevealInFinderAction.swift */,
+				B39B2B6E1EBF567F00CDD74C /* CopyToPasteboardAction.swift */,
+				B39B2B701EBF56F200CDD74C /* OpenInTerminalAction.swift */,
+				B39B2B721EBF573C00CDD74C /* UninstallAction.swift */,
+			);
+			name = Actions;
+			sourceTree = "<group>";
+		};
 		B3A1E3161BF049690090EC58 = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +143,7 @@
 			children = (
 				B3A1E3221BF049690090EC58 /* AppDelegate.swift */,
 				B36856AC1CA41BA8009BE4CC /* Models */,
+				B39B2B6D1EBF511200CDD74C /* Actions */,
 				B36856AD1CA41BCB009BE4CC /* Utilities */,
 				B36856AE1CA41BD4009BE4CC /* UI */,
 				B3A1E3241BF049690090EC58 /* Assets.xcassets */,
@@ -204,10 +224,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B39B2B6C1EBF510F00CDD74C /* RevealInFinderAction.swift in Sources */,
 				D17669C11D1883AE00816D61 /* SimulatorController.swift in Sources */,
 				B3F493A61BF0822800C64FF0 /* Application.swift in Sources */,
 				B39B2B611EBEF1A100CDD74C /* AppMenuItem.swift in Sources */,
 				B3A1E3321BF062C40090EC58 /* Device.swift in Sources */,
+				B39B2B711EBF56F200CDD74C /* OpenInTerminalAction.swift in Sources */,
 				B310B99B1D1AA08500D880CA /* ImageExtension.swift in Sources */,
 				B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */,
 				B3A1E3341BF0709A0090EC58 /* URLHelper.swift in Sources */,
@@ -219,6 +241,8 @@
 				B39B2B631EBEFFB700CDD74C /* AppInfoView.swift in Sources */,
 				B3A1E3301BF05F980090EC58 /* DeviceManager.swift in Sources */,
 				B3A1E3231BF049690090EC58 /* AppDelegate.swift in Sources */,
+				B39B2B6F1EBF567F00CDD74C /* CopyToPasteboardAction.swift in Sources */,
+				B39B2B731EBF573C00CDD74C /* UninstallAction.swift in Sources */,
 				B3054E1A1BF3958500F433C2 /* DirectoryWatcher.swift in Sources */,
 				B32480551EBEB705000633FC /* ActionMenu.swift in Sources */,
 				AF9D003A1D110E750065AFD0 /* Helper.swift in Sources */,

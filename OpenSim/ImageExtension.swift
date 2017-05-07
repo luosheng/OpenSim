@@ -14,6 +14,11 @@ struct IconImageConstants {
     static let cornerRadius: CGFloat = 5
 }
 
+func templatize(_ image: NSImage) -> NSImage {
+    image.isTemplate = true
+    return image
+}
+
 extension NSImage {
     
     func appIcon() -> NSImage? {

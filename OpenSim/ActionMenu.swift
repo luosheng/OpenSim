@@ -12,44 +12,16 @@ final class ActionMenu: NSMenu {
     
     private weak var application: Application!
     
+    private let standardActions: [ApplicationActionable] = [
+        RevealInFinderAction(),
+        CopyToPasteboardAction(),
+        OpenInTerminalAction(),
+        UninstallAction()
+    ]
+    
     private var titleItem: NSMenuItem {
         let item = NSMenuItem(title: "Actions", action: nil, keyEquivalent: "")
         item.isEnabled = false
-        return item
-    }
-    
-    private let templatize: (NSImage) -> (NSImage) = {
-        $0.isTemplate = true
-        return $0
-    }
-    
-    private var revealInFinderItem: NSMenuItem? {
-        let item = NSMenuItem(title: "Reveal Sandbox in Finder", action: #selector(revealInFinder(_:)), keyEquivalent: "")
-        let image = templatize(#imageLiteral(resourceName: "reveal"))
-        image.isTemplate = true
-        item.image = image
-        item.target = self
-        return item
-    }
-    
-    private var copyPathItem: NSMenuItem? {
-        let item = NSMenuItem(title: "Copy Sandbox Path to Pasteboard", action: #selector(copyToPasteboard(_:)), keyEquivalent: "")
-        item.image = templatize(#imageLiteral(resourceName: "share"))
-        item.target = self
-        return item
-    }
-    
-    private var openInTerminalItem: NSMenuItem? {
-        let item = NSMenuItem(title: "Open Sandbox in Terminal", action: #selector(openInTerminal(_:)), keyEquivalent: "")
-        item.image = templatize(#imageLiteral(resourceName: "terminal"))
-        item.target = self
-        return item
-    }
-    
-    private var uninstallItem: NSMenuItem? {
-        let item = NSMenuItem(title: "Uninstall…", action: #selector(uninstall(_:)), keyEquivalent: "")
-        item.image = templatize(#imageLiteral(resourceName: "uninstall"))
-        item.target = self
         return item
     }
     
@@ -78,15 +50,8 @@ final class ActionMenu: NSMenu {
     }
     
     private func buildMenuItems() {
-        let items = [
-            titleItem,
-            revealInFinderItem,
-            copyPathItem,
-            openInTerminalItem,
-            uninstallItem
-        ]
-        items.forEach { (item) in
-            if let item = item {
+        standardActions.forEach { (action) in
+            if let item = buildMenuItem(for: action) {
                 self.addItem(item)
             }
         }
@@ -97,34 +62,19 @@ final class ActionMenu: NSMenu {
         self.addItem(appInfoItem)
     }
     
-    @objc private func revealInFinder(_ sender: AnyObject) {
-        if let url = application.sandboxUrl {
-            NSWorkspace.shared().open(url)
+    private func buildMenuItem(`for` action: ApplicationActionable) -> NSMenuItem? {
+        if !action.isAvailable {
+            return nil
         }
+        let item = NSMenuItem(title: action.title, action: #selector(actionMenuItemClicked(_:)), keyEquivalent: "")
+        item.representedObject = action
+        item.image = action.icon
+        item.target = self
+        return item
     }
     
-    @objc private func copyToPasteboard(_ sender: AnyObject) {
-        if let url = application.sandboxUrl {
-            NSPasteboard.general().setString(url.path, forType: NSPasteboardTypeString)
-        }
+    @objc private func actionMenuItemClicked(_ sender: NSMenuItem) {
+        (sender.representedObject as? ApplicationActionable)?.perform(with: application)
     }
     
-    @objc private func openInTerminal(_ sender: AnyObject) {
-        if let url = application.sandboxUrl {
-            NSWorkspace.shared().openFile(url.path, withApplication: "Terminal")
-        }
-    }
-    
-    @objc private func uninstall(_ sender: AnyObject) {
-        let alert: NSAlert = NSAlert()
-        let alertFormat = "Are you sure you want to uninstall %1$@ from %1$@?"
-        alert.messageText = String(format: NSLocalizedString(alertFormat, comment: ""), application.bundleDisplayName, application.device.name)
-        alert.alertStyle = .critical
-        alert.addButton(withTitle: NSLocalizedString("Uninstall", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
-        let response = alert.runModal()
-        if response == NSAlertFirstButtonReturn {
-            application.uninstall()
-        }
-    }
 }
