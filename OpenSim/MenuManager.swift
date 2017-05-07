@@ -56,26 +56,28 @@ protocol MenuManagerDelegate {
         
         DeviceManager.defaultManager.reload()
 
-        var currentRuntime = ""
-        DeviceManager.defaultManager.deviceMapping.forEach { device in
-            if (currentRuntime != "" && device.runtime.name != currentRuntime) {
-                menu.addItem(NSMenuItem.separator())
-            }
-            currentRuntime = device.runtime.name
-
-            let deviceMenuItem = menu.addItem(withTitle: device.fullName, action: nil, keyEquivalent: "")
-            deviceMenuItem.onStateImage = NSImage(named: "active")
-            deviceMenuItem.offStateImage = NSImage(named: "inactive")
-            deviceMenuItem.state = device.state == .Booted ? NSOnState : NSOffState
-
-            let submenu = NSMenu()
-            submenu.delegate = self
-            device.applications?.forEach { app in
-                let appMenuItem = AppMenuItem(application: app)
-                appMenuItem.submenu = ActionMenu(device: device, application: app)
-                submenu.addItem(appMenuItem)
-            }
-            deviceMenuItem.submenu = submenu
+        DeviceManager.defaultManager.runtimes.forEach { (runtime) in
+            menu.addItem(NSMenuItem.separator())
+            let titleItem = NSMenuItem(title: "\(runtime)", action: nil, keyEquivalent: "")
+            titleItem.isEnabled = false
+            menu.addItem(titleItem)
+            
+            runtime.devices.forEach({ (device) in
+                let deviceMenuItem = menu.addItem(withTitle: device.fullName, action: nil, keyEquivalent: "")
+                deviceMenuItem.onStateImage = NSImage(named: "active")
+                deviceMenuItem.offStateImage = NSImage(named: "inactive")
+                deviceMenuItem.state = device.state == .Booted ? NSOnState : NSOffState
+                
+                let submenu = NSMenu()
+                submenu.delegate = self
+                device.applications?.forEach { app in
+                    let appMenuItem = AppMenuItem(application: app)
+                    appMenuItem.submenu = ActionMenu(device: device, application: app)
+                    submenu.addItem(appMenuItem)
+                }
+                deviceMenuItem.submenu = submenu
+            })
+            
         }
 
         menu.addItem(NSMenuItem.separator())
