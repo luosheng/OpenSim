@@ -82,6 +82,9 @@ protocol MenuManagerDelegate {
                 appMenuItem.action = #selector(appMenuItemClicked(_:))
                 appMenuItem.keyEquivalent = ""
                 appMenuItem.isEnabled = true
+                
+                appMenuItem.submenu = ActionMenu(device: device, application: app)
+                
                 submenu.addItem(appMenuItem)
             }
             deviceMenuItem.submenu = submenu

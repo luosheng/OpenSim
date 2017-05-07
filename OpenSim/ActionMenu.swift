@@ -10,15 +10,18 @@ import Cocoa
 
 final class ActionMenu: NSMenu {
     
-    let application: Application
+    weak var device: Device?
+    weak var application: Application?
     
-    init(app: Application) {
-        application = app
+    init(device: Device, application: Application) {
+        self.device = device
+        self.application = application
         super.init(title: "")
     }
     
     required init(coder decoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
 }
