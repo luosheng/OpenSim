@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Device {
+final class Device {
 
     enum State: String {
         case Shutdown = "Shutdown"
