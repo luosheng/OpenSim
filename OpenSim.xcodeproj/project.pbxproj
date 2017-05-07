@@ -13,6 +13,7 @@
 		B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */; };
 		B310B99B1D1AA08500D880CA /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310B99A1D1AA08500D880CA /* ImageExtension.swift */; };
 		B32480551EBEB705000633FC /* ActionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32480541EBEB705000633FC /* ActionMenu.swift */; };
+		B39B2B611EBEF1A100CDD74C /* AppMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39B2B601EBEF1A100CDD74C /* AppMenuItem.swift */; };
 		B3A1E3231BF049690090EC58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A1E3221BF049690090EC58 /* AppDelegate.swift */; };
 		B3A1E3251BF049690090EC58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A1E3241BF049690090EC58 /* Assets.xcassets */; };
 		B3A1E3281BF049690090EC58 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3A1E3261BF049690090EC58 /* MainMenu.xib */; };
@@ -34,6 +35,7 @@
 		B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelBlocks.swift; sourceTree = "<group>"; };
 		B310B99A1D1AA08500D880CA /* ImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
 		B32480541EBEB705000633FC /* ActionMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionMenu.swift; sourceTree = "<group>"; };
+		B39B2B601EBEF1A100CDD74C /* AppMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppMenuItem.swift; sourceTree = "<group>"; };
 		B3A1E31F1BF049690090EC58 /* OpenSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A1E3221BF049690090EC58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A1E3241BF049690090EC58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				B3E67B5D1CA412BD00744B38 /* MenuManager.swift */,
+				B39B2B601EBEF1A100CDD74C /* AppMenuItem.swift */,
 				B32480541EBEB705000633FC /* ActionMenu.swift */,
 				B3A31AC91D1EA1C300F06564 /* AppMenuView.swift */,
 			);
@@ -200,6 +203,7 @@
 			files = (
 				D17669C11D1883AE00816D61 /* SimulatorController.swift in Sources */,
 				B3F493A61BF0822800C64FF0 /* Application.swift in Sources */,
+				B39B2B611EBEF1A100CDD74C /* AppMenuItem.swift in Sources */,
 				B3A1E3321BF062C40090EC58 /* Device.swift in Sources */,
 				B310B99B1D1AA08500D880CA /* ImageExtension.swift in Sources */,
 				B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */,
