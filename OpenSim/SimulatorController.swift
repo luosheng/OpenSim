@@ -37,6 +37,9 @@ struct SimulatorController {
                         if let apps = device.applications, apps.count > 0, device.availability == .available {
                             runtime.devices.append(device)
                         }
+                        runtime.devices.sort(by: { (d1, d2) -> Bool in
+                            return d1.name.compare(d2.name) == .orderedAscending
+                        })
                     }
                 }
             }
