@@ -85,7 +85,7 @@ class SimulatorController: NSObject {
                     }
                     
                     let sortedDevices = iPhones.reversed() + iPads.reversed() + otherDevices
-                    mapping[os.0] = sortedDevices.filter { $0.applications.count > 0 }.map { $0 }
+                    mapping[os.0] = sortedDevices.filter { $0.applications?.count ?? 0 > 0 }.map { $0 }
                 }
             }
         }

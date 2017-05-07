@@ -11,6 +11,8 @@ import Cocoa
 
 final class Application {
     
+    weak var device: Device?
+    
     let bundleDisplayName: String
     let bundleID: String
     let bundleShortVersion: String
@@ -21,7 +23,8 @@ final class Application {
     var size: UInt64?
     static let sizeDispatchQueue = DispatchQueue(label: "com.pop-tap.size", attributes: .concurrent, target: nil)
 
-    init?(url: Foundation.URL) {
+    init?(device: Device, url: Foundation.URL) {
+        self.device = device
         guard let contents = try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles]),
             let url = contents.last // url ".app" diretory
             else {

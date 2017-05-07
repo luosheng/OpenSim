@@ -70,7 +70,7 @@ protocol MenuManagerDelegate {
 
             let submenu = NSMenu()
             submenu.delegate = self
-            device.applications.forEach { app in
+            device.applications?.forEach { app in
                 let appMenuItem = AppMenuItem(application: app)
                 appMenuItem.submenu = ActionMenu(device: device, application: app)
                 submenu.addItem(appMenuItem)

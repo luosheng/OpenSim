@@ -21,7 +21,7 @@ final class Device {
     let name: String
     let runtime: Runtime
     let state: State
-    let applications: [Application]
+    var applications: [Application]?
 
     init(UDID: String, type: String, name: String, runtime: String, state: State) {
         self.UDID = UDID
@@ -32,19 +32,20 @@ final class Device {
         
         let applicationPath = URLHelper.deviceURLForUDID(self.UDID).appendingPathComponent("data/Containers/Bundle/Application")
         let contents = try? FileManager.default.contentsOfDirectory(at: applicationPath, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
-        let applications = contents?
-            .filter({ (url) -> Bool in
-                var isDirectoryObj: AnyObject?
-                try? (url as NSURL).getResourceValue(&isDirectoryObj, forKey: URLResourceKey.isDirectoryKey)
-                guard let isDirectory = isDirectoryObj as? Bool else {
-                    return false
-                }
-                return isDirectory
-            })
-            .map { Application(url: $0) }
-            .filter { $0 != nil }
-            .map { $0! }
-        self.applications = applications ?? []
+        defer {
+            self.applications = contents?
+                .filter({ (url) -> Bool in
+                    var isDirectoryObj: AnyObject?
+                    try? (url as NSURL).getResourceValue(&isDirectoryObj, forKey: URLResourceKey.isDirectoryKey)
+                    guard let isDirectory = isDirectoryObj as? Bool else {
+                        return false
+                    }
+                    return isDirectory
+                })
+                .map { Application(device: self, url: $0) }
+                .filter { $0 != nil }
+                .map { $0! }
+        }
     }
 
     var fullName:String {
