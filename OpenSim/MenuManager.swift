@@ -10,10 +10,7 @@ import Foundation
 import Cocoa
 
 protocol MenuManagerDelegate {
-    
     func shouldQuitApp()
-    func shouldOpenContainer(_ pair: DeviceApplicationPair)
-    func shouldUninstallContianer(_ pair: DeviceApplicationPair)
 }
 
 @objc final class MenuManager: NSObject, NSMenuDelegate {
@@ -77,9 +74,6 @@ protocol MenuManagerDelegate {
                 let appMenuView = AppMenuView(app: app)
                 let appMenuItem = NSMenuItem()
                 appMenuItem.view = appMenuView
-                appMenuItem.representedObject = DeviceApplicationPair(device: device, application: app)
-                appMenuItem.target = self
-                appMenuItem.action = #selector(appMenuItemClicked(_:))
                 appMenuItem.keyEquivalent = ""
                 appMenuItem.isEnabled = true
                 
@@ -156,22 +150,6 @@ protocol MenuManagerDelegate {
 
     func refreshItemClicked(_ sender: AnyObject) {
         reloadWhenReady()
-    }
-    
-    func appMenuItemClicked(_ sender: AnyObject) {
-        if let pair = sender.representedObject as? DeviceApplicationPair {
-            // if control click
-            if let event = NSApp.currentEvent, event.modifierFlags.contains(.control) {
-                delegate?.shouldUninstallContianer(pair)
-                
-                // rebuild menu
-                self.buildMenu()
-            }
-            else {
-                // open the app directory
-                delegate?.shouldOpenContainer(pair)
-            }
-        }
     }
 
     // MARK: - NSMenuDelegate

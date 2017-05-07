@@ -9,7 +9,7 @@
 import Cocoa
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate, MenuManagerDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
     
@@ -17,25 +17,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuManagerDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         menuManager = MenuManager()
-        menuManager.delegate = self
         menuManager.start()
     }
     
     func shouldQuitApp() {
         NSApplication.shared().terminate(self)
-    }
-    
-    func shouldOpenContainer(_ pair: DeviceApplicationPair) {
-        guard let URL = pair.device.containerURLForApplication(pair.application),
-            FileManager.default.fileExists(atPath: URL.path) else {
-                return
-        }
-        
-        NSWorkspace.shared().open(URL)
-    }
-    
-    func shouldUninstallContianer(_ pair: DeviceApplicationPair) {
-        SimulatorController.uninstall(pair)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
