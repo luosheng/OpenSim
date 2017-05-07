@@ -13,31 +13,31 @@ final class ActionMenu: NSMenu {
     private weak var device: Device!
     private weak var application: Application!
     
-    private var titleMenuItem: NSMenuItem {
+    private var titleItem: NSMenuItem {
         let item = NSMenuItem(title: "Actions", action: nil, keyEquivalent: "")
         item.isEnabled = false
         return item
     }
     
-    private var revealInFinderMenuItem: NSMenuItem {
+    private var revealInFinderItem: NSMenuItem? {
         let item = NSMenuItem(title: "Reveal Sandbox in Finder", action: #selector(revealInFinder(_:)), keyEquivalent: "")
         item.target = self
         return item
     }
     
-    private var copyPathMenuItem: NSMenuItem {
+    private var copyPathItem: NSMenuItem? {
         let item = NSMenuItem(title: "Copy Sandbox Path to Pasteboard", action: #selector(copyToPasteboard(_:)), keyEquivalent: "")
         item.target = self
         return item
     }
     
-    private var openInTerminalMenuItem: NSMenuItem {
+    private var openInTerminalItem: NSMenuItem? {
         let item = NSMenuItem(title: "Open Sandbox in Terminal", action: #selector(openInTerminal(_:)), keyEquivalent: "")
         item.target = self
         return item
     }
     
-    private var uninstallMenuItem: NSMenuItem {
+    private var uninstallItem: NSMenuItem? {
         let item = NSMenuItem(title: "Uninstall…", action: #selector(uninstall(_:)), keyEquivalent: "")
         item.target = self
         return item
@@ -57,11 +57,18 @@ final class ActionMenu: NSMenu {
         self.application = application
         super.init(title: "")
         
-        self.addItem(titleMenuItem)
-        self.addItem(revealInFinderMenuItem)
-        self.addItem(copyPathMenuItem)
-        self.addItem(openInTerminalMenuItem)
-        self.addItem(uninstallMenuItem)
+        let items = [
+            titleItem,
+            revealInFinderItem,
+            copyPathItem,
+            openInTerminalItem,
+            uninstallItem
+        ]
+        items.forEach { (item) in
+            if let item = item {
+                self.addItem(item)
+            }
+        }
     }
     
     required init(coder decoder: NSCoder) {
