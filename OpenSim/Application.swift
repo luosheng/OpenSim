@@ -11,7 +11,7 @@ import Cocoa
 
 final class Application {
     
-    weak var device: Device?
+    weak var device: Device!
     
     let bundleDisplayName: String
     let bundleID: String
@@ -22,6 +22,15 @@ final class Application {
     
     var size: UInt64?
     static let sizeDispatchQueue = DispatchQueue(label: "com.pop-tap.size", attributes: .concurrent, target: nil)
+    
+    var sandboxUrl: URL? {
+        guard let url = device.containerURLForApplication(self),
+            FileManager.default.fileExists(atPath: url.path)
+            else {
+                return nil
+        }
+        return url
+    }
 
     init?(device: Device, url: Foundation.URL) {
         self.device = device
@@ -68,5 +77,9 @@ final class Application {
                 block(size)
             }
         }
+    }
+    
+    func uninstall() {
+        SimulatorController.uninstall(DeviceApplicationPair(device: device, application: self))
     }
 }

@@ -10,7 +10,6 @@ import Cocoa
 
 final class ActionMenu: NSMenu {
     
-    private weak var device: Device!
     private weak var application: Application!
     
     private var titleItem: NSMenuItem {
@@ -66,17 +65,7 @@ final class ActionMenu: NSMenu {
         return item
     }
     
-    private var sandboxUrl: URL? {
-        guard let url = device.containerURLForApplication(application),
-            FileManager.default.fileExists(atPath: url.path)
-            else {
-                return nil
-        }
-        return url
-    }
-    
     init(device: Device, application: Application) {
-        self.device = device
         self.application = application
         
         super.init(title: "")
@@ -109,24 +98,24 @@ final class ActionMenu: NSMenu {
     }
     
     @objc private func revealInFinder(_ sender: AnyObject) {
-        if let url = sandboxUrl {
+        if let url = application.sandboxUrl {
             NSWorkspace.shared().open(url)
         }
     }
     
     @objc private func copyToPasteboard(_ sender: AnyObject) {
-        if let url = sandboxUrl {
+        if let url = application.sandboxUrl {
             NSPasteboard.general().setString(url.path, forType: NSPasteboardTypeString)
         }
     }
     
     @objc private func openInTerminal(_ sender: AnyObject) {
-        if let url = sandboxUrl {
+        if let url = application.sandboxUrl {
             NSWorkspace.shared().openFile(url.path, withApplication: "Terminal")
         }
     }
     
     @objc private func uninstall(_ sender: AnyObject) {
-        SimulatorController.uninstall(DeviceApplicationPair(device: device, application: application))
+        application.uninstall()
     }
 }
