@@ -16,7 +16,7 @@ protocol ExtraApplicationActionable: ApplicationActionable {
 
 extension ExtraApplicationActionable {
     
-    private var appPath: String? {
+    var appPath: String? {
         return NSWorkspace.shared().absolutePathForApplication(withBundleIdentifier: appBundleIdentifier)
     }
     
