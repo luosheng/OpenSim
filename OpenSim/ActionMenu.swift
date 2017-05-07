@@ -13,22 +13,22 @@ final class ActionMenu: NSMenu {
     weak var device: Device?
     weak var application: Application?
     
+    var revealInFinderMenuItem: NSMenuItem {
+        let item = NSMenuItem(title: "Reveal Sandbox in Finder", action: #selector(revealInFinder(sender:)), keyEquivalent: "")
+        item.target = self
+        return item
+    }
+    
     init(device: Device, application: Application) {
         self.device = device
         self.application = application
         super.init(title: "")
         
-        buildActions()
+        self.addItem(revealInFinderMenuItem)
     }
     
     required init(coder decoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func buildActions() {
-        let revealInFinderAction = NSMenuItem(title: "Reveal Sandbox in Finder", action: #selector(revealInFinder(sender:)), keyEquivalent: "")
-        revealInFinderAction.target = self
-        self.addItem(revealInFinderAction)
     }
     
     @objc private func revealInFinder(sender: AnyObject) {
