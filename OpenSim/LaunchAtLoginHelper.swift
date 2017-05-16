@@ -26,10 +26,13 @@ func existingItem(itemUrl: URL) -> LSSharedFileListItem? {
     if let currentItems = LSSharedFileListCopySnapshot(loginItems, &seed).takeRetainedValue() as? [LSSharedFileListItem] {
         for item in currentItems {
             let resolutionFlags = UInt32(kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes)
-            let url = LSSharedFileListItemCopyResolvedURL(item, resolutionFlags, nil).takeRetainedValue() as URL
-            if itemUrl == url {
-                return item
+            if let cfurl = LSSharedFileListItemCopyResolvedURL(item, resolutionFlags, nil) {
+                let url = cfurl.takeRetainedValue() as URL
+                if itemUrl == url {
+                    return item
+                }
             }
+            
         }
     }
     return nil
