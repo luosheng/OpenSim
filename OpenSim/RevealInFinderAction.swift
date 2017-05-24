@@ -24,7 +24,11 @@ final class RevealInFinderAction: ApplicationActionable {
     
     func perform() {
         if let url = application?.sandboxUrl {
-            NSWorkspace.shared().open(url)
+            if url.lastPathComponent.hasSuffix(".app") {
+                NSWorkspace.shared().open(url.deletingLastPathComponent())
+            }else{
+                NSWorkspace.shared().open(url)
+            }
         }
     }
     

@@ -24,12 +24,12 @@ final class Application {
     static let sizeDispatchQueue = DispatchQueue(label: "com.pop-tap.size", attributes: .concurrent, target: nil)
     
     var sandboxUrl: URL? {
-        guard let url = device.containerURLForApplication(self),
-            FileManager.default.fileExists(atPath: url.path)
+        guard let safeurl = device.containerURLForApplication(self),
+            FileManager.default.fileExists(atPath: safeurl.path)
             else {
-                return nil
+                return url
         }
-        return url
+        return safeurl
     }
 
     init?(device: Device, url: Foundation.URL) {
