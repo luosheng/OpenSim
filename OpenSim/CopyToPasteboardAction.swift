@@ -20,6 +20,7 @@ final class CopyToPasteboardAction: ApplicationActionable {
     
     init(application: Application) {
         self.application = application
+        NSPasteboard.general().declareTypes([NSPasteboardTypeString], owner: nil)
     }
     
     func perform() {
