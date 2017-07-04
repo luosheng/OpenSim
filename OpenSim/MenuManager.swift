@@ -99,7 +99,7 @@ protocol MenuManagerDelegate {
             let quitMenu = menu.addItem(withTitle: NSLocalizedString("Quit", comment: ""), action: #selector(self.quitItemClicked(_:)), keyEquivalent: "q")
             quitMenu.target = self
             
-            statusItem.menu = menu
+            self.statusItem.menu = menu
         }
     }
 

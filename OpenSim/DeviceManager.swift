@@ -17,7 +17,7 @@ final class DeviceManager {
     
     var runtimes = [Runtime]()
     
-    func reload(callback: ([Runtime]) -> ()) {
+    func reload(callback: @escaping ([Runtime]) -> ()) {
         SimulatorController.listDevices { (runtimes) in
             self.runtimes = runtimes
             callback(runtimes)
