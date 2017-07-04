@@ -16,8 +16,8 @@ struct SimulatorController {
     }
 
     static func listDevices(callback: ([Runtime]) -> ()) {
-        guard let jsonString = shell("/usr/bin/xcrun", arguments: ["simctl", "list", "-j", "devices"]),
-            let data = jsonString.data(using: String.Encoding.utf8),
+        let jsonString = shell("/usr/bin/xcrun", arguments: ["simctl", "list", "-j", "devices"])
+        guard let data = jsonString.data(using: String.Encoding.utf8),
             let json = try? JSONSerialization.jsonObject(with: data, options:[]) as? [String: AnyObject],
             let devicesJson = json?["devices"] as? [String:AnyObject] else {
                 callback([])
