@@ -15,6 +15,7 @@ func shell(_ launchPath: String, arguments: [String]) -> String? {
     
     let pipe = Pipe()
     progress.standardOutput = pipe
+    progress.standardError = Pipe()
     progress.launch()
     
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
