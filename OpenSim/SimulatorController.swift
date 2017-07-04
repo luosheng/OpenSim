@@ -51,4 +51,18 @@ struct SimulatorController {
 
         callback(filteredRuntime)
     }
+
+    private static let maxAttempt = 8
+
+    private static func getDevicesJson(currentAttempt: Int, callback: @escaping (String) -> ()) {
+        print(currentAttempt)
+        let jsonString = shell("/usr/bin/xcrun", arguments: ["simctl", "list", "-j", "devices"])
+        if jsonString.characters.count > 0 || currentAttempt >= maxAttempt {
+            callback(jsonString)
+            return
+        }
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+            getDevicesJson(currentAttempt: currentAttempt + 1, callback: callback)
+        }
+    }
 }
