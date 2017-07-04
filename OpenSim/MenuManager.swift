@@ -54,53 +54,53 @@ protocol MenuManagerDelegate {
     private func buildMenu() {
         let menu = NSMenu()
         
-        DeviceManager.defaultManager.reload()
-
-        DeviceManager.defaultManager.runtimes.forEach { (runtime) in
-            let devices = runtime.devices.filter { $0.applications?.count ?? 0 > 0 }
-            if devices.count == 0 {
-                return
-            }
-            menu.addItem(NSMenuItem.separator())
-            let titleItem = NSMenuItem(title: "\(runtime) Simulators", action: nil, keyEquivalent: "")
-            titleItem.isEnabled = false
-            menu.addItem(titleItem)
-            
-            devices.forEach({ (device) in
-                let deviceMenuItem = menu.addItem(withTitle: device.fullName, action: nil, keyEquivalent: "")
-                deviceMenuItem.onStateImage = NSImage(named: "active")
-                deviceMenuItem.offStateImage = NSImage(named: "inactive")
-                deviceMenuItem.state = device.state == .Booted ? NSOnState : NSOffState
-                
-                let submenu = NSMenu()
-                submenu.delegate = self
-                device.applications?.forEach { app in
-                    let appMenuItem = AppMenuItem(application: app)
-                    appMenuItem.submenu = ActionMenu(device: device, application: app)
-                    submenu.addItem(appMenuItem)
+        DeviceManager.defaultManager.reload { (runtimes) in
+            runtimes.forEach { (runtime) in
+                let devices = runtime.devices.filter { $0.applications?.count ?? 0 > 0 }
+                if devices.count == 0 {
+                    return
                 }
-                deviceMenuItem.submenu = submenu
-            })
+                menu.addItem(NSMenuItem.separator())
+                let titleItem = NSMenuItem(title: "\(runtime) Simulators", action: nil, keyEquivalent: "")
+                titleItem.isEnabled = false
+                menu.addItem(titleItem)
+
+                devices.forEach({ (device) in
+                    let deviceMenuItem = menu.addItem(withTitle: device.fullName, action: nil, keyEquivalent: "")
+                    deviceMenuItem.onStateImage = NSImage(named: "active")
+                    deviceMenuItem.offStateImage = NSImage(named: "inactive")
+                    deviceMenuItem.state = device.state == .Booted ? NSOnState : NSOffState
+
+                    let submenu = NSMenu()
+                    submenu.delegate = self
+                    device.applications?.forEach { app in
+                        let appMenuItem = AppMenuItem(application: app)
+                        appMenuItem.submenu = ActionMenu(device: device, application: app)
+                        submenu.addItem(appMenuItem)
+                    }
+                    deviceMenuItem.submenu = submenu
+                })
+
+            }
+
+            menu.addItem(NSMenuItem.separator())
+
+            let refreshMenuItem = menu.addItem(withTitle: NSLocalizedString("Refresh", comment: ""), action: #selector(self.refreshItemClicked(_:)), keyEquivalent: "r")
+            refreshMenuItem.target = self
+
+            let launchAtLoginMenuItem = menu.addItem(withTitle: NSLocalizedString("Launch at Login", comment: ""), action: #selector(self.launchItemClicked(_:)), keyEquivalent: "")
+            launchAtLoginMenuItem.target = self
+            if existingItem(itemUrl: Bundle.main.bundleURL) != nil {
+                launchAtLoginMenuItem.state = NSOnState
+            } else {
+                launchAtLoginMenuItem.state = NSOffState
+            }
+
+            let quitMenu = menu.addItem(withTitle: NSLocalizedString("Quit", comment: ""), action: #selector(self.quitItemClicked(_:)), keyEquivalent: "q")
+            quitMenu.target = self
             
+            self.statusItem.menu = menu
         }
-
-        menu.addItem(NSMenuItem.separator())
-
-        let refreshMenuItem = menu.addItem(withTitle: NSLocalizedString("Refresh", comment: ""), action: #selector(refreshItemClicked(_:)), keyEquivalent: "r")
-        refreshMenuItem.target = self
-        
-        let launchAtLoginMenuItem = menu.addItem(withTitle: NSLocalizedString("Launch at Login", comment: ""), action: #selector(launchItemClicked(_:)), keyEquivalent: "")
-        launchAtLoginMenuItem.target = self
-        if existingItem(itemUrl: Bundle.main.bundleURL) != nil {
-            launchAtLoginMenuItem.state = NSOnState
-        } else {
-            launchAtLoginMenuItem.state = NSOffState
-        }
-
-        let quitMenu = menu.addItem(withTitle: NSLocalizedString("Quit", comment: ""), action: #selector(quitItemClicked(_:)), keyEquivalent: "q")
-        quitMenu.target = self
-
-        statusItem.menu = menu
     }
 
     private func buildWatcher() {
