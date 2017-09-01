@@ -37,7 +37,7 @@ final class OpenRealmAction: ExtraApplicationActionable {
     
     func perform() {
         if let realmPath = realmPath {
-            NSWorkspace.shared().openFile(realmPath, withApplication: "Realm Browser")
+            NSWorkspace.shared.openFile(realmPath, withApplication: "Realm Browser")
         }
     }
     

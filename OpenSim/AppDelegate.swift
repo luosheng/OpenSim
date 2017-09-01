@@ -26,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuManagerDelegate {
     }
     
     func shouldQuitApp() {
-        NSApplication.shared().terminate(self)
+        NSApplication.shared.terminate(self)
     }
 
 }

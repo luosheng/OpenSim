@@ -28,7 +28,7 @@ extension NSImage {
         let newImage = NSImage(size: IconImageConstants.size)
         newImage.lockFocus()
         self.size = IconImageConstants.size
-        NSGraphicsContext.current()?.imageInterpolation = .high
+        NSGraphicsContext.current?.imageInterpolation = .high
         
         NSGraphicsContext.saveGraphicsState()
         let path = NSBezierPath(roundedRect: NSRect(origin: NSPoint.zero, size: size), xRadius: IconImageConstants.cornerRadius, yRadius: IconImageConstants.cornerRadius)

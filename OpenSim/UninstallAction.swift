@@ -33,7 +33,7 @@ final class UninstallAction: ApplicationActionable {
         alert.addButton(withTitle: NSLocalizedString("Uninstall", comment: ""))
         alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
         let response = alert.runModal()
-        if response == NSAlertFirstButtonReturn {
+        if response == NSApplication.ModalResponse.alertFirstButtonReturn {
             application.uninstall()
         }
     }

@@ -24,7 +24,7 @@ final class RevealInFinderAction: ApplicationActionable {
     
     func perform() {
         if let url = application?.sandboxUrl {
-            NSWorkspace.shared().open(url)
+            NSWorkspace.shared.open(url)
         }
     }
     

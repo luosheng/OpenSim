@@ -22,7 +22,7 @@ class OpenInItermAction: ExtraApplicationActionable {
     
     func perform() {
         if let url = application?.sandboxUrl {
-            NSWorkspace.shared().openFile(url.path, withApplication: "iTerm")
+            NSWorkspace.shared.openFile(url.path, withApplication: "iTerm")
         }
     }
     

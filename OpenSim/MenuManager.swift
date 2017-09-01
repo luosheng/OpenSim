@@ -28,8 +28,8 @@ protocol MenuManagerDelegate {
     var menuObserver: CFRunLoopObserver?
     
     override init() {
-        statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
-        statusItem.image = NSImage(named: "menubar")
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusItem.image = NSImage(named: NSImage.Name(rawValue: "menubar"))
         statusItem.image!.isTemplate = true
         
         super.init()
@@ -67,9 +67,9 @@ protocol MenuManagerDelegate {
 
                 devices.forEach({ (device) in
                     let deviceMenuItem = menu.addItem(withTitle: device.fullName, action: nil, keyEquivalent: "")
-                    deviceMenuItem.onStateImage = NSImage(named: "active")
-                    deviceMenuItem.offStateImage = NSImage(named: "inactive")
-                    deviceMenuItem.state = device.state == .Booted ? NSOnState : NSOffState
+                    deviceMenuItem.onStateImage = NSImage(named: NSImage.Name(rawValue: "active"))
+                    deviceMenuItem.offStateImage = NSImage(named: NSImage.Name(rawValue: "inactive"))
+                    deviceMenuItem.state = device.state == .Booted ? .on : .off
 
                     let submenu = NSMenu()
                     submenu.delegate = self
@@ -91,9 +91,9 @@ protocol MenuManagerDelegate {
             let launchAtLoginMenuItem = menu.addItem(withTitle: NSLocalizedString("Launch at Login", comment: ""), action: #selector(self.launchItemClicked(_:)), keyEquivalent: "")
             launchAtLoginMenuItem.target = self
             if existingItem(itemUrl: Bundle.main.bundleURL) != nil {
-                launchAtLoginMenuItem.state = NSOnState
+                launchAtLoginMenuItem.state = .on
             } else {
-                launchAtLoginMenuItem.state = NSOffState
+                launchAtLoginMenuItem.state = .off
             }
 
             let quitMenu = menu.addItem(withTitle: NSLocalizedString("Quit", comment: ""), action: #selector(self.quitItemClicked(_:)), keyEquivalent: "q")
@@ -140,17 +140,17 @@ protocol MenuManagerDelegate {
         }
     }
     
-    func quitItemClicked(_ sender: AnyObject) {
+    @objc func quitItemClicked(_ sender: AnyObject) {
         delegate?.shouldQuitApp()
     }
 
-    func refreshItemClicked(_ sender: AnyObject) {
+    @objc func refreshItemClicked(_ sender: AnyObject) {
         reloadWhenReady()
     }
     
-    func launchItemClicked(_ sender: NSMenuItem) {
-        let wasOn = sender.state == NSOnState
-        sender.state = (wasOn ? NSOffState : NSOnState)
+    @objc func launchItemClicked(_ sender: NSMenuItem) {
+        let wasOn = sender.state == .on
+        sender.state = (wasOn ? .off : .on)
         setLaunchAtLogin(itemUrl: Bundle.main.bundleURL, enabled: !wasOn)
     }
     

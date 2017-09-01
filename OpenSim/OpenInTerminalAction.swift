@@ -24,7 +24,7 @@ final class OpenInTerminalAction: ApplicationActionable {
     
     func perform() {
         if let url = application?.sandboxUrl {
-            NSWorkspace.shared().openFile(url.path, withApplication: "Terminal")
+            NSWorkspace.shared.openFile(url.path, withApplication: "Terminal")
         }
     }
     

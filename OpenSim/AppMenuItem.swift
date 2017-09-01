@@ -19,7 +19,7 @@ class AppMenuItem: NSMenuItem {
         
         if let iconFile = application.iconFiles?.last,
             let bundle = Bundle(url: application.url) {
-            self.image = bundle.image(forResource: iconFile)?.appIcon()
+            self.image = bundle.image(forResource: NSImage.Name(rawValue: iconFile))?.appIcon()
         } else {
             self.image = #imageLiteral(resourceName: "DefaultAppIcon").appIcon()
         }

@@ -17,12 +17,12 @@ protocol ExtraApplicationActionable: ApplicationActionable {
 extension ExtraApplicationActionable {
     
     var appPath: String? {
-        return NSWorkspace.shared().absolutePathForApplication(withBundleIdentifier: appBundleIdentifier)
+        return NSWorkspace.shared.absolutePathForApplication(withBundleIdentifier: appBundleIdentifier)
     }
     
     var icon: NSImage? {
         return appPath.flatMap { (path) -> NSImage? in
-            let image = NSWorkspace.shared().icon(forFile: path)
+            let image = NSWorkspace.shared.icon(forFile: path)
             image.size = NSSize(width: 16, height: 16)
             return image
         }

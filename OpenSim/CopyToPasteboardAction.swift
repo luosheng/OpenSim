@@ -24,7 +24,7 @@ final class CopyToPasteboardAction: ApplicationActionable {
     
     func perform() {
         if let url = application?.sandboxUrl {
-            NSPasteboard.general().setString(url.path, forType: NSPasteboardTypeString)
+            NSPasteboard.general.setString(url.path, forType: NSPasteboard.PasteboardType.string)
         }
     }
     

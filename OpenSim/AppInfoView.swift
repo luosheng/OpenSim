@@ -14,7 +14,7 @@ final class AppInfoView: NSView {
     var textField: NSTextField!
     
     static let width: CGFloat = 250
-    static let edgeInsets = EdgeInsets(top: 0, left: 20, bottom: 5, right: 0)
+    static let edgeInsets = NSEdgeInsets(top: 0, left: 20, bottom: 5, right: 0)
     static let leftMargin: CGFloat = 20
     
     init(application: Application) {
