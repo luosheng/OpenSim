@@ -2,7 +2,7 @@ language: objective-c
  
 xcode_project: OpenSim.xcodeproj
 xcode_scheme: OpenSim
-osx_image: xcode8
+osx_image: xcode9
  
 script:
 - xcodebuild clean build -project OpenSim.xcodeproj -scheme OpenSim
