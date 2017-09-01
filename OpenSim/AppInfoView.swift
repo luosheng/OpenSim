@@ -29,7 +29,9 @@ final class AppInfoView: NSView {
         frame = NSRect(x: 0, y: 0, width: AppInfoView.width, height: size.height + AppInfoView.edgeInsets.bottom)
         
         application.calcSize { [weak self] _ in
-            self?.update()
+            DispatchQueue.main.async {
+                self?.update()
+            }
         }
     }
     
