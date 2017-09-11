@@ -25,7 +25,7 @@ struct SimulatorController {
             }
 
             var runtimes = [Runtime]()
-            for (runtimeName, deviceList) in devicesJson {
+            devicesJson.forEach({ (runtimeName, deviceList) in
                 let runtime = Runtime(name: runtimeName)
                 if let deviceList = deviceList as? [[String:String]] {
                     for deviceJson in deviceList {
@@ -45,7 +45,7 @@ struct SimulatorController {
                     }
                 }
                 runtimes.append(runtime)
-            }
+            })
 
             let filteredRuntime = runtimes.filter { $0.name.contains("iOS") && $0.devices.count > 0 }
             
