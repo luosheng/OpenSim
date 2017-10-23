@@ -80,6 +80,9 @@ final class Application {
     }
     
     func uninstall() {
+        if device.state != .Booted {
+            SimulatorController.boot(self)
+        }
         SimulatorController.uninstall(self)
     }
 }
