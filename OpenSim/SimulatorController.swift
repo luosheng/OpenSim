@@ -31,16 +31,20 @@ struct SimulatorController {
     
     private let activeDeveloperPath: String
     
+    private func simctl(_ arguments: String...) -> String {
+        return shell("\(activeDeveloperPath)/usr/bin/simctl", arguments: arguments)
+    }
+    
     init() {
         activeDeveloperPath = shell("/usr/bin/xcode-select", arguments: ["-p"]).trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     func uninstall(_ application: Application) {
-        _ = shell("\(activeDeveloperPath)/usr/bin/simctl", arguments: ["uninstall", application.device.UDID, application.bundleID])
+        _ = simctl("uninstall", application.device.UDID, application.bundleID)
     }
     
     func boot(_ application: Application) {
-        _ = shell("\(activeDeveloperPath)/usr/bin/simctl", arguments: ["boot", application.device.UDID])
+        _ = simctl("boot", application.device.UDID)
     }
 
     func listDevices(callback: @escaping ([Runtime]) -> ()) {
@@ -84,7 +88,7 @@ struct SimulatorController {
     private let maxAttempt = 8
 
     private func getDevicesJson(currentAttempt: Int, callback: @escaping (String) -> ()) {
-        let jsonString = shell("\(activeDeveloperPath)/usr/bin/simctl", arguments: ["list", "-j", "devices"])
+        let jsonString = simctl("list", "-j", "devices")
         if !jsonString.isEmpty || currentAttempt >= maxAttempt {
             callback(jsonString)
             return
