@@ -11,15 +11,17 @@ import Cocoa
 
 struct SimulatorController {
     
-    static func uninstall(_ application: Application) {
+    static let shared = SimulatorController()
+    
+    func uninstall(_ application: Application) {
         _ = shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", application.device.UDID, application.bundleID])
     }
     
-    static func boot(_ application: Application) {
+    func boot(_ application: Application) {
         _ = shell("/usr/bin/xcrun", arguments: ["simctl", "boot", application.device.UDID])
     }
 
-    static func listDevices(callback: @escaping ([Runtime]) -> ()) {
+    func listDevices(callback: @escaping ([Runtime]) -> ()) {
         getDevicesJson(currentAttempt: 0) { (jsonString) in
             guard let data = jsonString.data(using: String.Encoding.utf8),
             let json = try? JSONSerialization.jsonObject(with: data, options:[]) as? [String: AnyObject],
@@ -57,16 +59,16 @@ struct SimulatorController {
         }
     }
 
-    private static let maxAttempt = 8
+    private let maxAttempt = 8
 
-    private static func getDevicesJson(currentAttempt: Int, callback: @escaping (String) -> ()) {
+    private func getDevicesJson(currentAttempt: Int, callback: @escaping (String) -> ()) {
         let jsonString = shell("/usr/bin/xcrun", arguments: ["simctl", "list", "-j", "devices"])
         if jsonString.characters.count > 0 || currentAttempt >= maxAttempt {
             callback(jsonString)
             return
         }
         DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-            getDevicesJson(currentAttempt: currentAttempt + 1, callback: callback)
+            self.getDevicesJson(currentAttempt: currentAttempt + 1, callback: callback)
         }
     }
 }
