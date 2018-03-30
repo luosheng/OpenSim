@@ -13,6 +13,12 @@ struct SimulatorController {
     
     static let shared = SimulatorController()
     
+    private let activeDeveloperPath: String
+    
+    init() {
+        activeDeveloperPath = shell("/usr/bin/xcode-select", arguments: ["-p"]).trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
     func uninstall(_ application: Application) {
         _ = shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", application.device.UDID, application.bundleID])
     }
