@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF9D003A1D110E750065AFD0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9D00391D110E750065AFD0 /* Helper.swift */; };
 		B3054E181BF381CE00F433C2 /* FileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E161BF381CE00F433C2 /* FileInfo.swift */; };
 		B3054E1A1BF3958500F433C2 /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */; };
 		B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */; };
@@ -37,7 +36,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AF9D00391D110E750065AFD0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		B3054E161BF381CE00F433C2 /* FileInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileInfo.swift; sourceTree = "<group>"; };
 		B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryWatcher.swift; sourceTree = "<group>"; };
 		B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelBlocks.swift; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 				B3A1E3331BF0709A0090EC58 /* URLHelper.swift */,
 				B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */,
 				B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */,
-				AF9D00391D110E750065AFD0 /* Helper.swift */,
 				D17669C01D1883AE00816D61 /* SimulatorController.swift */,
 				B310B99A1D1AA08500D880CA /* ImageExtension.swift */,
 				B39B2B661EBF0D0600CDD74C /* LaunchAtLoginHelper.swift */,
@@ -257,7 +254,6 @@
 				B39B2B731EBF573C00CDD74C /* UninstallAction.swift in Sources */,
 				B3054E1A1BF3958500F433C2 /* DirectoryWatcher.swift in Sources */,
 				B32480551EBEB705000633FC /* ActionMenu.swift in Sources */,
-				AF9D003A1D110E750065AFD0 /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
