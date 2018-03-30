@@ -20,11 +20,11 @@ struct SimulatorController {
     }
     
     func uninstall(_ application: Application) {
-        _ = shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", application.device.UDID, application.bundleID])
+        _ = shell("\(activeDeveloperPath)/usr/bin/simctl", arguments: ["uninstall", application.device.UDID, application.bundleID])
     }
     
     func boot(_ application: Application) {
-        _ = shell("/usr/bin/xcrun", arguments: ["simctl", "boot", application.device.UDID])
+        _ = shell("\(activeDeveloperPath)/usr/bin/simctl", arguments: ["boot", application.device.UDID])
     }
 
     func listDevices(callback: @escaping ([Runtime]) -> ()) {
@@ -68,7 +68,7 @@ struct SimulatorController {
     private let maxAttempt = 8
 
     private func getDevicesJson(currentAttempt: Int, callback: @escaping (String) -> ()) {
-        let jsonString = shell("/usr/bin/xcrun", arguments: ["simctl", "list", "-j", "devices"])
+        let jsonString = shell("\(activeDeveloperPath)/usr/bin/simctl", arguments: ["list", "-j", "devices"])
         if !jsonString.isEmpty || currentAttempt >= maxAttempt {
             callback(jsonString)
             return
