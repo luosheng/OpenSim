@@ -8,6 +8,7 @@
 
 import Foundation
 import Cocoa
+import FBSimulatorControl
 
 private func shell(_ launchPath: String, arguments: [String]) -> String {
     let progress = Process()
@@ -35,8 +36,14 @@ struct SimulatorController {
         return shell("\(activeDeveloperPath)/usr/bin/simctl", arguments: arguments)
     }
     
+    private let control :FBSimulatorControl?
+    
     init() {
         activeDeveloperPath = shell("/usr/bin/xcode-select", arguments: ["-p"]).trimmingCharacters(in: .whitespacesAndNewlines)
+        let options = FBSimulatorManagementOptions()
+        let config = FBSimulatorControlConfiguration(deviceSetPath: nil, options: options)
+        let logger = FBControlCoreGlobalConfiguration.defaultLogger
+        control = try? FBSimulatorControl.withConfiguration(config, logger: logger)
     }
     
     func uninstall(_ application: Application) {
@@ -47,54 +54,19 @@ struct SimulatorController {
         _ = simctl("boot", application.device.UDID)
     }
 
-    func listDevices(callback: @escaping ([Runtime]) -> ()) {
-        getDevicesJson(currentAttempt: 0) { (jsonString) in
-            guard let data = jsonString.data(using: String.Encoding.utf8),
-            let json = try? JSONSerialization.jsonObject(with: data, options:[]) as? [String: AnyObject],
-            let devicesJson = json?["devices"] as? [String:AnyObject] else {
-                callback([])
-                return
-            }
-
-            var runtimes = [Runtime]()
-            devicesJson.forEach({ (runtimeName, deviceList) in
-                let runtime = Runtime(name: runtimeName)
-                if let deviceList = deviceList as? [[String:String]] {
-                    for deviceJson in deviceList {
-                        if let state = deviceJson["state"],
-                            let availability = deviceJson["availability"],
-                            let name = deviceJson["name"],
-                            let udid = deviceJson["udid"] {
-                            let device = Device(udid: udid, type: name, name: name, state: state, availability: availability)
-
-                            if device.availability == .available {
-                                runtime.devices.append(device)
-                            }
-                            runtime.devices.sort(by: { (d1, d2) -> Bool in
-                                return d1.name.compare(d2.name) == .orderedAscending
-                            })
-                        }
-                    }
-                }
-                runtimes.append(runtime)
-            })
-
-            let filteredRuntime = runtimes.filter { $0.name.contains("iOS") && $0.devices.count > 0 }
-            
-            callback(filteredRuntime)
+    func listDevices(callback: ([Runtime]) -> ()) {
+        var runtimes = [String:Runtime]()
+        control?.set.allSimulators.forEach({ (simulator) in
+            let name = "\(simulator.osVersion.name)"
+            let runtime = runtimes[name] ?? Runtime(name: name)
+            runtimes[name] = runtime
+            let device = Device(udid: simulator.udid, type: "", name: simulator.name, state: "", availability: "available")
+            runtime.devices.append(device)
+        })
+        var result = [Runtime]()
+        runtimes.forEach { (_, runtime) in
+            result.append(runtime)
         }
-    }
-
-    private let maxAttempt = 8
-
-    private func getDevicesJson(currentAttempt: Int, callback: @escaping (String) -> ()) {
-        let jsonString = simctl("list", "-j", "devices")
-        if !jsonString.isEmpty || currentAttempt >= maxAttempt {
-            callback(jsonString)
-            return
-        }
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
-            self.getDevicesJson(currentAttempt: currentAttempt + 1, callback: callback)
-        }
+        callback(result)
     }
 }
