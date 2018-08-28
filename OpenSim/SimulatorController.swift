@@ -61,7 +61,7 @@ struct SimulatorController {
 
     private static func getDevicesJson(currentAttempt: Int, callback: @escaping (String) -> ()) {
         let jsonString = shell("/usr/bin/xcrun", arguments: ["simctl", "list", "-j", "devices"])
-        if jsonString.characters.count > 0 || currentAttempt >= maxAttempt {
+        if jsonString.count > 0 || currentAttempt >= maxAttempt {
             callback(jsonString)
             return
         }
