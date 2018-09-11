@@ -17,12 +17,18 @@ class AppMenuItem: NSMenuItem {
         let title = "  \(application.bundleDisplayName)"
         super.init(title: title, action: nil, keyEquivalent: "")
         
-        if let iconFile = application.iconFiles?.last,
-            let bundle = Bundle(url: application.url) {
-            self.image = bundle.image(forResource: NSImage.Name(rawValue: iconFile))?.appIcon()
-        } else {
-            self.image = #imageLiteral(resourceName: "DefaultAppIcon").appIcon()
+        // Reverse the array to get the higher quality images first
+        for iconFile in application.iconFiles.reversed() {
+            if let bundle = Bundle(url: application.url) {
+                self.image = bundle.image(forResource: NSImage.Name(rawValue: iconFile))?.appIcon()
+                if self.image != nil {
+                    return
+                }
+            }
         }
+        
+        // Default image
+        self.image = #imageLiteral(resourceName: "DefaultAppIcon").appIcon()
     }
     
     required init(coder decoder: NSCoder) {

@@ -18,8 +18,8 @@ final class Application {
     let bundleShortVersion: String
     let bundleVersion: String
     let url: URL
-    let iconFiles: [String]?
-    
+    var iconFiles: [String] = []
+
     var size: UInt64?
     static let sizeDispatchQueue = DispatchQueue(label: "com.pop-tap.size", attributes: .concurrent, target: nil)
     
@@ -56,8 +56,32 @@ final class Application {
         bundleID = aBundleID
         bundleShortVersion = aBundleShortVersion
         bundleVersion = aBundleVersion
-
-        iconFiles = ((appInfoDict["CFBundleIcons"] as? NSDictionary)?["CFBundlePrimaryIcon"] as? NSDictionary)?["CFBundleIconFiles"] as? [String]
+        
+        iconFiles = []
+        
+        // iPhone icons
+        if let bundleIcons = appInfoDict["CFBundleIcons"] as? NSDictionary {
+            if let bundlePrimaryIcon = bundleIcons["CFBundlePrimaryIcon"] as? NSDictionary {
+                if let bundleIconFiles = bundlePrimaryIcon["CFBundleIconFiles"] as? [String] {
+                    for iconFile in bundleIconFiles {
+                        iconFiles.append(iconFile)
+                        iconFiles.append(iconFile.appending("@2x"))
+                    }
+                }
+            }
+        }
+        
+        // iPad icons
+        if let bundleIcons = appInfoDict["CFBundleIcons~ipad"] as? NSDictionary {
+            if let bundlePrimaryIcon = bundleIcons["CFBundlePrimaryIcon"] as? NSDictionary {
+                if let bundleIconFiles = bundlePrimaryIcon["CFBundleIconFiles"] as? [String] {
+                    for iconFile in bundleIconFiles {
+                        iconFiles.append(iconFile.appending("~ipad"))
+                        iconFiles.append(iconFile.appending("@2x~ipad"))
+                    }
+                }
+            }
+        }
     }
     
     func calcSize(block: @escaping (UInt64) -> Void) {
