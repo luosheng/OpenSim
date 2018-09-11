@@ -73,7 +73,13 @@ protocol MenuManagerDelegate {
 
                     let submenu = NSMenu()
                     submenu.delegate = self
-                    device.applications?.forEach { app in
+                    
+                    // Sort applications by name
+                    let sortApplications = device.applications?.sorted(by: { (app1, app2) -> Bool in
+                        app1.bundleDisplayName.lowercased() < app2.bundleDisplayName.lowercased()
+                    })
+                    
+                    sortApplications?.forEach { app in
                         let appMenuItem = AppMenuItem(application: app)
                         appMenuItem.submenu = ActionMenu(device: device, application: app)
                         submenu.addItem(appMenuItem)
