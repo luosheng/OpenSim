@@ -17,8 +17,8 @@ final class Device {
     }
     
     enum Availability: String {
-        case available = "(available)"
-        case unavailable = "(unavailable, runtime profile not found)"
+        case available = "YES"
+        case unavailable = "NO"
     }
 
     let UDID: String
