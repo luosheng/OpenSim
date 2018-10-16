@@ -34,7 +34,7 @@ struct SimulatorController {
                 if let deviceList = deviceList as? [[String:String]] {
                     for deviceJson in deviceList {
                         if let state = deviceJson["state"],
-                            let availability = deviceJson["availability"],
+                            let availability = deviceJson["isAvailable"],
                             let name = deviceJson["name"],
                             let udid = deviceJson["udid"] {
                             let device = Device(udid: udid, type: name, name: name, state: state, availability: availability)
