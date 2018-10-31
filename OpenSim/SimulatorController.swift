@@ -31,12 +31,12 @@ struct SimulatorController {
             var runtimes = [Runtime]()
             devicesJson.forEach({ (runtimeName, deviceList) in
                 let runtime = Runtime(name: runtimeName)
-                if let deviceList = deviceList as? [[String:String]] {
+                if let deviceList = deviceList as? [[String:AnyObject]] {
                     for deviceJson in deviceList {
-                        if let state = deviceJson["state"],
-                            let availability = deviceJson["availability"],
-                            let name = deviceJson["name"],
-                            let udid = deviceJson["udid"] {
+                        if let state = deviceJson["state"] as? String,
+                            let availability = deviceJson["availability"] as? String,
+                            let name = deviceJson["name"] as? String,
+                            let udid = deviceJson["udid"] as? String {
                             let device = Device(udid: udid, type: name, name: name, state: state, availability: availability)
 
                             if device.availability == .available {
