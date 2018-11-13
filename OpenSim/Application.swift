@@ -11,7 +11,7 @@ import Cocoa
 
 final class Application {
     
-    weak var device: Device!
+    var device: Device!
     
     let bundleDisplayName: String
     let bundleID: String
@@ -104,7 +104,7 @@ final class Application {
     }
     
     func uninstall() {
-        if device.state != .Booted {
+        if device.state != .booted {
             SimulatorController.boot(self)
         }
         SimulatorController.uninstall(self)

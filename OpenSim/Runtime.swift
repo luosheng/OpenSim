@@ -8,11 +8,12 @@
 
 import Foundation
 
-final class Runtime: CustomStringConvertible {
-    
-    let name: String
-    var devices: [Device] = []
-    
+struct Runtime: Decodable {
+    public let name: String
+    public let devices: [Device]
+}
+
+extension Runtime: CustomStringConvertible {
     var description: String {
         // current version is format "iOS major.minir"
         // old versions of iOS are com.Apple.CoreSimulator.SimRuntime.iOS-major-minor
@@ -26,9 +27,4 @@ final class Runtime: CustomStringConvertible {
         
         return "\(components[components.count - 3]) \(components[components.count - 2]).\(components[components.count - 1])"
     }
-    
-    init(name: String) {
-        self.name = name
-    }
-    
 }

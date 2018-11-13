@@ -8,37 +8,29 @@
 
 import Foundation
 
-final class Device {
+enum State {
+    case shutdown
+    case booted
+    case unknown
+}
 
-    enum State: String {
-        case Shutdown = "Shutdown"
-        case Unknown = "Unknown"
-        case Booted = "Booted"
-    }
-    
-    enum Availability: String {
-        case available = "(available)"
-        case unavailable = "(unavailable, runtime profile not found)"
-    }
+enum Availability {
+    case available
+    case unavailable
+}
 
-    let UDID: String
-    let type: String
-    let name: String
-    let state: State
-    let availability: Availability
-    var applications: [Application]?
+struct Device {
+    private let stateValue: String
+    private let availabilityValue: String
+    public let name: String
+    public let UDID: String
+}
 
-    init(udid: String, type: String, name: String, state: String, availability: String) {
-        self.UDID = udid
-        self.type = type
-        self.name = name
-        self.state = State(rawValue: state) ?? .Unknown
-        self.availability = Availability(rawValue: availability.trimmingCharacters(in: .whitespacesAndNewlines)) ?? .unavailable
-        
+extension Device {
+    public var applications: [Application]? {
         let applicationPath = URLHelper.deviceURLForUDID(self.UDID).appendingPathComponent("data/Containers/Bundle/Application")
         let contents = try? FileManager.default.contentsOfDirectory(at: applicationPath, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
-        defer {
-            self.applications = contents?
+            return contents?
                 .filter({ (url) -> Bool in
                     var isDirectoryObj: AnyObject?
                     try? (url as NSURL).getResourceValue(&isDirectoryObj, forKey: URLResourceKey.isDirectoryKey)
@@ -50,16 +42,29 @@ final class Device {
                 .map { Application(device: self, url: $0) }
                 .filter { $0 != nil }
                 .map { $0! }
+    }
+    
+    public var state: State {
+        switch stateValue {
+        case "Booted":
+            return .booted
+        case "Shutdown":
+            return .shutdown
+        default:
+            return .unknown
         }
     }
-
-    var fullName:String {
-        get {
-            return "\(self.name)"
+    
+    public var availability: Availability {
+        switch availabilityValue {
+        case "(available)":
+            return .available
+        default:
+            return .unavailable
         }
     }
-
-    func containerURLForApplication(_ application: Application) -> URL? {
+    
+    public func containerURLForApplication(_ application: Application) -> URL? {
         let URL = URLHelper.containersURLForUDID(UDID)
         let directories = try? FileManager.default.contentsOfDirectory(at: URL, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants)
         return directories?.filter({ (dir) -> Bool in
@@ -70,5 +75,13 @@ final class Device {
             return false
         }).first
     }
-    
+}
+
+extension Device: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case UDID = "udid"
+        case name
+        case stateValue = "state"
+        case availabilityValue = "availability"
+    }
 }

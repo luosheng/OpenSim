@@ -66,10 +66,10 @@ protocol MenuManagerDelegate {
                 menu.addItem(titleItem)
 
                 devices.forEach({ (device) in
-                    let deviceMenuItem = menu.addItem(withTitle: device.fullName, action: nil, keyEquivalent: "")
+                    let deviceMenuItem = menu.addItem(withTitle: device.name, action: nil, keyEquivalent: "")
                     deviceMenuItem.onStateImage = NSImage(named: NSImage.Name(rawValue: "active"))
                     deviceMenuItem.offStateImage = NSImage(named: NSImage.Name(rawValue: "inactive"))
-                    deviceMenuItem.state = device.state == .Booted ? .on : .off
+                    deviceMenuItem.state = device.state == .booted ? .on : .off
 
                     let submenu = NSMenu()
                     submenu.delegate = self
