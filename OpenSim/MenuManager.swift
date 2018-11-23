@@ -90,21 +90,21 @@ protocol MenuManagerDelegate {
             }
 
             menu.addItem(NSMenuItem.separator())
-
-            let refreshMenuItem = menu.addItem(withTitle: NSLocalizedString("Refresh", comment: ""), action: #selector(self.refreshItemClicked(_:)), keyEquivalent: "r")
+            
+            let refreshMenuItem = menu.addItem(withTitle: UIConstants.strings.menuRefreshButton, action: #selector(self.refreshItemClicked(_:)), keyEquivalent: "r")
             refreshMenuItem.target = self
-
-            let launchAtLoginMenuItem = menu.addItem(withTitle: NSLocalizedString("Launch at Login", comment: ""), action: #selector(self.launchItemClicked(_:)), keyEquivalent: "")
+            
+            let launchAtLoginMenuItem = menu.addItem(withTitle: UIConstants.strings.menuLaunchAtLoginButton, action: #selector(self.launchItemClicked(_:)), keyEquivalent: "")
             launchAtLoginMenuItem.target = self
             if existingItem(itemUrl: Bundle.main.bundleURL) != nil {
                 launchAtLoginMenuItem.state = .on
             } else {
                 launchAtLoginMenuItem.state = .off
             }
-
-            let quitMenu = menu.addItem(withTitle: NSLocalizedString("Quit", comment: ""), action: #selector(self.quitItemClicked(_:)), keyEquivalent: "q")
-            quitMenu.target = self
             
+            let quitMenu = menu.addItem(withTitle: UIConstants.strings.menuQuitButton, action: #selector(self.quitItemClicked(_:)), keyEquivalent: "q")
+            quitMenu.target = self
+
             self.statusItem.menu = menu
         }
     }
