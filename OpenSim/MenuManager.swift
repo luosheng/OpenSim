@@ -104,6 +104,11 @@ protocol MenuManagerDelegate {
             
             let quitMenu = menu.addItem(withTitle: UIConstants.strings.menuQuitButton, action: #selector(self.quitItemClicked(_:)), keyEquivalent: "q")
             quitMenu.target = self
+            
+            if let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                menu.addItem(NSMenuItem.separator())
+                menu.addItem(withTitle: "\(UIConstants.strings.menuVersionLabel) \(versionNumber)", action: nil, keyEquivalent: "")
+            }
 
             self.statusItem.menu = menu
         }
