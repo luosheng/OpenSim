@@ -12,7 +12,7 @@ final class OpenInTerminalAction: ApplicationActionable {
     
     var application: Application?
     
-    let title = NSLocalizedString("Open Sandbox in Terminal", comment: "")
+    let title = UIConstants.strings.actionOpenInTerminal
     
     let icon = templatize(#imageLiteral(resourceName: "terminal"))
     

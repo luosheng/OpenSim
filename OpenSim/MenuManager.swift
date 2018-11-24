@@ -61,7 +61,7 @@ protocol MenuManagerDelegate {
                     return
                 }
                 menu.addItem(NSMenuItem.separator())
-                let titleItem = NSMenuItem(title: "\(runtime) Simulators", action: nil, keyEquivalent: "")
+                let titleItem = NSMenuItem(title: "\(runtime)", action: nil, keyEquivalent: "")
                 titleItem.isEnabled = false
                 menu.addItem(titleItem)
 

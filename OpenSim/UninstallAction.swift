@@ -12,7 +12,7 @@ final class UninstallAction: ApplicationActionable {
     
     var application: Application?
     
-    let title = NSLocalizedString("Uninstall…", comment: "")
+    let title = UIConstants.strings.actionUninstall
     
     let icon = templatize(#imageLiteral(resourceName: "uninstall"))
     
@@ -27,11 +27,10 @@ final class UninstallAction: ApplicationActionable {
             return
         }
         let alert: NSAlert = NSAlert()
-        let alertFormat = "Are you sure you want to uninstall %1$@ from %1$@?"
-        alert.messageText = String(format: NSLocalizedString(alertFormat, comment: ""), application.bundleDisplayName, application.device.name)
+        alert.messageText = String(format: UIConstants.strings.actionUninstallAlertMessage, application.bundleDisplayName, application.device.name)
         alert.alertStyle = .critical
-        alert.addButton(withTitle: NSLocalizedString("Uninstall", comment: ""))
-        alert.addButton(withTitle: NSLocalizedString("Cancel", comment: ""))
+        alert.addButton(withTitle: UIConstants.strings.actionUninstallAlertConfirmButton)
+        alert.addButton(withTitle: UIConstants.strings.actionUninstallAlertCancelButton)
         let response = alert.runModal()
         if response == NSApplication.ModalResponse.alertFirstButtonReturn {
             application.uninstall()

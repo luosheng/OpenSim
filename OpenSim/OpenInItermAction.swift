@@ -14,7 +14,7 @@ class OpenInItermAction: ExtraApplicationActionable {
     
     let appBundleIdentifier = "com.googlecode.iterm2"
     
-    let title = NSLocalizedString("Open Sandbox in iTerm", comment: "")
+    let title = UIConstants.strings.extensionOpenInIterm
     
     required init(application: Application) {
         self.application = application

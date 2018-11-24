@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		312A27FD21A753E600699668 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A27FC21A753E600699668 /* UIConstants.swift */; };
+		312A27FD21A753E600699668 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A27FC21A753E600699668 /* Constants.swift */; };
 		31A79B15219B81660024DF7B /* Simulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A79B14219B81660024DF7B /* Simulator.swift */; };
 		31C4BF3221A8AC56008B97A1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31C4BF3021A8AC56008B97A1 /* Localizable.strings */; };
 		AF9D003A1D110E750065AFD0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9D00391D110E750065AFD0 /* Helper.swift */; };
@@ -40,7 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		312A27FC21A753E600699668 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
+		312A27FC21A753E600699668 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		31A79B14219B81660024DF7B /* Simulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simulator.swift; sourceTree = "<group>"; };
 		31C4BF3121A8AC56008B97A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		31C4BF3421A8AC72008B97A1 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 				B39B2B601EBEF1A100CDD74C /* AppMenuItem.swift */,
 				B32480541EBEB705000633FC /* ActionMenu.swift */,
 				B39B2B621EBEFFB700CDD74C /* AppInfoView.swift */,
-				312A27FC21A753E600699668 /* UIConstants.swift */,
+				312A27FC21A753E600699668 /* Constants.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -281,7 +281,7 @@
 				B39B2B671EBF0D0600CDD74C /* LaunchAtLoginHelper.swift in Sources */,
 				B39B2B631EBEFFB700CDD74C /* AppInfoView.swift in Sources */,
 				B3A1E3301BF05F980090EC58 /* DeviceManager.swift in Sources */,
-				312A27FD21A753E600699668 /* UIConstants.swift in Sources */,
+				312A27FD21A753E600699668 /* Constants.swift in Sources */,
 				B3A1E3231BF049690090EC58 /* AppDelegate.swift in Sources */,
 				B39B2B6F1EBF567F00CDD74C /* CopyToPasteboardAction.swift in Sources */,
 				B39B2B731EBF573C00CDD74C /* UninstallAction.swift in Sources */,

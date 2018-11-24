@@ -2,3 +2,17 @@
 "Menu.LaunchAtLogin" = "Launch at Login";
 "Menu.Refresh" = "Refresh";
 "Menu.Version" = "Version";
+"Action.RevealInFinder" = "Reveal Sandbox in Finder";
+"Action.CopyPathPasteboard" = "Copy Sandbox Path to Pasteboard";
+"Action.OpenInTerminal" = "Open Sandbox in Terminal";
+"Action.Uninstall" = "Uninstall";
+"Action.UninstallAlertConfirmButton" = "Uninstall";
+"Action.UninstallAlertCancelButton" = "Cancel";
+"Action.UninstallAlertMessage" = "Are you sure you want to uninstall %@ from %@?";
+"Extension.OpenInIterm" = "Open Sandbox in iTerm";
+"Extension.OpenRealmDatabase" = "Open Realm Database";
+"AppInfo.Version" = "Version";
+"AppInfo.Size" = "Size";
+"MenuHeader.Actions" = "Actions";
+"MenuHeader.Extensions" = "Extensions";
+"MenuHeader.AppInformation" = "App Information";
