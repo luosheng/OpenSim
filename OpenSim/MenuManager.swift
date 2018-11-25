@@ -117,7 +117,7 @@ protocol MenuManagerDelegate {
     private func buildWatcher() {
         watcher = DirectoryWatcher(in: URLHelper.deviceURL)
         watcher.completionCallback = { [weak self] in
-            self?.reloadWhenReady()
+            self?.reloadWhenReady(delay: 5)
             self?.buildSubWatchers()
         }
         try? watcher.start()
@@ -142,9 +142,9 @@ protocol MenuManagerDelegate {
     }
     
     
-    private func reloadWhenReady() {
+    private func reloadWhenReady(delay: TimeInterval = 1) {
         dispatch_cancel_block_t(self.block)
-        self.block = dispatch_block_t(1) { [weak self] in
+        self.block = dispatch_block_t(delay) { [weak self] in
             self?.watcher.stop()
             self?.buildMenu()
             try? self?.watcher.start()
