@@ -12,7 +12,7 @@ final class RevealInFinderAction: ApplicationActionable {
     
     var application: Application?
     
-    let title = NSLocalizedString("Reveal Sandbox in Finder", comment: "")
+    let title = UIConstants.strings.actionRevealInFinder
     
     let icon = templatize(#imageLiteral(resourceName: "reveal"))
     

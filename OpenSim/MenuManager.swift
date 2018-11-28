@@ -61,7 +61,7 @@ protocol MenuManagerDelegate {
                     return
                 }
                 menu.addItem(NSMenuItem.separator())
-                let titleItem = NSMenuItem(title: "\(runtime) Simulators", action: nil, keyEquivalent: "")
+                let titleItem = NSMenuItem(title: "\(runtime)", action: nil, keyEquivalent: "")
                 titleItem.isEnabled = false
                 menu.addItem(titleItem)
 
@@ -90,21 +90,26 @@ protocol MenuManagerDelegate {
             }
 
             menu.addItem(NSMenuItem.separator())
-
-            let refreshMenuItem = menu.addItem(withTitle: NSLocalizedString("Refresh", comment: ""), action: #selector(self.refreshItemClicked(_:)), keyEquivalent: "r")
+            
+            let refreshMenuItem = menu.addItem(withTitle: UIConstants.strings.menuRefreshButton, action: #selector(self.refreshItemClicked(_:)), keyEquivalent: "r")
             refreshMenuItem.target = self
-
-            let launchAtLoginMenuItem = menu.addItem(withTitle: NSLocalizedString("Launch at Login", comment: ""), action: #selector(self.launchItemClicked(_:)), keyEquivalent: "")
+            
+            let launchAtLoginMenuItem = menu.addItem(withTitle: UIConstants.strings.menuLaunchAtLoginButton, action: #selector(self.launchItemClicked(_:)), keyEquivalent: "")
             launchAtLoginMenuItem.target = self
             if existingItem(itemUrl: Bundle.main.bundleURL) != nil {
                 launchAtLoginMenuItem.state = .on
             } else {
                 launchAtLoginMenuItem.state = .off
             }
-
-            let quitMenu = menu.addItem(withTitle: NSLocalizedString("Quit", comment: ""), action: #selector(self.quitItemClicked(_:)), keyEquivalent: "q")
+            
+            let quitMenu = menu.addItem(withTitle: UIConstants.strings.menuQuitButton, action: #selector(self.quitItemClicked(_:)), keyEquivalent: "q")
             quitMenu.target = self
             
+            if let versionNumber = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                menu.addItem(NSMenuItem.separator())
+                menu.addItem(withTitle: "\(UIConstants.strings.menuVersionLabel) \(versionNumber)", action: nil, keyEquivalent: "")
+            }
+
             self.statusItem.menu = menu
         }
     }
@@ -112,7 +117,7 @@ protocol MenuManagerDelegate {
     private func buildWatcher() {
         watcher = DirectoryWatcher(in: URLHelper.deviceURL)
         watcher.completionCallback = { [weak self] in
-            self?.reloadWhenReady()
+            self?.reloadWhenReady(delay: 5)
             self?.buildSubWatchers()
         }
         try? watcher.start()
@@ -137,9 +142,9 @@ protocol MenuManagerDelegate {
     }
     
     
-    private func reloadWhenReady() {
+    private func reloadWhenReady(delay: TimeInterval = 1) {
         dispatch_cancel_block_t(self.block)
-        self.block = dispatch_block_t(1) { [weak self] in
+        self.block = dispatch_block_t(delay) { [weak self] in
             self?.watcher.stop()
             self?.buildMenu()
             try? self?.watcher.start()

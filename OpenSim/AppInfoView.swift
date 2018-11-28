@@ -56,8 +56,8 @@ final class AppInfoView: NSView {
             sizeDescription = ByteCountFormatter.string(fromByteCount: Int64(size), countStyle: .file)
         }
         let string = "\(application.bundleID)\n" +
-            "Version: \(application.bundleVersion) (\(application.bundleShortVersion))\n" +
-            "Size: \(sizeDescription)"
+            "\(UIConstants.strings.appInfoVersion): \(application.bundleVersion) (\(application.bundleShortVersion))\n" +
+            "\(UIConstants.strings.appInfoSize): \(sizeDescription)"
         textField.stringValue = string
     }
     

@@ -12,7 +12,7 @@ final class CopyToPasteboardAction: ApplicationActionable {
     
     var application: Application?
     
-    let title = NSLocalizedString("Copy Sandbox Path to Pasteboard", comment: "")
+    let title = UIConstants.strings.actionCopyPathPasteboard
     
     let icon = templatize(#imageLiteral(resourceName: "share"))
     

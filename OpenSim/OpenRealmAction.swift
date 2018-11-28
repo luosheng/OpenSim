@@ -14,7 +14,7 @@ final class OpenRealmAction: ExtraApplicationActionable {
     
     let appBundleIdentifier = "io.realm.realmbrowser"
     
-    let title = "Open Realm Database"
+    let title = UIConstants.strings.extensionOpenRealmDatabase
     
     var isAvailable: Bool {
         return appPath != nil && realmPath != nil

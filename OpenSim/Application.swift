@@ -89,16 +89,14 @@ final class Application {
             block(size)
         } else {
             Application.sizeDispatchQueue.async {
-                var size: UInt64 = 0
-                let filesEnumerator = FileManager.default.enumerator(at: self.url, includingPropertiesForKeys: nil, options: [], errorHandler: { (url, error) -> Bool in
-                    return true
-                })
-                while let fileUrl = filesEnumerator?.nextObject() as? URL {
-                    let attributes = try? FileManager.default.attributesOfItem(atPath: fileUrl.path) as NSDictionary
-                    size += attributes?.fileSize() ?? 0
+                let duResult = shell("/usr/bin/du", arguments: ["-sk", self.url.path])
+                let stringBytes = String(duResult.split(separator: "\t").first ?? "")
+                var bytes: UInt64 = 0
+                if let kbytes = UInt64(stringBytes) {
+                    bytes = kbytes * 1000
+                    self.size = bytes;
                 }
-                self.size = size
-                block(size)
+                block(bytes)
             }
         }
     }
