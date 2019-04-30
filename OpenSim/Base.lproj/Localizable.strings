@@ -5,6 +5,7 @@
 "Action.RevealInFinder" = "Reveal Sandbox in Finder";
 "Action.CopyPathPasteboard" = "Copy Sandbox Path to Pasteboard";
 "Action.OpenInTerminal" = "Open Sandbox in Terminal";
+"Action.Launch" = "Launch App";
 "Action.Uninstall" = "Uninstall";
 "Action.UninstallAlertConfirmButton" = "Uninstall";
 "Action.UninstallAlertCancelButton" = "Cancel";

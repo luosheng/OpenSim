@@ -11,6 +11,7 @@ struct UIConstants {
         static let actionRevealInFinder = NSLocalizedString("Action.RevealInFinder", comment: "Reveal in Finder label")
         static let actionCopyPathPasteboard = NSLocalizedString("Action.CopyPathPasteboard", comment: "Copy Sandbox path to pasteboard label")
         static let actionOpenInTerminal = NSLocalizedString("Action.OpenInTerminal", comment: "Open in Terminal label")
+        static let actionLaunch = NSLocalizedString("Action.Launch", comment: "Launch label")
         static let actionUninstall = NSLocalizedString("Action.Uninstall", comment: "Uninstall label")
         static let actionUninstallAlertConfirmButton = NSLocalizedString("Action.UninstallAlertConfirmButton", comment: "Uninstall confirm button")
         static let actionUninstallAlertCancelButton = NSLocalizedString("Action.UninstallAlertCancelButton", comment: "Uninstall cancel button")
