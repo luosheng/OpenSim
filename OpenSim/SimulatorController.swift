@@ -11,14 +11,22 @@ import Cocoa
 
 struct SimulatorController {
     
+    static func boot(_ application: Application) {
+        _ = shell("/usr/bin/xcrun", arguments: ["simctl", "boot", application.device.UDID])
+    }
+    
+    static func run(_ application: Application) {
+        _ = shell("/usr/bin/open", arguments: ["-a", "Simulator"])
+    }
+
+    static func launch(_ application: Application) {
+        _ = shell("/usr/bin/xcrun", arguments: ["simctl", "launch", application.device.UDID, application.bundleID])
+    }
+    
     static func uninstall(_ application: Application) {
         _ = shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", application.device.UDID, application.bundleID])
     }
     
-    static func boot(_ application: Application) {
-        _ = shell("/usr/bin/xcrun", arguments: ["simctl", "boot", application.device.UDID])
-    }
-
     static func listDevices(callback: @escaping ([Runtime]) -> ()) {
         getDevicesJson(currentAttempt: 0) { (jsonString) in
             guard let data = jsonString.data(using: String.Encoding.utf8) else {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		256B782C2278A08500052809 /* LaunchAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B782B2278A08500052809 /* LaunchAction.swift */; };
 		312A27FD21A753E600699668 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A27FC21A753E600699668 /* Constants.swift */; };
 		31A79B15219B81660024DF7B /* Simulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A79B14219B81660024DF7B /* Simulator.swift */; };
 		31C4BF3221A8AC56008B97A1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31C4BF3021A8AC56008B97A1 /* Localizable.strings */; };
@@ -40,6 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		256B782B2278A08500052809 /* LaunchAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchAction.swift; sourceTree = "<group>"; };
 		312A27FC21A753E600699668 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		31A79B14219B81660024DF7B /* Simulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simulator.swift; sourceTree = "<group>"; };
 		31C4BF3121A8AC56008B97A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				B39B2B721EBF573C00CDD74C /* UninstallAction.swift */,
 				B39B2B741EBF58EC00CDD74C /* OpenInItermAction.swift */,
 				B39B2B781EBF614400CDD74C /* OpenRealmAction.swift */,
+				256B782B2278A08500052809 /* LaunchAction.swift */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				"pt-BR",
@@ -287,6 +291,7 @@
 				B39B2B731EBF573C00CDD74C /* UninstallAction.swift in Sources */,
 				B3054E1A1BF3958500F433C2 /* DirectoryWatcher.swift in Sources */,
 				B32480551EBEB705000633FC /* ActionMenu.swift in Sources */,
+				256B782C2278A08500052809 /* LaunchAction.swift in Sources */,
 				AF9D003A1D110E750065AFD0 /* Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

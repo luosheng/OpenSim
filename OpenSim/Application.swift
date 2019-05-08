@@ -101,6 +101,14 @@ final class Application {
         }
     }
     
+    func launch() {
+        if device.state != .booted {
+            SimulatorController.boot(self)
+        }
+        SimulatorController.run(self)
+        SimulatorController.launch(self)
+    }
+    
     func uninstall() {
         if device.state != .booted {
             SimulatorController.boot(self)
