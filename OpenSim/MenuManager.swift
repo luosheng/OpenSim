@@ -73,6 +73,11 @@ protocol MenuManagerDelegate {
 
                     let submenu = NSMenu()
                     submenu.delegate = self
+
+                    // Launch Simulator
+                    let simulatorItem = SimulatorMenuItem(runtime:runtime, device:device)
+                    submenu.addItem(simulatorItem)
+                    submenu.addItem(NSMenuItem.separator())
                     
                     // Sort applications by name
                     let sortApplications = device.applications?.sorted(by: { (app1, app2) -> Bool in

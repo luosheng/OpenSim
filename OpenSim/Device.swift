@@ -75,6 +75,13 @@ extension Device {
             return false
         }).first
     }
+    
+    func launch() {
+        if state != .booted {
+            SimulatorController.boot(self)
+        }
+        SimulatorController.open()
+    }
 }
 
 extension Device: Decodable {

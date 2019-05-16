@@ -8,6 +8,7 @@ struct UIConstants {
         static let menuLaunchAtLoginButton = NSLocalizedString("Menu.LaunchAtLogin", comment: "Launch at login menu button")
         static let menuRefreshButton = NSLocalizedString("Menu.Refresh", comment: "Refresh menu button")
         static let menuVersionLabel = NSLocalizedString("Menu.Version", comment: "Version label")
+        static let menuLaunchSimulatorButton = NSLocalizedString("Menu.Launch", comment: "Launch")
         static let actionRevealInFinder = NSLocalizedString("Action.RevealInFinder", comment: "Reveal in Finder label")
         static let actionCopyPathPasteboard = NSLocalizedString("Action.CopyPathPasteboard", comment: "Copy Sandbox path to pasteboard label")
         static let actionOpenInTerminal = NSLocalizedString("Action.OpenInTerminal", comment: "Open in Terminal label")
