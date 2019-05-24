@@ -15,6 +15,14 @@ struct SimulatorController {
         _ = shell("/usr/bin/xcrun", arguments: ["simctl", "boot", application.device.UDID])
     }
     
+    static func boot(_ device: Device) {
+        _ = shell("/usr/bin/xcrun", arguments: ["simctl", "boot", device.UDID])
+    }
+
+    static func open() {
+        _ = shell("/usr/bin/env", arguments: ["open", "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/"])
+    }
+    
     static func run(_ application: Application) {
         _ = shell("/usr/bin/open", arguments: ["-a", "Simulator"])
     }

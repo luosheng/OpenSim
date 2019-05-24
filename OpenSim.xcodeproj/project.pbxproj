@@ -37,6 +37,7 @@
 		B3D188E91BF436480064E851 /* Runtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D188E81BF436480064E851 /* Runtime.swift */; };
 		B3E67B5E1CA412BD00744B38 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E67B5D1CA412BD00744B38 /* MenuManager.swift */; };
 		B3F493A61BF0822800C64FF0 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F493A51BF0822800C64FF0 /* Application.swift */; };
+		B537A3F3228D2D1400E6E51E /* SimulatorMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B537A3F2228D2D1400E6E51E /* SimulatorMenuItem.swift */; };
 		D17669C11D1883AE00816D61 /* SimulatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17669C01D1883AE00816D61 /* SimulatorController.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		B3D188E81BF436480064E851 /* Runtime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Runtime.swift; sourceTree = "<group>"; };
 		B3E67B5D1CA412BD00744B38 /* MenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
 		B3F493A51BF0822800C64FF0 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		B537A3F2228D2D1400E6E51E /* SimulatorMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorMenuItem.swift; sourceTree = "<group>"; };
 		D17669C01D1883AE00816D61 /* SimulatorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatorController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,6 +146,7 @@
 				B32480541EBEB705000633FC /* ActionMenu.swift */,
 				B39B2B621EBEFFB700CDD74C /* AppInfoView.swift */,
 				312A27FC21A753E600699668 /* Constants.swift */,
+				B537A3F2228D2D1400E6E51E /* SimulatorMenuItem.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				B310B99B1D1AA08500D880CA /* ImageExtension.swift in Sources */,
 				B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */,
 				B3A1E3341BF0709A0090EC58 /* URLHelper.swift in Sources */,
+				B537A3F3228D2D1400E6E51E /* SimulatorMenuItem.swift in Sources */,
 				B3D188E91BF436480064E851 /* Runtime.swift in Sources */,
 				B39B2B791EBF614400CDD74C /* OpenRealmAction.swift in Sources */,
 				B39B2B771EBF5F4200CDD74C /* ExtraApplicationActionable.swift in Sources */,

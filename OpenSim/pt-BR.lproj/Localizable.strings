@@ -2,6 +2,7 @@
 "Menu.LaunchAtLogin" = "Iniciar junto com sistema";
 "Menu.Refresh" = "Atualizar";
 "Menu.Version" = "Versão";
+"Menu.Launch" = "Inicie o";
 "Action.RevealInFinder" = "Abrir Sandbox no Finder";
 "Action.CopyPathPasteboard" = "Copiar caminho do Sandbox para o Pasteboard";
 "Action.OpenInTerminal" = "Abrir Sandbox no Terminal";
