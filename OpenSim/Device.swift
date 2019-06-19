@@ -14,14 +14,8 @@ enum State {
     case unknown
 }
 
-enum Availability {
-    case available
-    case unavailable
-}
-
 struct Device {
     private let stateValue: String
-    private let availabilityValue: String
     public let name: String
     public let UDID: String
 }
@@ -55,15 +49,6 @@ extension Device {
         }
     }
     
-    public var availability: Availability {
-        switch availabilityValue {
-        case "(available)":
-            return .available
-        default:
-            return .unavailable
-        }
-    }
-    
     public func containerURLForApplication(_ application: Application) -> URL? {
         let URL = URLHelper.containersURLForUDID(UDID)
         let directories = try? FileManager.default.contentsOfDirectory(at: URL, includingPropertiesForKeys: nil, options: .skipsSubdirectoryDescendants)
@@ -89,6 +74,5 @@ extension Device: Decodable {
         case UDID = "udid"
         case name
         case stateValue = "state"
-        case availabilityValue = "availability"
     }
 }
