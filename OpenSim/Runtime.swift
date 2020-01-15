@@ -27,4 +27,13 @@ extension Runtime: CustomStringConvertible {
         
         return "\(components[components.count - 3]) \(components[components.count - 2]).\(components[components.count - 1])"
     }
+    
+    var platform: String {
+        return String(description.split(separator: " ").first ?? "")
+    }
+    
+    var version: Float? {
+        let versionString = String(description.split(separator: " ").last ?? "")
+        return Float(versionString)
+    }
 }

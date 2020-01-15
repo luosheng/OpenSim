@@ -12,6 +12,9 @@
 		31A79B15219B81660024DF7B /* Simulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A79B14219B81660024DF7B /* Simulator.swift */; };
 		31C4BF3221A8AC56008B97A1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31C4BF3021A8AC56008B97A1 /* Localizable.strings */; };
 		AF9D003A1D110E750065AFD0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9D00391D110E750065AFD0 /* Helper.swift */; };
+		B20671202353ECAA00D6ED0D /* SimulatorShutdownMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B206711F2353ECAA00D6ED0D /* SimulatorShutdownMenuItem.swift */; };
+		B20671222353ECB600D6ED0D /* SimulatorResetMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20671212353ECB600D6ED0D /* SimulatorResetMenuItem.swift */; };
+		B272BE94239A0D5B001C50A1 /* SimulatorEraseMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B272BE93239A0D5B001C50A1 /* SimulatorEraseMenuItem.swift */; };
 		B3054E181BF381CE00F433C2 /* FileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E161BF381CE00F433C2 /* FileInfo.swift */; };
 		B3054E1A1BF3958500F433C2 /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */; };
 		B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */; };
@@ -48,6 +51,9 @@
 		31C4BF3121A8AC56008B97A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		31C4BF3421A8AC72008B97A1 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		AF9D00391D110E750065AFD0 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		B206711F2353ECAA00D6ED0D /* SimulatorShutdownMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorShutdownMenuItem.swift; sourceTree = "<group>"; };
+		B20671212353ECB600D6ED0D /* SimulatorResetMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorResetMenuItem.swift; sourceTree = "<group>"; };
+		B272BE93239A0D5B001C50A1 /* SimulatorEraseMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorEraseMenuItem.swift; sourceTree = "<group>"; };
 		B3054E161BF381CE00F433C2 /* FileInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileInfo.swift; sourceTree = "<group>"; };
 		B3054E191BF3958500F433C2 /* DirectoryWatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryWatcher.swift; sourceTree = "<group>"; };
 		B3054E1B1BF3988300F433C2 /* CancelBlocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelBlocks.swift; sourceTree = "<group>"; };
@@ -147,6 +153,9 @@
 				B39B2B621EBEFFB700CDD74C /* AppInfoView.swift */,
 				312A27FC21A753E600699668 /* Constants.swift */,
 				B537A3F2228D2D1400E6E51E /* SimulatorMenuItem.swift */,
+				B206711F2353ECAA00D6ED0D /* SimulatorShutdownMenuItem.swift */,
+				B20671212353ECB600D6ED0D /* SimulatorResetMenuItem.swift */,
+				B272BE93239A0D5B001C50A1 /* SimulatorEraseMenuItem.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -274,10 +283,12 @@
 				B3F493A61BF0822800C64FF0 /* Application.swift in Sources */,
 				B39B2B611EBEF1A100CDD74C /* AppMenuItem.swift in Sources */,
 				B3A1E3321BF062C40090EC58 /* Device.swift in Sources */,
+				B20671202353ECAA00D6ED0D /* SimulatorShutdownMenuItem.swift in Sources */,
 				B39B2B711EBF56F200CDD74C /* OpenInTerminalAction.swift in Sources */,
 				B310B99B1D1AA08500D880CA /* ImageExtension.swift in Sources */,
 				B3054E1C1BF3988300F433C2 /* CancelBlocks.swift in Sources */,
 				B3A1E3341BF0709A0090EC58 /* URLHelper.swift in Sources */,
+				B272BE94239A0D5B001C50A1 /* SimulatorEraseMenuItem.swift in Sources */,
 				B537A3F3228D2D1400E6E51E /* SimulatorMenuItem.swift in Sources */,
 				B3D188E91BF436480064E851 /* Runtime.swift in Sources */,
 				B39B2B791EBF614400CDD74C /* OpenRealmAction.swift in Sources */,
@@ -294,6 +305,7 @@
 				B39B2B6F1EBF567F00CDD74C /* CopyToPasteboardAction.swift in Sources */,
 				B39B2B731EBF573C00CDD74C /* UninstallAction.swift in Sources */,
 				B3054E1A1BF3958500F433C2 /* DirectoryWatcher.swift in Sources */,
+				B20671222353ECB600D6ED0D /* SimulatorResetMenuItem.swift in Sources */,
 				B32480551EBEB705000633FC /* ActionMenu.swift in Sources */,
 				256B782C2278A08500052809 /* LaunchAction.swift in Sources */,
 				AF9D003A1D110E750065AFD0 /* Helper.swift in Sources */,
