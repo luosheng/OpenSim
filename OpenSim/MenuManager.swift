@@ -210,22 +210,32 @@ protocol MenuManagerDelegate {
         sender.state = (wasOn ? .off : .on)
         setLaunchAtLogin(itemUrl: Bundle.main.bundleURL, enabled: !wasOn)
     }
-
-    private func eraseAllSimulators(omitBootedSimulators: Bool) {
+    
+    private func resetAllSimulators() {
         DeviceManager.defaultManager.reload { (runtimes) in
-            runtimes.forEach { (runtime) in
+            runtimes.forEach({ (runtime) in
                 let devices = runtime.devices.filter { $0.applications?.count ?? 0 > 0 }
-                devices.forEach({ (device) in
-                    if device.state == .booted && omitBootedSimulators {
-                        // Skip
-                    } else if device.applications?.count ?? 0 > 0 {
-                        if device.state == .booted {
-                            device.shutDown()
-                        }
-                        device.factoryReset()
-                    }
-                })
+                self.resetSimulators(devices)
+            })
+        }
+    }
+    
+    private func resetShutdownSimulators() {
+        DeviceManager.defaultManager.reload { (runtimes) in
+            runtimes.forEach({ (runtime) in
+                var devices = runtime.devices.filter { $0.applications?.count ?? 0 > 0 }
+                devices = devices.filter { $0.state == .shutdown }
+                self.resetSimulators(devices)
+            })
+        }
+    }
+    
+    private func resetSimulators(_ devices: [Device]) {
+        devices.forEach { (device) in
+            if device.state == .booted {
+                device.shutDown()
             }
+            device.factoryReset()
         }
     }
 
@@ -237,7 +247,7 @@ protocol MenuManagerDelegate {
         alert.addButton(withTitle: UIConstants.strings.actionFactoryResetAlertCancelButton)
         let response = alert.runModal()
         if response == NSApplication.ModalResponse.alertFirstButtonReturn {
-            eraseAllSimulators(omitBootedSimulators: false)
+            resetAllSimulators()
         }
     }
 
@@ -249,7 +259,7 @@ protocol MenuManagerDelegate {
         alert.addButton(withTitle: UIConstants.strings.actionFactoryResetAlertCancelButton)
         let response = alert.runModal()
         if response == NSApplication.ModalResponse.alertFirstButtonReturn {
-            eraseAllSimulators(omitBootedSimulators: true)
+            resetShutdownSimulators()
         }
     }
     
