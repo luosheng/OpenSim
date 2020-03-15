@@ -85,7 +85,7 @@ protocol MenuManagerDelegate {
             sortedList.forEach { (runtime) in
                 var devices = runtime.devices
                 if self.focusedMode {
-                    devices = devices.filter { $0.applications?.count ?? 0 > 0 }
+                    devices = devices.filter { $0.state == .booted || $0.applications?.count ?? 0 > 0 }
                 }
                 if devices.count == 0 {
                     return
