@@ -34,6 +34,18 @@ struct SimulatorController {
     static func uninstall(_ application: Application) {
         _ = shell("/usr/bin/xcrun", arguments: ["simctl", "uninstall", application.device.UDID, application.bundleID])
     }
+
+    static func shutdown(_ device: Device) {
+        _ = shell("/usr/bin/xcrun", arguments: ["simctl", "shutdown", device.UDID])
+    }
+
+    static func delete(_ device: Device) {
+        _ = shell("/usr/bin/xcrun", arguments: ["simctl", "delete", device.UDID])
+    }
+
+    static func factoryReset(_ device: Device) {
+        _ = shell("/usr/bin/xcrun", arguments: ["simctl", "erase", device.UDID])
+    }
     
     static func listDevices(callback: @escaping ([Runtime]) -> ()) {
         getDevicesJson(currentAttempt: 0) { (jsonString) in

@@ -67,6 +67,19 @@ extension Device {
         }
         SimulatorController.open()
     }
+
+    func shutDown() {
+        if state == .booted {
+            SimulatorController.shutdown(self)
+        }
+    }
+
+    func factoryReset() {
+        if state != .shutdown {
+            SimulatorController.shutdown(self)
+        }
+        SimulatorController.factoryReset(self)
+    }
 }
 
 extension Device: Decodable {

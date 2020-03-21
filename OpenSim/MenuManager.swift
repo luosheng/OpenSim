@@ -16,6 +16,7 @@ protocol MenuManagerDelegate {
 @objc final class MenuManager: NSObject, NSMenuDelegate {
     
     let statusItem: NSStatusItem
+    var focusedMode: Bool = true
     
     var watcher: DirectoryWatcher!
     
@@ -53,10 +54,39 @@ protocol MenuManagerDelegate {
     
     private func buildMenu() {
         let menu = NSMenu()
+
+        menu.addItem(NSMenuItem.separator())
+
+        let refreshMenuItem = menu.addItem(withTitle: UIConstants.strings.menuRefreshButton, action: #selector(self.refreshItemClicked(_:)), keyEquivalent: "r")
+        refreshMenuItem.target = self
+
+        let focusedModeMenuItem = menu.addItem(withTitle: UIConstants.strings.menuFocusedModeButton, action: #selector(self.toggleFocusedMode), keyEquivalent: "")
+        focusedModeMenuItem.target = self
+        focusedModeMenuItem.state = self.focusedMode ? .on : .off
+
+        let launchAtLoginMenuItem = menu.addItem(withTitle: UIConstants.strings.menuLaunchAtLoginButton, action: #selector(self.launchItemClicked(_:)), keyEquivalent: "")
+        launchAtLoginMenuItem.target = self
+        if existingItem(itemUrl: Bundle.main.bundleURL) != nil {
+            launchAtLoginMenuItem.state = .on
+        } else {
+            launchAtLoginMenuItem.state = .off
+        }
         
         DeviceManager.defaultManager.reload { (runtimes) in
-            runtimes.forEach { (runtime) in
-                let devices = runtime.devices.filter { $0.applications?.count ?? 0 > 0 }
+            
+            var sortedList = [Runtime]()
+            _ = Dictionary(grouping: runtimes, by: { (runtime: Runtime) in
+                return runtime.platform
+            }).values.map({ (runtimeList: [Runtime]) -> [Runtime] in
+                return runtimeList.sorted { $0.version ?? 0.0 > $1.version ?? 0.0 }
+            }).forEach({ (list) in
+                sortedList.append(contentsOf: list)
+            })
+            sortedList.forEach { (runtime) in
+                var devices = runtime.devices
+                if self.focusedMode {
+                    devices = devices.filter { $0.state == .booted || $0.applications?.count ?? 0 > 0 }
+                }
                 if devices.count == 0 {
                     return
                 }
@@ -90,22 +120,29 @@ protocol MenuManagerDelegate {
                         submenu.addItem(appMenuItem)
                     }
                     deviceMenuItem.submenu = submenu
+
+                    // Simulator Shutdown/Reset
+                    submenu.addItem(NSMenuItem.separator())
+                    if device.state == .booted {
+                        submenu.addItem(SimulatorShutdownMenuItem(device: device))
+                    }
+                    if device.applications?.count ?? 0 > 0 {
+                        submenu.addItem(SimulatorResetMenuItem(device: device))
+                    }
+                    submenu.addItem(SimulatorEraseMenuItem(device: device))
                 })
 
             }
 
             menu.addItem(NSMenuItem.separator())
-            
-            let refreshMenuItem = menu.addItem(withTitle: UIConstants.strings.menuRefreshButton, action: #selector(self.refreshItemClicked(_:)), keyEquivalent: "r")
-            refreshMenuItem.target = self
-            
-            let launchAtLoginMenuItem = menu.addItem(withTitle: UIConstants.strings.menuLaunchAtLoginButton, action: #selector(self.launchItemClicked(_:)), keyEquivalent: "")
-            launchAtLoginMenuItem.target = self
-            if existingItem(itemUrl: Bundle.main.bundleURL) != nil {
-                launchAtLoginMenuItem.state = .on
-            } else {
-                launchAtLoginMenuItem.state = .off
-            }
+
+            let eraseAllSimulators = menu.addItem(withTitle: UIConstants.strings.menuShutDownAllSimulators, action: #selector(self.factoryResetAllSimulators), keyEquivalent: "")
+            eraseAllSimulators.target = self
+
+            let eraseAllShutdownSimulators = menu.addItem(withTitle: UIConstants.strings.menuShutDownAllBootedSimulators, action: #selector(self.factoryResetAllShutdownSimulators), keyEquivalent: "")
+            eraseAllShutdownSimulators.target = self
+
+            menu.addItem(NSMenuItem.separator())
             
             let quitMenu = menu.addItem(withTitle: UIConstants.strings.menuQuitButton, action: #selector(self.quitItemClicked(_:)), keyEquivalent: "q")
             quitMenu.target = self
@@ -145,7 +182,11 @@ protocol MenuManagerDelegate {
         try? watcher.start()
         return watcher
     }
-    
+
+    @objc private func toggleFocusedMode() {
+        focusedMode = !focusedMode
+        reloadWhenReady(delay: 0)
+    }
     
     private func reloadWhenReady(delay: TimeInterval = 1) {
         dispatch_cancel_block_t(self.block)
@@ -168,6 +209,58 @@ protocol MenuManagerDelegate {
         let wasOn = sender.state == .on
         sender.state = (wasOn ? .off : .on)
         setLaunchAtLogin(itemUrl: Bundle.main.bundleURL, enabled: !wasOn)
+    }
+    
+    private func resetAllSimulators() {
+        DeviceManager.defaultManager.reload { (runtimes) in
+            runtimes.forEach({ (runtime) in
+                let devices = runtime.devices.filter { $0.applications?.count ?? 0 > 0 }
+                self.resetSimulators(devices)
+            })
+        }
+    }
+    
+    private func resetShutdownSimulators() {
+        DeviceManager.defaultManager.reload { (runtimes) in
+            runtimes.forEach({ (runtime) in
+                var devices = runtime.devices.filter { $0.applications?.count ?? 0 > 0 }
+                devices = devices.filter { $0.state == .shutdown }
+                self.resetSimulators(devices)
+            })
+        }
+    }
+    
+    private func resetSimulators(_ devices: [Device]) {
+        devices.forEach { (device) in
+            if device.state == .booted {
+                device.shutDown()
+            }
+            device.factoryReset()
+        }
+    }
+
+    @objc func factoryResetAllSimulators() {
+        let alert: NSAlert = NSAlert()
+        alert.messageText = String(format: UIConstants.strings.actionFactoryResetAllSimulatorsMessage)
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: UIConstants.strings.actionFactoryResetAlertConfirmButton)
+        alert.addButton(withTitle: UIConstants.strings.actionFactoryResetAlertCancelButton)
+        let response = alert.runModal()
+        if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+            resetAllSimulators()
+        }
+    }
+
+    @objc func factoryResetAllShutdownSimulators() {
+        let alert: NSAlert = NSAlert()
+        alert.messageText = String(format: UIConstants.strings.actionFactoryResetAllShutdownSimulatorsMessage)
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: UIConstants.strings.actionFactoryResetAlertConfirmButton)
+        alert.addButton(withTitle: UIConstants.strings.actionFactoryResetAlertCancelButton)
+        let response = alert.runModal()
+        if response == NSApplication.ModalResponse.alertFirstButtonReturn {
+            resetShutdownSimulators()
+        }
     }
     
 }
