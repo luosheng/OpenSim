@@ -16,6 +16,7 @@ final class ActionMenu: NSMenu {
         RevealInFinderAction.self,
         CopyToPasteboardAction.self,
         OpenInTerminalAction.self,
+        OpenUserDefaultsAction.self,
         LaunchAction.self,
         UninstallAction.self
     ]
