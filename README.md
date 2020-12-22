@@ -16,4 +16,5 @@ You can visit the latest [release](https://github.com/luosheng/OpenSim/releases)
 - [x] Watch for changes from simulators directory and reload dynamically
 - [x] Filter out empty simulators
 - [x] Better UI
+- [ ] Open in Finder `File Provider Storage` folder
 - [ ] Other functionalities like uninstalling apps or resetting data
