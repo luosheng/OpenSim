@@ -33,3 +33,5 @@
 "MenuHeader.Actions" = "Actions";
 "MenuHeader.Extensions" = "Extensions";
 "MenuHeader.AppInformation" = "App Information";
+"Action.Dismiss" = "Dismiss";
+"Action.DismissMessage" = "No user defaults file detected";

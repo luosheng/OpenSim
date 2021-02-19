@@ -32,6 +32,8 @@ struct UIConstants {
         static let actionFactoryResetAllSimulatorsMessage = NSLocalizedString("Action.FactoryResetAllSimulatorsMessage", comment: "Factory Reset All Simulators")
         static let actionFactoryResetAllShutdownSimulatorsMessage = NSLocalizedString("Action.FactoryResetAllShutdownSimulatorsMessage", comment: "Factory Reset All Shutdown Simulators")
         static let actionOpenUserDefaults = NSLocalizedString("Action.OpenUserDefaults", comment: "Open UserDefaults")
+        static let actionDismissUserDefaultsTitle = NSLocalizedString("Action.DismissMessage", comment: "Dismiss title")
+        static let actionDismissUserDefaultsButton = NSLocalizedString("Action.Dismiss", comment: "Dismiss menu")
         static let extensionOpenInIterm = NSLocalizedString("Extension.OpenInIterm", comment: "Open in iTerm label")
         static let extensionOpenRealmDatabase = NSLocalizedString("Extension.OpenRealmDatabase", comment: "Open Realm Database label")
         static let appInfoVersion = NSLocalizedString("AppInfo.Version", comment: "App Info Version Label")

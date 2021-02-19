@@ -16,12 +16,12 @@ final class ActionMenu: NSMenu {
         RevealInFinderAction.self,
         CopyToPasteboardAction.self,
         OpenInTerminalAction.self,
-        OpenUserDefaultsAction.self,
         LaunchAction.self,
         UninstallAction.self
     ]
     
     private static let extraActions: [ApplicationActionable.Type] = [
+        OpenUserDefaultsAction.self,
         OpenInItermAction.self,
         OpenRealmAction.self
     ]
