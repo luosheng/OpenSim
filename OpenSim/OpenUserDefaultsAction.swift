@@ -23,8 +23,6 @@ final class OpenUserDefaultsAction: ApplicationActionable {
     init(application: Application) {
         self.application = application
         
-        guard let bundleId = Bundle.main.bundleIdentifier else { return }
-        
         // There is probably a better way of doing this. I need to do a bit of research.
         if let pathUrl = application.sandboxUrl?.appendingPathComponent("Library").appendingPathComponent("Preferences"), let enumerator = FileManager.default.enumerator(at: pathUrl, includingPropertiesForKeys: nil) {
             while let fileUrl = enumerator.nextObject() as? URL {
