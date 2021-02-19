@@ -38,6 +38,14 @@ final class OpenUserDefaultsAction: ApplicationActionable {
     func perform() {
         if let userDefaultsPath = userDefaultsPath {
             NSWorkspace.shared.openFile(userDefaultsPath, withApplication: nil)
+        } else {
+            print("No user defaults file detected.")
+            
+            let alert: NSAlert = NSAlert()
+            alert.messageText = String(format: UIConstants.strings.actionDismissUserDefaultsTitle)
+            alert.alertStyle = .informational
+            alert.addButton(withTitle: UIConstants.strings.actionDismissUserDefaultsButton)
+            alert.runModal()
         }
     }
 }
