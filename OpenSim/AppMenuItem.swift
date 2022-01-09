@@ -20,7 +20,7 @@ class AppMenuItem: NSMenuItem {
         // Reverse the array to get the higher quality images first
         for iconFile in application.iconFiles.reversed() {
             if let bundle = Bundle(url: application.url) {
-                self.image = bundle.image(forResource: NSImage.Name(rawValue: iconFile))?.appIcon()
+                self.image = bundle.image(forResource: iconFile)?.appIcon()
                 if self.image != nil {
                     return
                 }

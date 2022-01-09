@@ -30,7 +30,7 @@ protocol MenuManagerDelegate {
     
     override init() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        statusItem.image = NSImage(named: NSImage.Name(rawValue: "menubar"))
+        statusItem.image = NSImage(named: "menubar")
         statusItem.image!.isTemplate = true
         
         super.init()
@@ -75,7 +75,7 @@ protocol MenuManagerDelegate {
         DeviceManager.defaultManager.reload { (runtimes) in
             
             var sortedList = [Runtime]()
-            _ = Dictionary(grouping: runtimes, by: { (runtime: Runtime) in
+            Dictionary(grouping: runtimes, by: { (runtime: Runtime) in
                 return runtime.platform
             }).values.map({ (runtimeList: [Runtime]) -> [Runtime] in
                 return runtimeList.sorted { $0.version ?? 0.0 > $1.version ?? 0.0 }
@@ -97,8 +97,8 @@ protocol MenuManagerDelegate {
 
                 devices.forEach({ (device) in
                     let deviceMenuItem = menu.addItem(withTitle: device.name, action: nil, keyEquivalent: "")
-                    deviceMenuItem.onStateImage = NSImage(named: NSImage.Name(rawValue: "active"))
-                    deviceMenuItem.offStateImage = NSImage(named: NSImage.Name(rawValue: "inactive"))
+                    deviceMenuItem.onStateImage = NSImage(named: "active")
+                    deviceMenuItem.offStateImage = NSImage(named: "inactive")
                     deviceMenuItem.state = device.state == .booted ? .on : .off
 
                     let submenu = NSMenu()
@@ -193,7 +193,7 @@ protocol MenuManagerDelegate {
         self.block = dispatch_block_t(delay) { [weak self] in
             self?.watcher.stop()
             self?.buildMenu()
-            try? self?.watcher.start()
+            ((try? self?.watcher.start()) as ()??)
         }
     }
     
