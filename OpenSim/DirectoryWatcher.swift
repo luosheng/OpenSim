@@ -68,7 +68,7 @@ public class DirectoryWatcher {
             oldDirectoryInfo = self.directoryInfo()
             
             let timer = Timer(timeInterval: 0.5, target: self, selector: #selector(checkDirectoryInfo(_:)), userInfo: nil, repeats: true)
-            RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
+            RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
         }
     }
     
