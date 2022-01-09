@@ -75,7 +75,7 @@ protocol MenuManagerDelegate {
         DeviceManager.defaultManager.reload { (runtimes) in
             
             var sortedList = [Runtime]()
-            _ = Dictionary(grouping: runtimes, by: { (runtime: Runtime) in
+            Dictionary(grouping: runtimes, by: { (runtime: Runtime) in
                 return runtime.platform
             }).values.map({ (runtimeList: [Runtime]) -> [Runtime] in
                 return runtimeList.sorted { $0.version ?? 0.0 > $1.version ?? 0.0 }
