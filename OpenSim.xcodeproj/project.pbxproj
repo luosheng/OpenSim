@@ -241,10 +241,9 @@
 			};
 			buildConfigurationList = B3A1E31A1BF049690090EC58 /* Build configuration list for PBXProject "OpenSim" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 				"pt-BR",
