@@ -25,6 +25,7 @@
 "Action.EraseSimulatorAlertConfirmButton" = "Erase Simulator";
 "Action.EraseSimulatorAlertCancelButton" = "Cancel";
 "Action.EraseSimulatorAlertMessage" = "Are you sure you want to erase the %@ Simulator? This will remove the simulator from your system, but a new simulator can still be created.";
+"Action.OpenUserDefaults" = "Open UserDefaults";
 "Extension.OpenInIterm" = "Open Sandbox in iTerm";
 "Extension.OpenRealmDatabase" = "Open Realm Database";
 "AppInfo.Version" = "Version";
@@ -32,3 +33,5 @@
 "MenuHeader.Actions" = "Actions";
 "MenuHeader.Extensions" = "Extensions";
 "MenuHeader.AppInformation" = "App Information";
+"Action.Dismiss" = "Dismiss";
+"Action.DismissMessage" = "No user defaults file detected";

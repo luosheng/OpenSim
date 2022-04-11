@@ -21,6 +21,7 @@ final class ActionMenu: NSMenu {
     ]
     
     private static let extraActions: [ApplicationActionable.Type] = [
+        OpenUserDefaultsAction.self,
         OpenInItermAction.self,
         OpenRealmAction.self
     ]
